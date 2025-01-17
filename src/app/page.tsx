@@ -1,10 +1,13 @@
 // import Image from "next/image";
 import Layout from "./../components/Layout";
+import PetButton from "./../components/PetButton";
 
 export default function Home() {
   return (
     <Layout>
       <h1>Homepage</h1>
+
+      <PetButton alt="This is a placeholder image"/>
     </Layout>
 
 
