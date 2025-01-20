@@ -1,6 +1,7 @@
 // import Image from "next/image";
 import Layout from "./../components/Layout";
 import PetButton from "./../components/PetButton";
+import styles from "@/app/styles/home.module.css";
 
 export default function Home() {
   return (
@@ -8,6 +9,8 @@ export default function Home() {
       <h1>Homepage</h1>
 
       <PetButton alt="This is a placeholder image"/>
+
+      <div className={styles.testDiv}>This is a div</div>
     </Layout>
 
 
