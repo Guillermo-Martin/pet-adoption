@@ -1,7 +1,13 @@
 import Image from "next/image";
 
-function PetButton(props) {
-  console.log(props);
+interface PetButtonProps {
+  src: string;
+  alt: string;
+  text: string;
+};
+
+function PetButton({ src, alt, text }: PetButtonProps) {
+  console.log(src, alt, text, "line 4");
 
   return (
     <div>

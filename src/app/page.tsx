@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <h1>Homepage</h1>
 
-      <PetButton alt="This is a placeholder image"/>
+      <PetButton src="sample src" alt="This is a placeholder image" text="sample text" />
 
       <div className={styles.testDiv}>This is a div</div>
     </div>
