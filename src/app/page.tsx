@@ -1,15 +1,30 @@
 // import Image from "next/image";
 import PetButton from "./../components/PetButton";
-import styles from "@/app/styles/home.module.css";
+// import styles from "@/app/styles/home.module.css";
 
 export default function Home() {
   return (
     <div>
-      <h1>Homepage</h1>
+      <div className="hero-header">
+        <h1>Pet adoption</h1>
+        <p>Your new pet bestie is waiting for you.</p>
+      </div>
 
-      <PetButton src="sample src" alt="This is a placeholder image" text="sample text" />
+      {/* ---------- Pet search options ---------- */}
+      <div className="pet-search-options">
+        <h2>What are you looking for?</h2>
 
-      <div className={styles.testDiv}>This is a div</div>
+        <div className="button-container">
+          <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" />
+          <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" />
+          <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" />
+        </div>
+      </div>
+      
+
+      
+
+      {/* <div className={styles.testDiv}>This is a div</div> */}
     </div>
       
 
