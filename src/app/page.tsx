@@ -15,9 +15,9 @@ export default function Home() {
         <h2>What are you looking for?</h2>
 
         <div className="button-container">
-          <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" />
-          <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" />
-          <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" />
+          <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" animalType="dog" />
+          <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" animalType="cat" />
+          <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" animalType="something-else" />
         </div>
       </div>
       
