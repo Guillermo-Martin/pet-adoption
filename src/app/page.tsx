@@ -1,12 +1,19 @@
 "use client";
+// import { useState } from "react";
 // import Image from "next/image";
 import PetButton from "./../components/PetButton";
 // import styles from "@/app/styles/home.module.css";
 
 export default function Home() {
+  const searchOptions = {
+    type: ""
+  };
+
   // ---------- Functions ----------
   const handleClick = (animal: string) => {
-    console.log(animal, "in homepage");
+    searchOptions.type = animal;
+
+    console.log(searchOptions.type, "line 17");
   };
 
   return (
@@ -28,6 +35,8 @@ export default function Home() {
           {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
         </div>
       </div>
+      
+
       
 
       
