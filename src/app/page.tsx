@@ -1,14 +1,10 @@
 "use client";
 import { useState, FormEvent, ChangeEvent } from "react";
-// import Image from "next/image";
 import PetButton from "./../components/PetButton";
+// import Image from "next/image";
 // import styles from "@/app/styles/home.module.css";
 
 export default function Home() {
-  const searchOptions = {
-    type: ""
-  };
-
   // ---------- State ----------
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
@@ -16,16 +12,9 @@ export default function Home() {
   // ---------- Functions ----------
   // ----- selecting animal type -----
   const handleClick = (animal: string) => {
-    // set "type" to the animal clicked in "searchOptions"
-    searchOptions.type = animal;
-
-    console.log(searchOptions.type, "line 17");
-
     // set "isSelected" state to the animal that was clicked on
     setIsSelected(animal);
   };
-
-
 
 
   // ----- zipcode input -----
@@ -38,8 +27,17 @@ export default function Home() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    alert(`Searching for ${searchOptions.type} in ${zipcode}`!);
-    console.log(searchOptions.type, zipcode, "in submit")
+    // Form submission check
+    if(isSelected === "" && zipcode === "") {
+      // if an animal wasn't selected and zipcode is empty
+      alert("Please select an animal and enter a zipcode.");
+    } else if(zipcode === "") {
+      // if an animal was selected, but zipcode is empty
+      alert("Please enter a 5-digit zipcode.");
+    } else {
+      // make API request
+      alert(`Searching for ${isSelected} in ${parseInt(zipcode)}`!);
+    };
   };  
 
 
