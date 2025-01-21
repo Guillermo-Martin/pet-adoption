@@ -1,8 +1,14 @@
+"use client";
 // import Image from "next/image";
 import PetButton from "./../components/PetButton";
 // import styles from "@/app/styles/home.module.css";
 
 export default function Home() {
+  // ---------- Functions ----------
+  const handleClick = (animal: string) => {
+    console.log(animal, "in homepage");
+  };
+
   return (
     <div>
       <div className="hero-header">
@@ -15,9 +21,11 @@ export default function Home() {
         <h2>What are you looking for?</h2>
 
         <div className="button-container">
-          <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" animalType="dog" />
-          <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" animalType="cat" />
-          <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" animalType="something-else" />
+          <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" />
+          <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" />
+
+          {/* ***** vvv  For later  vvv ***** */}
+          {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
         </div>
       </div>
       
