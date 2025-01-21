@@ -6,7 +6,7 @@ import PetButton from "./../components/PetButton";
 
 export default function Home() {
   const searchOptions = {
-    type: ""
+    type: "dog"
   };
 
   // ---------- State ----------
@@ -15,6 +15,7 @@ export default function Home() {
   // ---------- Functions ----------
   // ----- selecting animal type -----
   const handleClick = (animal: string) => {
+    // set "type" to the animal clicked in "searchOptions"
     searchOptions.type = animal;
 
     console.log(searchOptions.type, "line 17");
@@ -30,8 +31,8 @@ export default function Home() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // alert(`Searching for ${searchOptions.type}`!);
-    console.log(zipcode, "in submit")
+    alert(`Searching for ${searchOptions.type} in ${zipcode}`!);
+    console.log(searchOptions.type, zipcode, "in submit")
   };  
 
 
@@ -60,9 +61,9 @@ export default function Home() {
       {/* ---------- Zipcode ---------- */}
       <form onSubmit={handleSubmit}>
         <label>Zipcode</label>
-        <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} />
+        <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border border-black" />
 
-        <button>Submit</button>
+        <button className="border border-black">Submit</button>
       </form>
 
       
