@@ -1,5 +1,5 @@
 "use client";
-// import { useState } from "react";
+import { useState, FormEvent } from "react";
 // import Image from "next/image";
 import PetButton from "./../components/PetButton";
 // import styles from "@/app/styles/home.module.css";
@@ -10,11 +10,23 @@ export default function Home() {
   };
 
   // ---------- Functions ----------
+  // ----- selecting animal type -----
   const handleClick = (animal: string) => {
     searchOptions.type = animal;
 
     console.log(searchOptions.type, "line 17");
   };
+
+  // ----- handleSubmit -----
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    alert(`Searching for ${searchOptions.type}`!);
+  };  
+
+
+
+
 
   return (
     <div>
@@ -30,12 +42,18 @@ export default function Home() {
         <div className="button-container">
           <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" />
           <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" />
-
           {/* ***** vvv  For later  vvv ***** */}
           {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
         </div>
       </div>
       
+      {/* ---------- Zipcode ---------- */}
+      <form onSubmit={handleSubmit}>
+        <label>Zipcode</label>
+        <input type="text" pattern="[0-9]{5}" title="Five digit zip code" />
+
+        <button>Submit</button>
+      </form>
 
       
 
