@@ -8,13 +8,11 @@ interface PetButtonProps {
   alt: string;
   text: string;
   animalType: string;
+  isSelected: boolean;
   onClick: (animal: string) => void;
 };
 
-function PetButton({ src, alt, text, animalType, onClick }: PetButtonProps) {
-  // ---------- State ----------
-  const [isSelected, setIsSelected] = useState(false);
-
+function PetButton({ src, alt, text, animalType, isSelected, onClick }: PetButtonProps) {
   // ---------- Functions ----------
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     // get the animal clicked on
@@ -24,16 +22,12 @@ function PetButton({ src, alt, text, animalType, onClick }: PetButtonProps) {
     if(animal !== null) {
       onClick(animal as string);
     };
-
-    // set isSelected to either true or false
-    setIsSelected(!isSelected);
   };
 
-  console.log(isSelected);
   
   // ---------- Component ----------
   return (
-    <div onClick={handleClick} data-animal={animalType} className={isSelected ? "border border-black" : ""}>
+    <div onClick={handleClick} data-animal={animalType} className={isSelected ? "border" : ""}>
       <Image src={src} alt={alt} width={200} height={200}/>
       <p>{text}</p>
     </div>

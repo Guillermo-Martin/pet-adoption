@@ -6,10 +6,11 @@ import PetButton from "./../components/PetButton";
 
 export default function Home() {
   const searchOptions = {
-    type: "dog"
+    type: ""
   };
 
   // ---------- State ----------
+  const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
 
   // ---------- Functions ----------
@@ -19,7 +20,13 @@ export default function Home() {
     searchOptions.type = animal;
 
     console.log(searchOptions.type, "line 17");
+
+    // set "isSelected" state to the animal that was clicked on
+    setIsSelected(animal);
   };
+
+
+
 
   // ----- zipcode input -----
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -37,8 +44,6 @@ export default function Home() {
 
 
 
-
-
   return (
     <div>
       <div className="hero-header">
@@ -51,8 +56,8 @@ export default function Home() {
         <h2>What are you looking for?</h2>
 
         <div className="button-container">
-          <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" />
-          <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" />
+          <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
+          <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
           {/* ***** vvv  For later  vvv ***** */}
           {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
         </div>
