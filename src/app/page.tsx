@@ -1,5 +1,5 @@
 "use client";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 // import Image from "next/image";
 import PetButton from "./../components/PetButton";
 // import styles from "@/app/styles/home.module.css";
@@ -9,6 +9,9 @@ export default function Home() {
     type: ""
   };
 
+  // ---------- State ----------
+  const [zipcode, setZipcode] = useState("");
+
   // ---------- Functions ----------
   // ----- selecting animal type -----
   const handleClick = (animal: string) => {
@@ -17,11 +20,18 @@ export default function Home() {
     console.log(searchOptions.type, "line 17");
   };
 
+  // ----- zipcode input -----
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setZipcode(event.target.value);
+  };
+
+
   // ----- handleSubmit -----
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    alert(`Searching for ${searchOptions.type}`!);
+    // alert(`Searching for ${searchOptions.type}`!);
+    console.log(zipcode, "in submit")
   };  
 
 
@@ -50,7 +60,7 @@ export default function Home() {
       {/* ---------- Zipcode ---------- */}
       <form onSubmit={handleSubmit}>
         <label>Zipcode</label>
-        <input type="text" pattern="[0-9]{5}" title="Five digit zip code" />
+        <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} />
 
         <button>Submit</button>
       </form>
