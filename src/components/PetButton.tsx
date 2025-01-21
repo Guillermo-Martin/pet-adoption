@@ -1,5 +1,5 @@
 "use client";
-import { MouseEvent } from "react";
+import { useState, MouseEvent } from "react";
 import Image from "next/image";
 
 // ---------- Interface ----------
@@ -10,13 +10,15 @@ interface PetButtonProps {
   animalType: string;
 };
 
-// ---------- Functions ----------
-const handleClick = (event: MouseEvent<HTMLDivElement>) => {
-  console.log(event.currentTarget.getAttribute("data-animal"), "line 15");
-};
-
 function PetButton({ src, alt, text, animalType }: PetButtonProps) {
-  // console.log(src, alt, text, "line 4");
+  // ---------- State ----------
+  const [animal, setAnimal] = useState();
+
+  // ---------- Functions ----------
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    console.log(event.currentTarget.getAttribute("data-animal"), "line 15");
+  };
+  
 
   return (
     <div onClick={handleClick} data-animal={animalType}>
