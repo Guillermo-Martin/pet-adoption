@@ -36,7 +36,23 @@ export default function Home() {
       alert("Please enter a 5-digit zipcode.");
     } else {
       // make API request
-      alert(`Searching for ${isSelected} in ${parseInt(zipcode)}`!);
+      const fetchToken = async () => {
+        // make request to "/api/fetch-token" and get a response
+        try {
+          const response = await fetch("/api/fetch-token");
+
+          // convert response to json
+          const data = await response.json();
+          console.log(data, "line 45");
+
+          console.log(response, "on clientside hompage");
+        } catch (error) {
+          console.log(error);
+        };
+      }
+
+      // call function
+      fetchToken();
     };
   };  
 
