@@ -50,7 +50,7 @@ export default function Home() {
           const data = await response.json();
           console.log(data, "line 45");
 
-          console.log(response, "on clientside hompage");
+          // console.log(response, "on clientside hompage");
         } catch (error) {
           console.log(error);
         };

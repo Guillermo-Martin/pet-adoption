@@ -7,7 +7,7 @@ let tokenExpiration: number;
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // ---------- testing ----------
   console.log('fetch token api hit!');
-  res.status(200).json({ message: 'Hello from the server!' });
+  // res.status(200).json({ message: 'Hello from the server!' });
 
 
   // ---------- get data from the client ----------
@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 
   // Check to see if there's no token or the token has expired, get a new token
-  if(token === null || tokenExpiration - new Date().getTime() < 1) {
+  if(token === null || Date.now() >= tokenExpiration) {
     console.log("serverside:  token missing or expired! getting a new token");
 
     try {
@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // store the token information
       token = data.access_token;
       tokenType = data.token_type;
-      tokenExpiration = new Date().getTime() + (data.expires_in * 1000);
+      tokenExpiration = Date.now() + data.expires_in * 1000;
 
       console.log(token, tokenType, tokenExpiration);
 
@@ -73,10 +73,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 // *** TO DOS ***
 // STEP 1 - GETTING A TOKEN
-// 1. add in the clientId and clientSecret correctly from the environment variables
+// X 1. add in the clientId and clientSecret correctly from the environment variables
 //    (correct this in the ".env.local" file)
-// 2. after getting the token, store it in a variable
-// 3. store the time the token has before it expires
+// X 2. after getting the token, store it in a variable
+// X 3. store the time the token has before it expires
 
 // STEP 2 - GETTING PET INFORMATION
 // 1. check to see if the token has expired.  if it has, request a new one.
