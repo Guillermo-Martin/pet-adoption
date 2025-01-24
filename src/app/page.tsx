@@ -16,7 +16,6 @@ export default function Home() {
     setIsSelected(animal);
   };
 
-
   // ----- zipcode input -----
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setZipcode(event.target.value);
