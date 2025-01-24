@@ -38,7 +38,13 @@ export default function Home() {
       const fetchToken = async () => {
         // make request to "/api/fetch-token" and get a response
         try {
-          const response = await fetch("/api/fetch-token");
+          const response = await fetch("/api/fetch-token", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({animal: isSelected, zipcode: zipcode})
+          });
 
           // convert response to json
           const data = await response.json();

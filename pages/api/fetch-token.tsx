@@ -9,6 +9,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log('fetch token api hit!');
   res.status(200).json({ message: 'Hello from the server!' });
 
+
+  // ---------- get data from the client ----------
+  const { animal, zipcode } = req.body;
+  // console.log(animal, zipcode);
+
+
+
   // Check to see if there's no token or the token has expired, get a new token
   if(token === null || tokenExpiration - new Date().getTime() < 1) {
     console.log("serverside:  token missing or expired! getting a new token");
@@ -37,7 +44,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log(token, tokenType, tokenExpiration);
 
       // ---------- fetch pets ----------
-      
       // console.log("serverside", data);
     } catch(error) {
       console.error("Error fetching token", error);
@@ -47,15 +53,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log("token not expired, so let's fetch some pets!");
 
     // ---------- fetch pets ----------
+    const response = await fetch(`https://api.petfinder.com/v2/animals?type=${animal}&location=${zipcode}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `${tokenType} ${token}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    });
+
+    // convert the data to json
+    const searchData = await response.json();
+    console.log("serverside", searchData);
     
+    // send the data to the client
+    res.status(200).json(searchData);
   };
-
-
-
-
-
-
-  
 };
 
 
