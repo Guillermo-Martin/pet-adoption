@@ -6,21 +6,42 @@ export const config = {
   api: {
     externalResolver: true,
   },
-}
+};
 
-let token: string | null = null;
-let tokenType: string | null = null;
-let tokenExpiration: number;
+
+// fetchPetsInfo interface
+interface fetchPetsInfo {
+  animal: string;
+  zipcode: string;
+  token: string | null;
+  tokenType: string | null;
+  tokenExpiration?: number;
+};
+
+// object to hold information
+const fetchPetsInfo = {
+  animal: "",
+  zipcode: "",
+  token: null,
+  tokenType: null,
+  tokenExpiration: 0
+};
+
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // ---------- testing ----------
   console.log('fetch token api hit!');
 
-  // ---------- get data from the client ----------
+  // ---------- Get data from the client, add it to the "fetchPetsInfo" object ----------
   const { animal, zipcode } = req.body;
+  fetchPetsInfo.animal = animal;
+  fetchPetsInfo.zipcode = zipcode;
 
   // ---------- Functions ---------
-  const fetchPets = async (animal, zipcode, tokenType, token) => {
+  const fetchPets = async (obj: fetchPetsInfo) => {
+    // destructure info from the object
+    const { animal, zipcode, tokenType, token } = obj;
+
     // make request to get search results
     const response = await fetch(`https://api.petfinder.com/v2/animals?type=${animal}&location=${zipcode}`, {
       method: "GET",
@@ -32,15 +53,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // convert the data to JSON, then send it to the client
     const searchData = await response.json();
-    // console.log("serverside", searchData);
-    
-    // send the data to the client
     res.status(200).json(searchData);
   };
 
-
+  // ---------- API request ----------
   // Check to see if there's no token or the token has expired, get a new token
-  if(token === null || Date.now() >= tokenExpiration) {
+  if(fetchPetsInfo.token === null || Date.now() >= fetchPetsInfo.tokenExpiration) {
     console.log("serverside:  token missing or expired! getting a new token");
 
     try {
@@ -59,17 +77,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // convert the data to json
       const data = await response.json();
 
-      // store the token information
-      token = data.access_token;
-      tokenType = data.token_type;
-      tokenExpiration = Date.now() + data.expires_in * 1000;
-
+      // store the token information in the "fetchPetsInfo" object
+      fetchPetsInfo.token = data.access_token;
+      fetchPetsInfo.tokenType = data.token_type;
+      fetchPetsInfo.tokenExpiration = Date.now() + data.expires_in * 1000;
 
       // ---------- 2. Fetch pets ----------
-      
-      fetchPets(animal, zipcode, tokenType, token);
-
+      fetchPets(fetchPetsInfo);
     } catch(error) {
+      // if there's a problem fetching a token, respond with an error
       console.error("Error fetching token", error);
       res.status(500).json({ error: "Failed to fetch token" });
     };
@@ -77,6 +93,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log("token not expired, so let's fetch some pets!");
 
     // ---------- fetch pets ----------
-    fetchPets(animal, zipcode, tokenType, token);
+    fetchPets(fetchPetsInfo);
   };
 };
