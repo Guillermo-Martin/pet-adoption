@@ -45,6 +45,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       // ---------- fetch pets ----------
       // console.log("serverside", data);
+
+      // ---------- fetch pets ----------
+      const petResponse = await fetch(`https://api.petfinder.com/v2/animals?type=${animal}&location=${zipcode}`, {
+        method: "GET",
+        headers: {
+          "Authorization": `${tokenType} ${token}`,
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      });
+
+      // convert the data to json
+      const searchData = await petResponse.json();
+      console.log("serverside: got token then data", searchData);
+      
+      // send the data to the client
+      res.status(200).json(searchData);
+
     } catch(error) {
       console.error("Error fetching token", error);
       res.status(500).json({ error: "Failed to fetch token" });
