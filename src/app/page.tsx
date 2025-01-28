@@ -35,11 +35,15 @@ export default function Home() {
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [searchResults, setSearchResults] = useState<Animal[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // ---------- Functions ----------
   const fetchAnimals = async () => {
     // make request to "/api/fetch-token" and get a response
     try {
+      // set "isLoading" to be true
+      setIsLoading(!isLoading);
+
       const response = await fetch("/api/fetch-token", {
         method: "POST",
         headers: {
@@ -52,7 +56,10 @@ export default function Home() {
       const data = await response.json();
       console.log("Here is the fetched data:", data);
 
+      // set the state to be the fetched data
       setSearchResults(data.animals);
+
+      
     } catch (error) {
       console.log(error);
     };
@@ -107,8 +114,6 @@ export default function Home() {
   });
 
 
-  // console.log("line 106", searchResults[0].primary_photo_cropped)
-
   return (
     <div>
       <div className="hero-header">
@@ -142,7 +147,10 @@ export default function Home() {
 
       {/* <div className={styles.testDiv}>This is a div</div> */}
 
-      <div className="flex flex-wrap">{renderedSearchResults}</div>
+      <div className="flex flex-wrap">
+        {/* If "isLoading" is true, show a loader, else show the search results */}
+        {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults}
+      </div>
     </div>
       
 
