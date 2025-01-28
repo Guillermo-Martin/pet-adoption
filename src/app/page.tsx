@@ -59,7 +59,8 @@ export default function Home() {
       // set the state to be the fetched data
       setSearchResults(data.animals);
 
-      
+      // send user to "results" page after getting the data
+      router.push("/search");
     } catch (error) {
       console.log(error);
     };
@@ -148,8 +149,9 @@ export default function Home() {
       {/* <div className={styles.testDiv}>This is a div</div> */}
 
       <div className="flex flex-wrap">
-        {/* If "isLoading" is true, show a loader, else show the search results */}
-        {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults}
+        {/* If "isLoading" is true and the "searchResults" array is empty, show the loader}
+        {/* {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults} */}
+        {(isLoading && searchResults.length === 0) && "loading..."}
       </div>
     </div>
       
