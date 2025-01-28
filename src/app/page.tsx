@@ -2,6 +2,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import PetButton from "./../components/PetButton";
 import SearchResultCard from "./../components/SearchResultCard";
+import { useRouter } from "next/navigation";
 // import Image from "next/image";
 // import styles from "@/app/styles/home.module.css";
 
@@ -27,6 +28,9 @@ interface Animal {
 
 
 export default function Home() {
+  // ---------- useRouter ----------
+  const router = useRouter();
+
   // ---------- State ----------
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
@@ -138,7 +142,7 @@ export default function Home() {
 
       {/* <div className={styles.testDiv}>This is a div</div> */}
 
-      <div>{renderedSearchResults}</div>
+      <div className="flex flex-wrap">{renderedSearchResults}</div>
     </div>
       
 
