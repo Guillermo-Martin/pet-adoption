@@ -9,13 +9,7 @@ interface Animal {
   id: number;
   name: string;
   gender: string;
-}
-
-interface SearchResults {
-  animals: Animal[];
 };
-
-
 
 
 
@@ -23,7 +17,7 @@ export default function Home() {
   // ---------- State ----------
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<Animal[]>([]);
 
   // ---------- Functions ----------
   const fetchAnimals = async () => {
