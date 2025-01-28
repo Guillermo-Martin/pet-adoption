@@ -10,7 +10,7 @@ export const config = {
 
 
 // fetchPetsInfo interface
-interface fetchPetsInfo {
+interface FetchPetsInfo {
   animal: string;
   zipcode: string;
   token: string | null;
@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   fetchPetsInfo.zipcode = zipcode;
 
   // ---------- Functions ---------
-  const fetchPets = async (obj: fetchPetsInfo) => {
+  const fetchPets = async (obj: FetchPetsInfo) => {
     // destructure info from the object
     const { animal, zipcode, tokenType, token } = obj;
 

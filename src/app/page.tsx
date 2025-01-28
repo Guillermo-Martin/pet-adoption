@@ -4,10 +4,26 @@ import PetButton from "./../components/PetButton";
 // import Image from "next/image";
 // import styles from "@/app/styles/home.module.css";
 
+
+interface Animal {
+  id: number;
+  name: string;
+  gender: string;
+}
+
+interface SearchResults {
+  animals: Animal[];
+};
+
+
+
+
+
 export default function Home() {
   // ---------- State ----------
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   // ---------- Functions ----------
   // ----- selecting animal type -----
@@ -46,11 +62,11 @@ export default function Home() {
             body: JSON.stringify({animal: isSelected, zipcode: zipcode})
           });
 
-          // convert response to json
+          // Convert the response to JSON, then set the "searchResults" state to have the results
           const data = await response.json();
-          console.log(data, "line 45");
+          console.log("Here is the fetched data:", data);
 
-          // console.log(response, "on clientside hompage");
+          setSearchResults(data.animals);
         } catch (error) {
           console.log(error);
         };
@@ -59,7 +75,9 @@ export default function Home() {
       // call function
       fetchToken();
     };
-  };  
+  };
+
+  console.log("your results (after the handleSubmit),", searchResults);
 
 
 
