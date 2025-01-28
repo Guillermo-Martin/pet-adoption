@@ -26,6 +26,27 @@ export default function Home() {
   const [searchResults, setSearchResults] = useState([]);
 
   // ---------- Functions ----------
+  const fetchAnimals = async () => {
+    // make request to "/api/fetch-token" and get a response
+    try {
+      const response = await fetch("/api/fetch-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({animal: isSelected, zipcode: zipcode})
+      });
+
+      // Convert the response to JSON, then set the "searchResults" state to have the results
+      const data = await response.json();
+      console.log("Here is the fetched data:", data);
+
+      setSearchResults(data.animals);
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
   // ----- selecting animal type -----
   const handleClick = (animal: string) => {
     // set "isSelected" state to the animal that was clicked on
@@ -51,34 +72,16 @@ export default function Home() {
       alert("Please enter a 5-digit zipcode.");
     } else {
       // make API request
-      const fetchToken = async () => {
-        // make request to "/api/fetch-token" and get a response
-        try {
-          const response = await fetch("/api/fetch-token", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({animal: isSelected, zipcode: zipcode})
-          });
-
-          // Convert the response to JSON, then set the "searchResults" state to have the results
-          const data = await response.json();
-          console.log("Here is the fetched data:", data);
-
-          setSearchResults(data.animals);
-        } catch (error) {
-          console.log(error);
-        };
-      }
-
-      // call function
-      fetchToken();
+      fetchAnimals();
     };
   };
 
-  console.log("your results (after the handleSubmit),", searchResults);
-
+  // create the list of results
+  const renderedSearchResults = searchResults.map((result: Animal) => {
+    return (
+      <h1 key={result.id}>{result.name}</h1>
+    );
+  });
 
 
   return (
@@ -113,6 +116,8 @@ export default function Home() {
       
 
       {/* <div className={styles.testDiv}>This is a div</div> */}
+
+      <div>{renderedSearchResults}</div>
     </div>
       
 
