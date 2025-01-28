@@ -1,6 +1,7 @@
 "use client";
 import { useState, FormEvent, ChangeEvent } from "react";
 import PetButton from "./../components/PetButton";
+import SearchResultCard from "./../components/SearchResultCard";
 // import Image from "next/image";
 // import styles from "@/app/styles/home.module.css";
 
@@ -9,6 +10,18 @@ interface Animal {
   id: number;
   name: string;
   gender: string;
+  age: string;
+  breeds: {
+    primary: string;
+  };
+  contact: {
+    address: {
+      city: string
+    }
+  };
+  primary_photo_cropped: {
+    full: string;
+  }
 };
 
 
@@ -72,11 +85,25 @@ export default function Home() {
 
   // create the list of results
   const renderedSearchResults = searchResults.map((result: Animal) => {
+    console.log("line 88!", result.primary_photo_cropped);
+
     return (
-      <h1 key={result.id}>{result.name}</h1>
+      // <h1 key={result.id}>{result.name} {result.age} {result.breeds.primary} {result.contact.address.city} </h1>
+      <SearchResultCard 
+        key={result.id}
+        id={result.id}
+        name={result.name}
+        age={result.age}
+        breed={result.breeds.primary}
+        city={result.contact.address.city}
+        gender={result.gender}
+        photo={result.primary_photo_cropped ? result.primary_photo_cropped.full : null}
+      />
     );
   });
 
+
+  // console.log("line 106", searchResults[0].primary_photo_cropped)
 
   return (
     <div>
