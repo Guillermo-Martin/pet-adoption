@@ -36,8 +36,6 @@ function Provider({ children }: ProviderProps) {
   // functions
   const fetchAnimals = async (type, zipcode) => {
     // make request to "/api/fetch-token" and get a response
-    // console.log("In pet context", type, zipcode);
-
     try {
       // set "isLoading" to be true
       // setIsLoading(!isLoading);
@@ -62,8 +60,6 @@ function Provider({ children }: ProviderProps) {
     } catch (error) {
       console.log(error);
     };
-
-    // alert("I'm going to fetch animals!");
   };
 
   // values to share
@@ -72,7 +68,7 @@ function Provider({ children }: ProviderProps) {
     fetchAnimals: fetchAnimals
   };
 
-  console.log("in petContext", valuesToShare);
+  // console.log("in petContext", valuesToShare);
 
   return (
     <PetContext.Provider value={valuesToShare}>
@@ -83,10 +79,3 @@ function Provider({ children }: ProviderProps) {
 
 export { Provider };
 export default PetContext;
-
-
-
-// things to do in here:
-// X 1.  define state in here
-// X 2.  provide the values to share to the value prop
-// 3. define the "fetchAnimals" function here

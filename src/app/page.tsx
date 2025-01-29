@@ -30,11 +30,8 @@ interface Animal {
 
 
 export default function Home() {
-  // 1.  give this access to the PetContext.
-  // 2.  update the PetContext with data retrieved from a search.
-  const petResults = useContext(PetContext);
-
-  console.log(petResults.petResults);
+  // get access to the "PetContext"
+  const { petResults, fetchAnimals } = useContext(PetContext);
 
 
   // ---------- useRouter ----------
@@ -47,34 +44,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   // ---------- Functions ----------
-  // const fetchAnimals = async () => {
-  //   // make request to "/api/fetch-token" and get a response
-  //   try {
-  //     // set "isLoading" to be true
-  //     setIsLoading(!isLoading);
-
-  //     const response = await fetch("/api/fetch-token", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({animal: isSelected, zipcode: zipcode})
-  //     });
-
-  //     // Convert the response to JSON, then set the "searchResults" state to have the results
-  //     const data = await response.json();
-  //     console.log("Here is the fetched data:", data);
-
-  //     // set the state to be the fetched data
-  //     setSearchResults(data.animals);
-
-  //     // send user to "results" page after getting the data
-  //     router.push("/search");
-  //   } catch (error) {
-  //     console.log(error);
-  //   };
-  // };
-
   // ----- selecting animal type -----
   const handleClick = (animal: string) => {
     // set "isSelected" state to the animal that was clicked on
@@ -100,14 +69,12 @@ export default function Home() {
       alert("Please enter a 5-digit zipcode.");
     } else {
       // make API request
-      petResults.fetchAnimals(isSelected, zipcode);
+      fetchAnimals(isSelected, zipcode);
     };
   };
 
   // create the list of results
-  const renderedSearchResults = petResults.petResults.map((result: Animal) => {
-    console.log("line 88!", result.primary_photo_cropped);
-
+  const renderedSearchResults = petResults.map((result: Animal) => {
     return (
       // <h1 key={result.id}>{result.name} {result.age} {result.breeds.primary} {result.contact.address.city} </h1>
       <SearchResultCard 
