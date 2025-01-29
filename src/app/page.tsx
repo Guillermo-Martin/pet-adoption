@@ -33,6 +33,8 @@ export default function Home() {
   // get access to the "PetContext"
   const { petResults, fetchAnimals } = useContext(PetContext);
 
+  console.log("line36", useContext(PetContext));
+
 
   // ---------- useRouter ----------
   const router = useRouter();

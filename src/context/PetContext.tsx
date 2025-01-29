@@ -24,8 +24,15 @@ interface Animal {
   }
 };
 
-// create the context.  Tyep: The data is going to be an array of objects or null
-const PetContext = createContext<Animal[] | null>(null);
+interface PetContext {
+  petResults: Animal[];
+  fetchAnimals: (type: string, zipcode: string) => void;
+};
+
+
+// create the context and define its structure
+// const PetContext = createContext<PetContext>({} as PetContext);
+const PetContext = createContext<PetContext | undefined>(undefined);
 
 // create the Provider
 function Provider({ children }: ProviderProps) {
@@ -34,7 +41,7 @@ function Provider({ children }: ProviderProps) {
 
 
   // functions
-  const fetchAnimals = async (type, zipcode) => {
+  const fetchAnimals = async (type: string, zipcode: string) => {
     // make request to "/api/fetch-token" and get a response
     try {
       // set "isLoading" to be true
@@ -62,8 +69,8 @@ function Provider({ children }: ProviderProps) {
     };
   };
 
-  // values to share
-  const valuesToShare = {
+  // values to share (this needs a type)
+  const valuesToShare: PetContext = {
     petResults: petResults,
     fetchAnimals: fetchAnimals
   };
