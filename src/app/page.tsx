@@ -1,10 +1,12 @@
 "use client";
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, useContext, FormEvent, ChangeEvent } from "react";
 import PetButton from "./../components/PetButton";
 import SearchResultCard from "./../components/SearchResultCard";
 import { useRouter } from "next/navigation";
+import PetContext from "@/context/PetContext";
 // import Image from "next/image";
 // import styles from "@/app/styles/home.module.css";
+
 
 
 interface Animal {
@@ -28,6 +30,13 @@ interface Animal {
 
 
 export default function Home() {
+  // 1.  give this access to the PetContext.
+  // 2.  update the PetContext with data retrieved from a search.
+  const petResults = useContext(PetContext);
+
+  console.log(petResults.petResults);
+
+
   // ---------- useRouter ----------
   const router = useRouter();
 
@@ -38,33 +47,33 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   // ---------- Functions ----------
-  const fetchAnimals = async () => {
-    // make request to "/api/fetch-token" and get a response
-    try {
-      // set "isLoading" to be true
-      setIsLoading(!isLoading);
+  // const fetchAnimals = async () => {
+  //   // make request to "/api/fetch-token" and get a response
+  //   try {
+  //     // set "isLoading" to be true
+  //     setIsLoading(!isLoading);
 
-      const response = await fetch("/api/fetch-token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({animal: isSelected, zipcode: zipcode})
-      });
+  //     const response = await fetch("/api/fetch-token", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({animal: isSelected, zipcode: zipcode})
+  //     });
 
-      // Convert the response to JSON, then set the "searchResults" state to have the results
-      const data = await response.json();
-      console.log("Here is the fetched data:", data);
+  //     // Convert the response to JSON, then set the "searchResults" state to have the results
+  //     const data = await response.json();
+  //     console.log("Here is the fetched data:", data);
 
-      // set the state to be the fetched data
-      setSearchResults(data.animals);
+  //     // set the state to be the fetched data
+  //     setSearchResults(data.animals);
 
-      // send user to "results" page after getting the data
-      router.push("/search");
-    } catch (error) {
-      console.log(error);
-    };
-  };
+  //     // send user to "results" page after getting the data
+  //     router.push("/search");
+  //   } catch (error) {
+  //     console.log(error);
+  //   };
+  // };
 
   // ----- selecting animal type -----
   const handleClick = (animal: string) => {
@@ -91,12 +100,12 @@ export default function Home() {
       alert("Please enter a 5-digit zipcode.");
     } else {
       // make API request
-      fetchAnimals();
+      petResults.fetchAnimals(isSelected, zipcode);
     };
   };
 
   // create the list of results
-  const renderedSearchResults = searchResults.map((result: Animal) => {
+  const renderedSearchResults = petResults.petResults.map((result: Animal) => {
     console.log("line 88!", result.primary_photo_cropped);
 
     return (
@@ -149,9 +158,9 @@ export default function Home() {
       {/* <div className={styles.testDiv}>This is a div</div> */}
 
       <div className="flex flex-wrap">
-        {/* If "isLoading" is true and the "searchResults" array is empty, show the loader}
-        {/* {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults} */}
-        {(isLoading && searchResults.length === 0) && "loading..."}
+        {/* If "isLoading" is true and the "searchResults" array is empty, show the loader} */}
+        {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults}
+        {/* {(isLoading && searchResults.length === 0) && "loading..."} */}
       </div>
     </div>
       
