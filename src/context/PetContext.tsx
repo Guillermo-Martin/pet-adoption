@@ -1,7 +1,7 @@
 "use client";
 import { createContext, ReactNode, useState } from "react";
 
-
+// ---------- Interfaces ----------
 interface ProviderProps {
   children: ReactNode;
 };
@@ -24,30 +24,30 @@ interface Animal {
   }
 };
 
-interface PetContext {
+interface PetContextTypes {
   petResults: Animal[];
   fetchAnimals: (type: string, zipcode: string) => void;
 };
 
 
-// create the context and define its structure
-// const PetContext = createContext<PetContext>({} as PetContext);
-const PetContext = createContext<PetContext | undefined>(undefined);
+// ---------- Create the context ----------
+// create the context (an object) and define its structure (it will use the "PetContext")
+const PetContext = createContext<PetContextTypes | undefined>(undefined);
 
-// create the Provider
+// ---------- Create the provider ----------
+// the "children" props is of type "ReactNode" (defined in the "ProviderProps" interface)
 function Provider({ children }: ProviderProps) {
-  // state
+  // ----- State -----
   const [petResults, setPetResults] = useState<Animal[]>([]);
 
-
-  // functions
+  // ----- Functions -----
   const fetchAnimals = async (type: string, zipcode: string) => {
-    // make request to "/api/fetch-token" and get a response
+    // make request to "/api/fetch-animals" and get a response (containing data)
     try {
       // set "isLoading" to be true
       // setIsLoading(!isLoading);
 
-      const response = await fetch("/api/fetch-token", {
+      const response = await fetch("/api/fetch-animals", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -69,14 +69,15 @@ function Provider({ children }: ProviderProps) {
     };
   };
 
-  // values to share (this needs a type)
-  const valuesToShare: PetContext = {
+  // ----- Values to share with application ----
+  // valuesToShare is an object that will have the "PetContextTypes" type
+  const valuesToShare: PetContextTypes = {
     petResults: petResults,
     fetchAnimals: fetchAnimals
   };
 
-  // console.log("in petContext", valuesToShare);
 
+  // ----- Provider component -----
   return (
     <PetContext.Provider value={valuesToShare}>
       {children}
