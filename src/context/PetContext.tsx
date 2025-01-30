@@ -24,6 +24,10 @@ interface Animal {
   }
 };
 
+interface SearchResults {
+  animals: Animal[];
+};
+
 interface PetContextTypes {
   petResults: Animal[];
   fetchAnimals: (type: string, zipcode: string) => void;
@@ -56,7 +60,7 @@ function Provider({ children }: ProviderProps) {
       });
 
       // Convert the response to JSON, then set the "searchResults" state to have the results
-      const data = await response.json();  // data received is going to be an object
+      const data: SearchResults = await response.json();  // data received is going to be an object
       console.log("Here is the fetched data:", data);
 
       // set the state to be the fetched data
