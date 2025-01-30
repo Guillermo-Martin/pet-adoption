@@ -59,8 +59,8 @@ function Provider({ children }: ProviderProps) {
         body: JSON.stringify({animal: type, zipcode: zipcode})
       });
 
-      // Convert the response to JSON, then set the "searchResults" state to have the results
-      const data: SearchResults = await response.json();  // data received is going to be an object
+      // Convert the response to JSON
+      const data: SearchResults = await response.json();
       console.log("Here is the fetched data:", data);
 
       // set the state to be the fetched data
