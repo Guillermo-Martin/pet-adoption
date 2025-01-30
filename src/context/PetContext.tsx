@@ -66,6 +66,8 @@ function Provider({ children }: ProviderProps) {
       // set the state to be the fetched data
       setPetResults(data.animals);
 
+      
+
       // send user to "results" page after getting the data
       // router.push("/search");
     } catch (error) {
@@ -73,11 +75,13 @@ function Provider({ children }: ProviderProps) {
     };
   };
 
+  console.log("here is the updated state", petResults);
+
   // ----- Values to share with application ----
   // valuesToShare is an object that will have the "PetContextTypes" type
   const valuesToShare: PetContextTypes = {
     petResults: petResults,
-    fetchAnimals: fetchAnimals
+    fetchAnimals: fetchAnimals,
   };
 
 

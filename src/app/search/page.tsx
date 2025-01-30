@@ -5,7 +5,8 @@ import PetContext from "@/context/PetContext";
 
 function SearchResults() {
   const data = useContext(PetContext);
-  console.log(data);
+  // const {petResults} = useContext(PetContext);
+  console.log(data?.petResults);
 
   return (
     <div>

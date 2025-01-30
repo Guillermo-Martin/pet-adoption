@@ -49,8 +49,6 @@ export default function Home() {
   // ---------- State ----------
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
-  // const [searchResults, setSearchResults] = useState<Animal[]>([]);
-  // const [isLoading, setIsLoading] = useState(false);
 
   // ---------- Functions ----------
   // ----- selecting animal type -----
@@ -77,27 +75,29 @@ export default function Home() {
       // if an animal was selected, but zipcode is empty
       alert("Please enter a 5-digit zipcode.");
     } else {
-      // make API request
+      // make API request, send the user to the "search-results" page
       fetchAnimals(isSelected, zipcode);
+      router.push("/search");
     };
   };
 
+
   // create the list of results
-  const renderedSearchResults = petResults.map((result: Animal) => {
-    return (
-      // <h1 key={result.id}>{result.name} {result.age} {result.breeds.primary} {result.contact.address.city} </h1>
-      <SearchResultCard 
-        key={result.id}
-        id={result.id}
-        name={result.name}
-        age={result.age}
-        breed={result.breeds.primary}
-        city={result.contact.address.city}
-        gender={result.gender}
-        photo={result.primary_photo_cropped ? result.primary_photo_cropped.full : null}
-      />
-    );
-  });
+  // const renderedSearchResults = petResults.map((result: Animal) => {
+  //   return (
+  //     // <h1 key={result.id}>{result.name} {result.age} {result.breeds.primary} {result.contact.address.city} </h1>
+  //     <SearchResultCard 
+  //       key={result.id}
+  //       id={result.id}
+  //       name={result.name}
+  //       age={result.age}
+  //       breed={result.breeds.primary}
+  //       city={result.contact.address.city}
+  //       gender={result.gender}
+  //       photo={result.primary_photo_cropped ? result.primary_photo_cropped.full : null}
+  //     />
+  //   );
+  // });
 
 
   return (
@@ -136,8 +136,8 @@ export default function Home() {
       <div className="flex flex-wrap">
         {/* If "isLoading" is true and the "searchResults" array is empty, show the loader} */}
         {/* {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults} */}
-        {/* {(isLoading && searchResults.length === 0) && "loading..."} */}
-        {renderedSearchResults}
+        {/* {(isLoading && petResults.length === 0) && "loading..."} */}
+        {/* {renderedSearchResults} */}
       </div>
     </div>
       
