@@ -8,6 +8,11 @@ export const config = {
   },
 };
 
+interface Token {
+  token_type: string;
+  expires_in: number;
+  access_token: string;
+}
 
 // fetchPetsInfo interface
 interface FetchPetsInfo {
@@ -15,11 +20,33 @@ interface FetchPetsInfo {
   zipcode: string;
   token: string | null;
   tokenType: string | null;
-  tokenExpiration?: number;
+  tokenExpiration: number;
+};
+
+interface Animal {
+  id: number;
+  name: string;
+  gender: string;
+  age: string;
+  breeds: {
+    primary: string;
+  };
+  contact: {
+    address: {
+      city: string
+    }
+  };
+  primary_photo_cropped: {
+    full: string;
+  }
+};
+
+interface SearchResults {
+  animals: Animal[];
 };
 
 // object to hold information
-const fetchPetsInfo = {
+const fetchPetsInfo: FetchPetsInfo = {
   animal: "",
   zipcode: "",
   token: null,
@@ -52,7 +79,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     // convert the data to JSON, then send it to the client
-    const searchData = await response.json();
+    const searchData: SearchResults = await response.json();
     res.status(200).json(searchData);
   };
 
@@ -75,7 +102,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       );
 
       // convert the data to json
-      const data = await response.json();
+      const data: Token = await response.json();
 
       // store the token information in the "fetchPetsInfo" object
       fetchPetsInfo.token = data.access_token;
