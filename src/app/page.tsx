@@ -31,9 +31,18 @@ interface Animal {
 
 export default function Home() {
   // get access to the "PetContext"
-  const { petResults, fetchAnimals } = useContext(PetContext);
+  const petContext = useContext(PetContext);
 
-  console.log("line36", useContext(PetContext));
+  // Destructuring shows an error: https://stackoverflow.com/questions/68579498/typescript-react-destructuring-from-usecontext-throws-an-error
+  // check to see if the context object exists; if it doesn't throw an error
+  if(!petContext) {
+    throw new Error("PetContext must be used within a provider.");
+  };
+
+  // if it does, destructure the information we want from the context
+  const { petResults, fetchAnimals } = petContext;
+
+  // console.log("line36", petResults, fetchAnimals);
 
 
   // ---------- useRouter ----------
@@ -42,8 +51,8 @@ export default function Home() {
   // ---------- State ----------
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
-  const [searchResults, setSearchResults] = useState<Animal[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [searchResults, setSearchResults] = useState<Animal[]>([]);
+  // const [isLoading, setIsLoading] = useState(false);
 
   // ---------- Functions ----------
   // ----- selecting animal type -----
@@ -128,8 +137,9 @@ export default function Home() {
 
       <div className="flex flex-wrap">
         {/* If "isLoading" is true and the "searchResults" array is empty, show the loader} */}
-        {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults}
+        {/* {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults} */}
         {/* {(isLoading && searchResults.length === 0) && "loading..."} */}
+        {renderedSearchResults}
       </div>
     </div>
       
