@@ -56,39 +56,41 @@ export default function Home() {
   // ---------- Component ----------
   return (
     <div>
-      <div className="hero-header">
-        <h1>Pet adoption</h1>
-        <p>Your new pet bestie is waiting for you.</p>
-      </div>
+      { isLoading 
+        ? "loading..." 
+        : 
+          <>
+            <div className="hero-header">
+              <h1>Pet adoption</h1>
+              <p>Your new pet bestie is waiting for you.</p>
+            </div>
 
-      {/* ---------- Pet search options ---------- */}
-      <div className="pet-search-options">
-        <h2>What are you looking for?</h2>
+            {/* ---------- Pet search options ----------  */}
+            <div className="pet-search-options">
+              <h2>What are you looking for?</h2>
 
-        <div className="button-container">
-          <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
-          <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
-          {/* ***** vvv  For later  vvv ***** */}
-          {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
-        </div>
-      </div>
-      
-      {/* ---------- Zipcode ---------- */}
-      <form onSubmit={handleSubmit}>
-        <label>Zipcode</label>
-        <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border border-black" />
+              <div className="button-container">
+                <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
+                <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
+                {/* ***** vvv  For later  vvv ***** */}
+                {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
+              </div>
+            </div>
+            
+            {/* ---------- Zipcode ---------- */}
+            <form onSubmit={handleSubmit}>
+              <label>Zipcode</label>
+              <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border border-black" />
 
-        <button className="border border-black">Submit</button>
-      </form>
+              <button className="border border-black">Submit</button>
+            </form>
 
-      {/* ---------- Is loading logic ---------- */}
-      <div className="flex flex-wrap">
-        {isLoading && "loading..."}
-      </div>
-
-      {/* ---------- Testing styles ---------- */}
-      {/* <div className={styles.testDiv}>This is a div</div> */}
+            {/* ---------- Testing styles ---------- */}
+            {/* <div className={styles.testDiv}>This is a div</div> */}
+          </>
+      }
     </div>
+    
       
 
 
