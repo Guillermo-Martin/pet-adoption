@@ -49,6 +49,7 @@ export default function Home() {
   // ---------- State ----------
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // ---------- Functions ----------
   // ----- selecting animal type -----
@@ -64,7 +65,7 @@ export default function Home() {
 
 
   // ----- handleSubmit -----
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Form submission check
@@ -75,8 +76,13 @@ export default function Home() {
       // if an animal was selected, but zipcode is empty
       alert("Please enter a 5-digit zipcode.");
     } else {
-      // make API request, send the user to the "search-results" page
-      fetchAnimals(isSelected, zipcode);
+      // set isLoading to true
+      setIsLoading(true);
+
+      // make API request, wait to get back something
+      await fetchAnimals(isSelected, zipcode);
+
+      // then send the user to the "search-results" page
       router.push("/search");
     };
   };
@@ -137,6 +143,7 @@ export default function Home() {
         {/* If "isLoading" is true and the "searchResults" array is empty, show the loader} */}
         {/* {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults} */}
         {/* {(isLoading && petResults.length === 0) && "loading..."} */}
+        {isLoading && "loading..."}
         {/* {renderedSearchResults} */}
       </div>
     </div>
