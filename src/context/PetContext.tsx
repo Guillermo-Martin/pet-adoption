@@ -48,9 +48,6 @@ function Provider({ children }: ProviderProps) {
   const fetchAnimals = async (type: string, zipcode: string) => {
     // make request to "/api/fetch-animals" and get a response (containing data)
     try {
-      // set "isLoading" to be true
-      // setIsLoading(!isLoading);
-
       const response = await fetch("/api/fetch-animals", {
         method: "POST",
         headers: {
@@ -65,23 +62,16 @@ function Provider({ children }: ProviderProps) {
 
       // set the state to be the fetched data
       setPetResults(data.animals);
-
-      
-
-      // send user to "results" page after getting the data
-      // router.push("/search");
     } catch (error) {
       console.log(error);
     };
   };
 
-  console.log("here is the updated state", petResults);
-
   // ----- Values to share with application ----
   // valuesToShare is an object that will have the "PetContextTypes" type
   const valuesToShare: PetContextTypes = {
-    petResults: petResults,
-    fetchAnimals: fetchAnimals,
+    petResults,
+    fetchAnimals
   };
 
 

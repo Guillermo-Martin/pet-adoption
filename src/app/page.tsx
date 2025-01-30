@@ -1,36 +1,21 @@
 "use client";
 import { useState, useContext, FormEvent, ChangeEvent } from "react";
 import PetButton from "./../components/PetButton";
-import SearchResultCard from "./../components/SearchResultCard";
 import { useRouter } from "next/navigation";
 import PetContext from "@/context/PetContext";
 // import Image from "next/image";
 // import styles from "@/app/styles/home.module.css";
 
-
-// ---------- Interfaces ----------
-// interface Animal {
-//   id: number;
-//   name: string;
-//   gender: string;
-//   age: string;
-//   breeds: {
-//     primary: string;
-//   };
-//   contact: {
-//     address: {
-//       city: string
-//     }
-//   };
-//   primary_photo_cropped: {
-//     full: string;
-//   }
-// };
-
-
-
 export default function Home() {
-  // get access to the "PetContext"
+  // ---------- State ----------
+  const [isSelected, setIsSelected] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // ---------- useRouter ----------
+  const router = useRouter();
+
+  // ---------- Getting information from context ----------
   const petContext = useContext(PetContext);
 
   // Destructuring shows an error: https://stackoverflow.com/questions/68579498/typescript-react-destructuring-from-usecontext-throws-an-error
@@ -40,16 +25,7 @@ export default function Home() {
   };
 
   // if it does, destructure the information we want from the context
-  const { petResults, fetchAnimals } = petContext;
-
-
-  // ---------- useRouter ----------
-  const router = useRouter();
-
-  // ---------- State ----------
-  const [isSelected, setIsSelected] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const { fetchAnimals } = petContext;
 
   // ---------- Functions ----------
   // ----- selecting animal type -----
@@ -62,7 +38,6 @@ export default function Home() {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setZipcode(event.target.value);
   };
-
 
   // ----- handleSubmit -----
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -87,25 +62,7 @@ export default function Home() {
     };
   };
 
-
-  // create the list of results
-  // const renderedSearchResults = petResults.map((result: Animal) => {
-  //   return (
-  //     // <h1 key={result.id}>{result.name} {result.age} {result.breeds.primary} {result.contact.address.city} </h1>
-  //     <SearchResultCard 
-  //       key={result.id}
-  //       id={result.id}
-  //       name={result.name}
-  //       age={result.age}
-  //       breed={result.breeds.primary}
-  //       city={result.contact.address.city}
-  //       gender={result.gender}
-  //       photo={result.primary_photo_cropped ? result.primary_photo_cropped.full : null}
-  //     />
-  //   );
-  // });
-
-
+  // ---------- Component ----------
   return (
     <div>
       <div className="hero-header">
@@ -133,19 +90,13 @@ export default function Home() {
         <button className="border border-black">Submit</button>
       </form>
 
-      
-
-      
-
-      {/* <div className={styles.testDiv}>This is a div</div> */}
-
+      {/* ---------- Is loading logic ---------- */}
       <div className="flex flex-wrap">
-        {/* If "isLoading" is true and the "searchResults" array is empty, show the loader} */}
-        {/* {isLoading && searchResults.length === 0 ? "loading..." : renderedSearchResults} */}
-        {/* {(isLoading && petResults.length === 0) && "loading..."} */}
         {isLoading && "loading..."}
-        {/* {renderedSearchResults} */}
       </div>
+
+      {/* ---------- Testing styles ---------- */}
+      {/* <div className={styles.testDiv}>This is a div</div> */}
     </div>
       
 

@@ -36,7 +36,6 @@ function SearchResults() {
   
   const renderedSearchResults = petResults.map((result: Animal) => {
     return (
-      // <h1 key={result.id}>{result.name} {result.age} {result.breeds.primary} {result.contact.address.city} </h1>
       <SearchResultCard 
         key={result.id}
         id={result.id}
@@ -53,7 +52,6 @@ function SearchResults() {
   return (
     <div>
       <h1>Search results page</h1>
-      {/* <h2>{data}</h2> */}
 
       <div className="flex flex-wrap">
         {renderedSearchResults}
@@ -63,4 +61,3 @@ function SearchResults() {
 };
 
 export default SearchResults;
-
