@@ -2,16 +2,62 @@
 
 import { useContext } from "react";
 import PetContext from "@/context/PetContext";
+import SearchResultCard from "@/components/SearchResultCard";
+
+
+// ---------- Interfaces ----------
+interface Animal {
+  id: number;
+  name: string;
+  gender: string;
+  age: string;
+  breeds: {
+    primary: string;
+  };
+  contact: {
+    address: {
+      city: string
+    }
+  };
+  primary_photo_cropped: {
+    full: string;
+  }
+};
 
 function SearchResults() {
-  const data = useContext(PetContext);
-  // const {petResults} = useContext(PetContext);
-  console.log(data?.petResults);
+  // get access to the "PetContext"
+  const petContext = useContext(PetContext);
+
+  if(!petContext) {
+    throw new Error("PetContext must be used within a provider.");
+  };
+
+  const {petResults} = petContext;
+  
+  const renderedSearchResults = petResults.map((result: Animal) => {
+    return (
+      // <h1 key={result.id}>{result.name} {result.age} {result.breeds.primary} {result.contact.address.city} </h1>
+      <SearchResultCard 
+        key={result.id}
+        id={result.id}
+        name={result.name}
+        age={result.age}
+        breed={result.breeds.primary}
+        city={result.contact.address.city}
+        gender={result.gender}
+        photo={result.primary_photo_cropped ? result.primary_photo_cropped.full : null}
+      />
+    );
+  });
 
   return (
     <div>
       <h1>Search results page</h1>
       {/* <h2>{data}</h2> */}
+
+      <div className="flex flex-wrap">
+        {renderedSearchResults}
+      </div>
     </div>
   );
 };
