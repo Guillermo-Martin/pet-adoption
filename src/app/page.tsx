@@ -1,8 +1,8 @@
 "use client";
-import { useState, useContext, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import PetButton from "./../components/PetButton";
 import { useRouter } from "next/navigation";
-import PetContext from "@/context/PetContext";
+import usePetContext from "@/hooks/usePetContext";
 // import Image from "next/image";
 // import styles from "@/app/styles/home.module.css";
 
@@ -15,17 +15,8 @@ export default function Home() {
   // ---------- useRouter ----------
   const router = useRouter();
 
-  // ---------- Getting information from context ----------
-  const petContext = useContext(PetContext);
-
-  // Destructuring shows an error: https://stackoverflow.com/questions/68579498/typescript-react-destructuring-from-usecontext-throws-an-error
-  // check to see if the context object exists; if it doesn't throw an error
-  if(!petContext) {
-    throw new Error("PetContext must be used within a provider.");
-  };
-
-  // if it does, destructure the information we want from the context
-  const { fetchAnimals } = petContext;
+  // Get the "fetchAnimals" function from PetContext
+  const { fetchAnimals } = usePetContext();
 
   // ---------- Functions ----------
   // ----- selecting animal type -----

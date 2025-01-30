@@ -1,19 +1,13 @@
 "use client";
-import { useContext } from "react";
-import PetContext from "@/context/PetContext";
+import usePetContext from "@/hooks/usePetContext";
 import SearchResultCard from "@/components/SearchResultCard";
 import type { Animal } from "@/interfaces/Animal";
 
 function SearchResults() {
-  // get access to the "PetContext"
-  const petContext = useContext(PetContext);
-
-  if(!petContext) {
-    throw new Error("PetContext must be used within a provider.");
-  };
-
-  const {petResults} = petContext;
+  // Get search results from the PetContext
+  const { petResults } = usePetContext();
   
+  // Render the results in a card
   const renderedSearchResults = petResults.map((result: Animal) => {
     return (
       <SearchResultCard 
@@ -29,6 +23,7 @@ function SearchResults() {
     );
   });
 
+  // ---------- Component ----------
   return (
     <div>
       <h1>Search results page</h1>
