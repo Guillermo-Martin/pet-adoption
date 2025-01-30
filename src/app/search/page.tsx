@@ -10,7 +10,7 @@ function SearchResults() {
   return (
     <div>
       <h1>Search results page</h1>
-      <h2>{data}</h2>
+      {/* <h2>{data}</h2> */}
     </div>
   );
 };

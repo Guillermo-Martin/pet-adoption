@@ -8,7 +8,7 @@ import PetContext from "@/context/PetContext";
 // import styles from "@/app/styles/home.module.css";
 
 
-
+// ---------- Interfaces ----------
 interface Animal {
   id: number;
   name: string;
@@ -41,8 +41,6 @@ export default function Home() {
 
   // if it does, destructure the information we want from the context
   const { petResults, fetchAnimals } = petContext;
-
-  // console.log("line36", petResults, fetchAnimals);
 
 
   // ---------- useRouter ----------
