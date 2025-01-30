@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import type { Animal } from "@/interfaces/Animal";
 
 // Configuration for "API resolved without sending a response" message
 // https://github.com/vercel/next.js/discussions/40270
@@ -21,24 +22,6 @@ interface FetchPetsInfo {
   token: string | null;
   tokenType: string | null;
   tokenExpiration: number;
-};
-
-interface Animal {
-  id: number;
-  name: string;
-  gender: string;
-  age: string;
-  breeds: {
-    primary: string;
-  };
-  contact: {
-    address: {
-      city: string
-    }
-  };
-  primary_photo_cropped: {
-    full: string;
-  }
 };
 
 interface SearchResults {
