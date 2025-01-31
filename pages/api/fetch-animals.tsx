@@ -22,6 +22,7 @@ interface FetchPetsInfo {
   token: string | null;
   tokenType: string | null;
   tokenExpiration: number;
+  searchResults: Animal[];
 };
 
 interface SearchResults {
@@ -34,7 +35,8 @@ const fetchPetsInfo: FetchPetsInfo = {
   zipcode: "",
   token: null,
   tokenType: null,
-  tokenExpiration: 0
+  tokenExpiration: 0,
+  searchResults: []
 };
 
 
@@ -64,7 +66,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // convert the data to JSON, then send it to the client
     const searchData: SearchResults = await response.json();
-    res.status(200).json(searchData);
+
+    fetchPetsInfo.searchResults = searchData.animals;
+    res.status(200).json(fetchPetsInfo);
   };
 
   // ---------- Actual API request ----------

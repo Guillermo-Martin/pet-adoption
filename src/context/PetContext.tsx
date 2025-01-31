@@ -8,7 +8,12 @@ interface ProviderProps {
 };
 
 interface SearchResults {
-  animals: Animal[];
+  animal: string;
+  searchResults: Animal[];
+  token: string;
+  tokenExpiration: number;
+  tokenType: string;
+  zipcode: string;
 };
 
 interface PetContextTypes {
@@ -44,7 +49,7 @@ function Provider({ children }: ProviderProps) {
       console.log("Here is the fetched data:", data);
 
       // set the state to be the fetched data
-      setPetResults(data.animals);
+      setPetResults(data.searchResults);
     } catch (error) {
       console.log(error);
     };
