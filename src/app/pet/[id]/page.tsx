@@ -13,10 +13,10 @@ function PetDetails() {
 
   // destructure id from url
   const { id } = params;
-  console.log("here's the pet's id", id);
+  console.log("here's the pet's id", typeof id);
 
   // ---------- make request to get pet by id ----------
-  const fetchPetById = async (petId) => {
+  const fetchPetById = async (petId: string) => {
     try {
       // get the response
       const response = await fetch(`/api/fetch-pet/${petId}`, {
