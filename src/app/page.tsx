@@ -48,8 +48,14 @@ export default function Home() {
       // make API request, wait to get back something
       await fetchAnimals(isSelected, zipcode);
 
+      // get the search params to add to the URL
+      const urlParams = new URLSearchParams({
+        type: isSelected,
+        zipcode: zipcode
+      });
+
       // then send the user to the "search-results" page
-      router.push("/search");
+      router.push(`/search?${urlParams.toString()}`);
     };
   };
 
