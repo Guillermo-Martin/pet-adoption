@@ -16,10 +16,10 @@ function PetDetails() {
   console.log("here's the pet's id", id);
 
   // ---------- make request to get pet by id ----------
-  const fetchPetById = async () => {
+  const fetchPetById = async (petId) => {
     try {
       // get the response
-      const response = await fetch("/api/fetch-pet", {
+      const response = await fetch(`/api/fetch-pet/${petId}`, {
         method: "GET"
       });
 
@@ -34,7 +34,7 @@ function PetDetails() {
     };
   };
 
-  fetchPetById();
+  fetchPetById(id);
 
 
   return (
