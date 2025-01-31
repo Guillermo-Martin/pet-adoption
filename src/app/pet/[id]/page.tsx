@@ -15,7 +15,26 @@ function PetDetails() {
   const { id } = params;
   console.log("here's the pet's id", id);
 
-  
+  // ---------- make request to get pet by id ----------
+  const fetchPetById = async () => {
+    try {
+      // get the response
+      const response = await fetch("/api/fetch-pet", {
+        method: "GET"
+      });
+
+      // convert the response to data
+      const data = await response.json();
+
+      console.log("individual pet data", data);
+
+      
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
+  fetchPetById();
 
 
   return (
