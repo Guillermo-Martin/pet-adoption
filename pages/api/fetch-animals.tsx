@@ -45,8 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log('fetch token api hit!', req.method, req.query);
 
   // ---------- Get data from the client, add it to the "fetchPetsInfo" object ----------
-  // const { animal, zipcode }: { animal: string; zipcode: string } = req.body;
-  const { type, zipcode }: {type: string; zipcode: string} = req.query;
+  const { type, zipcode } = req.query as { type: string; zipcode: string };
   fetchPetsInfo.animal = type;
   fetchPetsInfo.zipcode = zipcode;
 
