@@ -73,43 +73,53 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json(fetchPetsInfo);
   };
 
-  // ---------- Actual API request ----------
-  // Check to see if there's no token or the token has expired, get a new token
-  if(fetchPetsInfo.token === null || Date.now() >= fetchPetsInfo.tokenExpiration) {
-    console.log("serverside:  token missing or expired! getting a new token");
+  
+  // See what request is being made
+  if(req.method === "GET" && type && zipcode) {
+    console.log("getting all animals!");
 
-    try {
-      // ----- 1. Get token (for authenticating the request) -----
-      // make an API request to get a token 
-      // make a POST request since we're sending some data to get a token
-      const response = await fetch("https://api.petfinder.com/v2/oauth2/token",
-        {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: `grant_type=client_credentials&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
-        }
-      );
+    // ---------- Get all animals ----------
+    // Check to see if there's no token or the token has expired, get a new token
+    if(fetchPetsInfo.token === null || Date.now() >= fetchPetsInfo.tokenExpiration) {
+      console.log("serverside:  token missing or expired! getting a new token");
 
-      // convert the data to json
-      const data: Token = await response.json();
+      try {
+        // ----- 1. Get token (for authenticating the request) -----
+        // make an API request to get a token 
+        // make a POST request since we're sending some data to get a token
+        const response = await fetch("https://api.petfinder.com/v2/oauth2/token",
+          {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `grant_type=client_credentials&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
+          }
+        );
 
-      // store the token information in the "fetchPetsInfo" object
-      fetchPetsInfo.token = data.access_token;
-      fetchPetsInfo.tokenType = data.token_type;
-      fetchPetsInfo.tokenExpiration = Date.now() + data.expires_in * 1000;
+        // convert the data to json
+        const data: Token = await response.json();
 
-      // ----- 2. Fetch pets (pass in all the information needed) -----
+        // store the token information in the "fetchPetsInfo" object
+        fetchPetsInfo.token = data.access_token;
+        fetchPetsInfo.tokenType = data.token_type;
+        fetchPetsInfo.tokenExpiration = Date.now() + data.expires_in * 1000;
+
+        // ----- 2. Fetch pets (pass in all the information needed) -----
+        fetchPets(fetchPetsInfo);
+      } catch(error) {
+        // if there's a problem fetching a token, respond with an error
+        console.error("Error fetching token", error);
+        res.status(500).json({ error: "Failed to fetch token" });
+      };
+    } else {
+      // ----- If a token is already available, fetchPets -----
+      console.log("token not expired, so let's fetch some pets!");
       fetchPets(fetchPetsInfo);
-    } catch(error) {
-      // if there's a problem fetching a token, respond with an error
-      console.error("Error fetching token", error);
-      res.status(500).json({ error: "Failed to fetch token" });
     };
-  } else {
-    // ----- If a token is already available, fetchPets -----
-    console.log("token not expired, so let's fetch some pets!");
-    fetchPets(fetchPetsInfo);
-  };
+  }
+
+
+
+  
 };
