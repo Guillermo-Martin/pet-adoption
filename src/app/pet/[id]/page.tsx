@@ -19,7 +19,7 @@ function PetDetails() {
   const fetchPetById = async (petId: string) => {
     try {
       // get the response
-      const response = await fetch(`/api/fetch-pet/${petId}`, {
+      const response = await fetch(`/api/fetch-pet/${petId}`, { // <--- use query parameter
         method: "GET"
       });
 

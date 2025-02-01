@@ -36,12 +36,11 @@ function Provider({ children }: ProviderProps) {
   const fetchAnimals = async (type: string, zipcode: string) => {
     // make request to "/api/fetch-animals" and get a response (containing data)
     try {
-      const response = await fetch("/api/fetch-animals", {
-        method: "POST",
+      const response = await fetch(`/api/fetch-animals?type=${type}&zipcode=${zipcode}`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({animal: type, zipcode: zipcode})
       });
 
       // Convert the response to JSON

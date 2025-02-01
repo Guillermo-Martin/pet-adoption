@@ -42,12 +42,15 @@ const fetchPetsInfo: FetchPetsInfo = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // ---------- testing ----------
-  console.log('fetch token api hit!');
+  console.log('fetch token api hit!', req.method, req.query);
 
   // ---------- Get data from the client, add it to the "fetchPetsInfo" object ----------
-  const { animal, zipcode }: { animal: string; zipcode: string } = req.body;
-  fetchPetsInfo.animal = animal;
+  // const { animal, zipcode }: { animal: string; zipcode: string } = req.body;
+  const { type, zipcode }: {type: string; zipcode: string} = req.query;
+  fetchPetsInfo.animal = type;
   fetchPetsInfo.zipcode = zipcode;
+
+  
 
   // ---------- Functions ---------
   // ----- Function to get pets -----
