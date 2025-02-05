@@ -52,6 +52,44 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   
 
   // ---------- Functions ---------
+  // ----- Function to check and get token -----
+  const checkToken = async () => {
+    // Check to see if there's no token or the token has expired, get a new token
+    if(fetchPetsInfo.token === null || Date.now() >= fetchPetsInfo.tokenExpiration) {
+      console.log("serverside:  token missing or expired! getting a new token");
+
+      try {
+        // ----- 1. Get token (for authenticating the request) -----
+        // make an API request to get a token 
+        // make a POST request since we're sending some data to get a token
+        const response = await fetch("https://api.petfinder.com/v2/oauth2/token",
+          {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `grant_type=client_credentials&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
+          }
+        );
+
+        // convert the data to json
+        const data: Token = await response.json();
+
+        // store the token information in the "fetchPetsInfo" object
+        fetchPetsInfo.token = data.access_token;
+        fetchPetsInfo.tokenType = data.token_type;
+        fetchPetsInfo.tokenExpiration = Date.now() + data.expires_in * 1000;
+      } catch(error) {
+        // if there's a problem fetching a token, respond with an error
+        console.error("Error fetching token", error);
+        res.status(500).json({ error: "Failed to fetch token" });
+      };
+    };
+  };
+
+
+
+
   // ----- Function to get pets -----
   const fetchPets = async (obj: FetchPetsInfo) => {
     // destructure info from the object
@@ -78,111 +116,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if(req.method === "GET" && type && zipcode) {
     console.log("getting all animals!");
 
+    // get token
+    await checkToken();
+
     // ---------- Get all animals ----------
-    // Check to see if there's no token or the token has expired, get a new token
-    if(fetchPetsInfo.token === null || Date.now() >= fetchPetsInfo.tokenExpiration) {
-      console.log("serverside:  token missing or expired! getting a new token");
-
-      try {
-        // ----- 1. Get token (for authenticating the request) -----
-        // make an API request to get a token 
-        // make a POST request since we're sending some data to get a token
-        const response = await fetch("https://api.petfinder.com/v2/oauth2/token",
-          {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `grant_type=client_credentials&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
-          }
-        );
-
-        // convert the data to json
-        const data: Token = await response.json();
-
-        // store the token information in the "fetchPetsInfo" object
-        fetchPetsInfo.token = data.access_token;
-        fetchPetsInfo.tokenType = data.token_type;
-        fetchPetsInfo.tokenExpiration = Date.now() + data.expires_in * 1000;
-
-        // ----- 2. Fetch pets (pass in all the information needed) -----
-        fetchPets(fetchPetsInfo);
-      } catch(error) {
-        // if there's a problem fetching a token, respond with an error
-        console.error("Error fetching token", error);
-        res.status(500).json({ error: "Failed to fetch token" });
-      };
-    } else {
-      // ----- If a token is already available, fetchPets -----
-      console.log("token not expired, so let's fetch some pets!");
-      fetchPets(fetchPetsInfo);
-    };
+    fetchPets(fetchPetsInfo);
   } else if(req.method === "GET" && id) {
     console.log("i'm getting an individual animal");
 
-    // check token to make sure there's one that isn't expired, then make API request to get animal
-    // Check to see if there's no token or the token has expired, get a new token
-    if(fetchPetsInfo.token === null || Date.now() >= fetchPetsInfo.tokenExpiration) {
-      console.log("serverside:  token missing or expired! getting a new token");
+    // get token
+    await checkToken();
 
-      try {
-        // ----- 1. Get token (for authenticating the request) -----
-        // make an API request to get a token 
-        // make a POST request since we're sending some data to get a token
-        const response = await fetch("https://api.petfinder.com/v2/oauth2/token",
-          {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `grant_type=client_credentials&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
-          }
-        );
+    // ----- 2. Fetch pet info -----
+    const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `${fetchPetsInfo.tokenType} ${fetchPetsInfo.token}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    });
 
-        // convert the data to json
-        const data: Token = await response.json();
+    const petData = await petResponse.json();
 
-        // store the token information in the "fetchPetsInfo" object
-        fetchPetsInfo.token = data.access_token;
-        fetchPetsInfo.tokenType = data.token_type;
-        fetchPetsInfo.tokenExpiration = Date.now() + data.expires_in * 1000;
-
-        // ----- 2. Fetch pet info -----
-        const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
-          method: "GET",
-          headers: {
-            "Authorization": `${fetchPetsInfo.tokenType} ${fetchPetsInfo.token}`,
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        });
-
-        const petData = await petResponse.json();
-
-        res.status(200).json(petData);
-      } catch(error) {
-        // if there's a problem fetching a token, respond with an error
-        console.error("Error fetching token", error);
-        res.status(500).json({ error: "Failed to fetch token" });
-      };
-    } else {
-      // ----- If a token is already available, fetch pet info -----
-      console.log("token not expired, getting individual pet!");
-
-      const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
-        method: "GET",
-        headers: {
-          "Authorization": `${fetchPetsInfo.tokenType} ${fetchPetsInfo.token}`,
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      });
-
-      const petData = await petResponse.json();
-
-      res.status(200).json(petData);
-    };
-  }
-
-
-
-  
+    res.status(200).json(petData);
+  };
 };
