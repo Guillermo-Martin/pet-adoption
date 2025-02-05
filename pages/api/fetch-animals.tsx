@@ -49,8 +49,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   fetchPetsInfo.animal = type;
   fetchPetsInfo.zipcode = zipcode;
 
-  
-
   // ---------- Functions ---------
   // ----- Function to check and get token -----
   const checkToken = async () => {
@@ -87,28 +85,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
   };
 
-
-
-
   // ----- Function to get pets -----
   const fetchPets = async (obj: FetchPetsInfo) => {
     // destructure info from the object
     const { animal, zipcode, tokenType, token } = obj;
 
-    // make request to get search results
-    const response = await fetch(`https://api.petfinder.com/v2/animals?type=${animal}&location=${zipcode}`, {
-      method: "GET",
-      headers: {
-        "Authorization": `${tokenType} ${token}`,
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    });
+    try {
+      // make request to get search results
+      const response = await fetch(`https://api.petfinder.com/v2/animals?type=${animal}&location=${zipcode}`, {
+        method: "GET",
+        headers: {
+          "Authorization": `${tokenType} ${token}`,
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      });
 
-    // convert the data to JSON, then send it to the client
-    const searchData: SearchResults = await response.json();
-
-    fetchPetsInfo.searchResults = searchData.animals;
-    res.status(200).json(fetchPetsInfo);
+      // convert the data to JSON, then send it to the client
+      const searchData: SearchResults = await response.json();
+      fetchPetsInfo.searchResults = searchData.animals;
+      res.status(200).json(fetchPetsInfo);
+    } catch(error) {
+      console.error("Error fetching search results", error);
+      res.status(500).json({ error: "Failed to fetch search results"});
+    };
   };
 
   
