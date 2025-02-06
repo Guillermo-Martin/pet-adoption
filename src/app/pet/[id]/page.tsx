@@ -4,12 +4,20 @@ import { useParams } from "next/navigation";
 
 
 interface PetDetails {
-  name: string;
-  age: string;
-  gender: string;
-  description: string;
-  size: string;
-  status: string;
+  animal: {
+    name: string;
+    age: string;
+    gender: string;
+    description: string;
+    size: string;
+    status: string;
+    breeds: {
+      primary: string;
+      secondary: string;
+    };
+    photos: {full: string}[] | [];
+    tags: string[];
+  }
 }
 
 
@@ -52,7 +60,7 @@ function PetDetails() {
         // set the pet state
         setPet(data);
   
-        console.log("here is your pet data", data);
+        console.log("here is your pet data", data.animal);
       } catch (error) {
         console.log(error);
       } finally {
@@ -64,21 +72,28 @@ function PetDetails() {
   }, [id]);
   
 
-  
-
-
-
+  // ---------- check to see if pet data has been loaded ----------
+  const renderedChar = pet?.animal.tags.map((char: string) => {
+    return <p key={char}>{char}</p>
+  });
 
   return (
     <div>
-      {(pet && isLoading === false) ? <h1>results</h1> : <h1>loading</h1>}
-      {/* <h1>Pet Details page</h1> */}
-      {/* <p>{pet.name}</p>
-      <p>{pet.age}</p>
-      <p>{pet.gender}</p>
-      <p>{pet.description}</p>
-      <p>{pet.size}</p>
-      <p>{pet.status}</p> */}
+      {(pet && isLoading === false) 
+        ? 
+          <div>
+            <img src={pet.animal.photos[0].full} />
+            <p>{pet.animal.name}</p>
+            <p>{pet.animal.breeds.primary}, {pet.animal.breeds.secondary}</p>
+            <p>{pet.animal.age}</p>
+            <p>{pet.animal.gender}</p>
+            <p>{pet.animal.description}</p>
+            <p>{pet.animal.size}</p>
+            <p>{pet.animal.status}</p>
+            <div>{renderedChar}</div>
+          </div>
+        : 
+          <h1>loading</h1>}
     </div>
   );
 };
