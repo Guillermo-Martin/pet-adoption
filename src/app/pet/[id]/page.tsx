@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
-
+// ---------- Intefaces ----------
 interface PetDetails {
   animal: {
     name: string;
@@ -22,13 +22,14 @@ interface PetDetails {
 
 
 function PetDetails() {
+  // ----- State -----
   const [pet, setPet] = useState<PetDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ---------- get the pet id from the URL ----------
+  // ----- get the pet id from the URL -----
   const params = useParams<{id: string}>();
 
-  // handle case if type is "undefined"
+  // handle case if the "params" type is "undefined"
   if(!params) {
     throw new Error("Unable to get URL information.");
   };
@@ -37,46 +38,45 @@ function PetDetails() {
   const { id } = params;
   console.log("here's the pet's id", typeof id);
 
-
-  
-
-  
-
-  // ---------- make request to get pet by id ----------
+  // ---------- Make request to get pet by id ----------
   useEffect(() => {
     const fetchPetById = async (petId: string) => {
       try {
         // set isLoading to "true"
         setIsLoading(true);
 
-        // get the response
-        const response = await fetch(`/api/fetch-animals?id=${petId}`, { // <--- use query parameter
+        // make a request and get the response
+        const response = await fetch(`/api/fetch-animals?id=${petId}`, {
           method: "GET"
         });
   
         // convert the response to data
         const data = await response.json();
   
-        // set the pet state
+        // set the "pet" state to be the data
         setPet(data);
-  
         console.log("here is your pet data", data.animal);
       } catch (error) {
         console.log(error);
       } finally {
+        // set isLoading to "false"
         setIsLoading(false);
-      }
+      };
     };
 
+    // call the function to get the data
     fetchPetById(id);
   }, [id]);
   
 
-  // ---------- check to see if pet data has been loaded ----------
+  // ---------- Pet characteristics ----------
+  // see if the pet data exists; if so, map through the tags and create an element with
+  // the characteristics
   const renderedChar = pet?.animal.tags.map((char: string) => {
     return <p key={char}>{char}</p>
   });
 
+  // ---------- Component ----------
   return (
     <div>
       {(pet && isLoading === false) 
