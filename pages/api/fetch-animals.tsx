@@ -13,15 +13,12 @@ export const config = {
 interface Token {
   token_type: string;
   expires_in: number;
-  access_token: string;
+  access_token: null | string;
 }
 
 interface FetchPetsInfo {
   animal: string;
   zipcode: string;
-  token: string | null;
-  tokenType: string | null;
-  tokenExpiration: number;
   searchResults: Animal[];
 };
 
@@ -29,7 +26,7 @@ interface SearchResults {
   animals: Animal[];
 };
 
-const tokenInformation = {
+const tokenInformation: Token = {
   token_type: "",
   expires_in: 0,
   access_token: null
