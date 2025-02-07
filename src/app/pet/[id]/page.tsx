@@ -40,6 +40,7 @@ function PetDetails() {
 
   // ---------- Make request to get pet by id ----------
   useEffect(() => {
+    // function to get pet by id
     const fetchPetById = async (petId: string) => {
       try {
         // set isLoading to "true"
@@ -55,15 +56,12 @@ function PetDetails() {
 
         // check to see if individual data was retrieved
         if(data.status === 500) {
+          // if not, set pet to "500" (the status)
           setPet(500);
         } else {
+          // otherwise add the data to the "pet" state
           setPet(data);
-        }
-  
-        // set the "pet" state to be the data
-        // setPet(data);
-        // console.log("here is your pet data", pet.animal);
-        // console.log("here is your pet data", data);
+        };
       } catch (error) {
         console.log(error);
       } finally {
@@ -86,28 +84,30 @@ function PetDetails() {
   // ---------- Component ----------
   return (
     <div>
-      
-
       {
+        // if the status is "500", display error message
         (pet === 500) 
-        ? 
-          "something went wrong" 
-        : 
-          (pet && isLoading === false && typeof pet !== "number")
-            ?
-              <div>
-                <img src={pet.animal.photos[0].full} />
-                <p>{pet.animal.name}</p>
-                <p>{pet.animal.breeds.primary}, {pet.animal.breeds.secondary}</p>
-                <p>{pet.animal.age}</p>
-                <p>{pet.animal.gender}</p>
-                <p>{pet.animal.description}</p>
-                <p>{pet.animal.size}</p>
-                <p>{pet.animal.status}</p>
-                {/* <div>{renderedChar}</div> */}
-              </div>
-            :
-              <h1>Loading</h1>
+          ? 
+            "something went wrong" 
+          : 
+            // otherwise, load the data.
+            // if there's pet data, isLoading is false, and "pet" isn't a number, show the data
+            (pet && isLoading === false && typeof pet !== "number")
+              ?
+                <div>
+                  <img src={pet.animal.photos[0].full} />
+                  <p>{pet.animal.name}</p>
+                  <p>{pet.animal.breeds.primary}, {pet.animal.breeds.secondary}</p>
+                  <p>{pet.animal.age}</p>
+                  <p>{pet.animal.gender}</p>
+                  <p>{pet.animal.description}</p>
+                  <p>{pet.animal.size}</p>
+                  <p>{pet.animal.status}</p>
+                  {/* <div>{renderedChar}</div> */}
+                </div>
+              :
+                // otherwise, show the loading status
+                <h1>Loading</h1>
       }
     </div>
   );
