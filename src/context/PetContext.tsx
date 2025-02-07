@@ -17,7 +17,7 @@ interface SearchResults {
 };
 
 interface PetContextTypes {
-  petResults: Animal[];
+  petResults: Animal[] | number;
   fetchAnimals: (type: string, zipcode: string) => void;
 };
 
@@ -45,10 +45,12 @@ function Provider({ children }: ProviderProps) {
 
       // Convert the response to JSON
       const data: SearchResults = await response.json();
-      console.log("Here is the fetched data:", data);
+      console.log("Here is the fetched data for all pets:", data);
 
-      // set the state to be the fetched data
-      setPetResults(data.searchResults);
+      // send all the data
+      setPetResults(data);
+
+      
     } catch (error) {
       console.log(error);
     };

@@ -1,14 +1,20 @@
 "use client";
+import { useState } from "react";
 import usePetContext from "@/hooks/usePetContext";
 import SearchResultCard from "@/components/SearchResultCard";
 import type { Animal } from "@/interfaces/Animal";
 
 function SearchResults() {
+  // 
+
+
   // Get search results from the PetContext
   const { petResults } = usePetContext();
+  console.log("in search results", petResults);
   
-  // Render the results in a card
-  const renderedSearchResults = petResults.map((result: Animal) => {
+
+  
+  const renderedSearchResults = petResults.searchResults.map((result: Animal) => {
     return (
       <SearchResultCard 
         key={result.id}
@@ -23,13 +29,16 @@ function SearchResults() {
     );
   });
 
+  
+  
+
   // ---------- Component ----------
   return (
     <div>
       <h1>Search results page</h1>
 
       <div className="flex flex-wrap">
-        {renderedSearchResults}
+        {petResults.status === 500 ? "something went wrong" : renderedSearchResults}
       </div>
     </div>
   );
