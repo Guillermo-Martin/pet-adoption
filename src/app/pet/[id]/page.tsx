@@ -23,7 +23,7 @@ interface PetDetails {
 
 function PetDetails() {
   // ----- State -----
-  const [pet, setPet] = useState<PetDetails | null>(null);
+  const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // ----- get the pet id from the URL -----
@@ -62,8 +62,8 @@ function PetDetails() {
   
         // set the "pet" state to be the data
         // setPet(data);
-        console.log("here is your pet data", data.animal);
-        console.log("here is your pet data", data);
+        // console.log("here is your pet data", pet.animal);
+        // console.log("here is your pet data", data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -75,7 +75,6 @@ function PetDetails() {
     // call the function to get the data
     fetchPetById(id);
   }, [id]);
-  
 
   // ---------- Pet characteristics ----------
   // see if the pet data exists; if so, map through the tags and create an element with
@@ -87,24 +86,29 @@ function PetDetails() {
   // ---------- Component ----------
   return (
     <div>
-      {/* {(pet && isLoading === false) 
-        ? 
-          <div>
-            <img src={pet.animal.photos[0].full} />
-            <p>{pet.animal.name}</p>
-            <p>{pet.animal.breeds.primary}, {pet.animal.breeds.secondary}</p>
-            <p>{pet.animal.age}</p>
-            <p>{pet.animal.gender}</p>
-            <p>{pet.animal.description}</p>
-            <p>{pet.animal.size}</p>
-            <p>{pet.animal.status}</p>
-            <div>{renderedChar}</div>
-          </div>
-        : 
-          <h1>loading</h1>
-      } */}
+      
 
-        {(pet === 500) ? "something went wrong" : "load data" }
+      {
+        (pet === 500) 
+        ? 
+          "something went wrong" 
+        : 
+          (pet && isLoading === false && typeof pet !== "number")
+            ?
+              <div>
+                <img src={pet.animal.photos[0].full} />
+                <p>{pet.animal.name}</p>
+                <p>{pet.animal.breeds.primary}, {pet.animal.breeds.secondary}</p>
+                <p>{pet.animal.age}</p>
+                <p>{pet.animal.gender}</p>
+                <p>{pet.animal.description}</p>
+                <p>{pet.animal.size}</p>
+                <p>{pet.animal.status}</p>
+                {/* <div>{renderedChar}</div> */}
+              </div>
+            :
+              <h1>Loading</h1>
+      }
     </div>
   );
 };
