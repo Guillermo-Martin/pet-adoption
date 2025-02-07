@@ -29,13 +29,20 @@ interface SearchResults {
   animals: Animal[];
 };
 
+const tokenInformation = {
+  token_type: "",
+  expires_in: 0,
+  access_token: null
+};
+
+
 // object to hold information for retrieving a token
 const fetchPetsInfo: FetchPetsInfo = {
   animal: "",
   zipcode: "",
-  token: null,
-  tokenType: null,
-  tokenExpiration: 0,
+  // token: null,
+  // tokenType: null,
+  // tokenExpiration: 0,
   searchResults: []
 };
 
@@ -52,9 +59,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // ---------- Functions ---------
   // ----- Function to check and get token -----
   const checkToken = async () => {
+    console.log('IN CHECK TOKEN', tokenInformation);
     // Check to see if there's no token or the token has expired, get a new token
-    if(fetchPetsInfo.token === null || Date.now() >= fetchPetsInfo.tokenExpiration) {
-      console.log("serverside:  token missing or expired! getting a new token");
+    // if(fetchPetsInfo.token === null || Date.now() >= fetchPetsInfo.tokenExpiration) {
+    // if(tokenInformation.access_token === null || Date.now() >= tokenInformation.expires_in) {
+      console.log("IN CHECK TOKEN FUNCTION");
 
       try {
         // ----- 1. Get token (for authenticating the request) -----
@@ -70,43 +79,80 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }
         );
 
+        // console.log("here it the token response!", response);
+
         // convert the data to json
         const data: Token = await response.json();
 
         // store the token information in the "fetchPetsInfo" object
-        fetchPetsInfo.token = data.access_token;
-        fetchPetsInfo.tokenType = data.token_type;
-        fetchPetsInfo.tokenExpiration = Date.now() + data.expires_in * 1000;
+        tokenInformation.access_token = data.access_token;
+        tokenInformation.token_type = data.token_type;
+        tokenInformation.expires_in = Date.now() + data.expires_in * 1000;
+
+        // return the data
+        // return data;
       } catch(error) {
         // if there's a problem fetching a token, respond with an error
         console.error("Error fetching token", error);
         res.status(500).json({ error: "Failed to fetch token" });
       };
-    };
+    // };
   };
 
   // ----- Function to get pets -----
   const fetchPets = async (obj: FetchPetsInfo) => {
-    // destructure info from the object
-    const { animal, zipcode, tokenType, token } = obj;
+    console.log("in fetchpets", tokenInformation);
+    // check to see if a token has already been retrieved and isn't expired
+    if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in)) {
+      
+      console.log("a token exists and isn't expired.  getting animals.")
 
-    try {
-      // make request to get search results
-      const response = await fetch(`https://api.petfinder.com/v2/animals?type=${animal}&location=${zipcode}`, {
-        method: "GET",
-        headers: {
-          "Authorization": `${tokenType} ${token}`,
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      });
+      // make the request
+      try {
+        // make request to get search results
+        const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
+          method: "GET",
+          headers: {
+            // "Authorization": `${tokenType} ${token}`,
+            "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+  
+        // convert the data to JSON, then send it to the client
+        const searchData: SearchResults = await response.json();
+        fetchPetsInfo.searchResults = searchData.animals;
+        res.status(200).json(fetchPetsInfo);
+      } catch(error) {
+        console.error("Error fetching search results", error);
+        res.status(500).json({ error: "Failed to fetch search results"});
+      };
+    } else {
+      console.log("no token or expired.  getting a token, then getting pets.");
 
-      // convert the data to JSON, then send it to the client
-      const searchData: SearchResults = await response.json();
-      fetchPetsInfo.searchResults = searchData.animals;
-      res.status(200).json(fetchPetsInfo);
-    } catch(error) {
-      console.error("Error fetching search results", error);
-      res.status(500).json({ error: "Failed to fetch search results"});
+      // if a token hasn't been retrieved (or is expired) get one
+      await checkToken();
+
+      // then make the request
+      try {
+        // make request to get search results
+        const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
+          method: "GET",
+          headers: {
+            // "Authorization": `${tokenType} ${token}`,
+            "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+  
+        // convert the data to JSON, then send it to the client
+        const searchData: SearchResults = await response.json();
+        fetchPetsInfo.searchResults = searchData.animals;
+        res.status(200).json(fetchPetsInfo);
+      } catch(error) {
+        console.error("Error fetching search results", error);
+        res.status(500).json({ error: "Failed to fetch search results"});
+      };
     };
   };
 
@@ -116,7 +162,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log("getting all animals!");
 
     // get token
-    await checkToken();
+    // await checkToken();
 
     // ---------- Get all animals ----------
     fetchPets(fetchPetsInfo);
