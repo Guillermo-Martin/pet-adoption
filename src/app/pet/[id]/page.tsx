@@ -52,10 +52,18 @@ function PetDetails() {
   
         // convert the response to data
         const data = await response.json();
+
+        // check to see if individual data was retrieved
+        if(data.status === 500) {
+          setPet(500);
+        } else {
+          setPet(data);
+        }
   
         // set the "pet" state to be the data
-        setPet(data);
+        // setPet(data);
         console.log("here is your pet data", data.animal);
+        console.log("here is your pet data", data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -72,14 +80,14 @@ function PetDetails() {
   // ---------- Pet characteristics ----------
   // see if the pet data exists; if so, map through the tags and create an element with
   // the characteristics
-  const renderedChar = pet?.animal.tags.map((char: string) => {
-    return <p key={char}>{char}</p>
-  });
+  // const renderedChar = pet?.animal.tags.map((char: string) => {
+  //   return <p key={char}>{char}</p>
+  // });
 
   // ---------- Component ----------
   return (
     <div>
-      {(pet && isLoading === false) 
+      {/* {(pet && isLoading === false) 
         ? 
           <div>
             <img src={pet.animal.photos[0].full} />
@@ -93,7 +101,10 @@ function PetDetails() {
             <div>{renderedChar}</div>
           </div>
         : 
-          <h1>loading</h1>}
+          <h1>loading</h1>
+      } */}
+
+        {(pet === 500) ? "something went wrong" : "load data" }
     </div>
   );
 };

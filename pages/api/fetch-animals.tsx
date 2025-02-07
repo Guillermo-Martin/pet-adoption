@@ -138,6 +138,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         // make request to get individual pet
         const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
+        // const petResponse = await fetch(``, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
@@ -150,7 +151,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json(petData);
       } catch(error) {
         console.error("Error fetching individual pet", error);
-        res.status(500).json({ error: "Failed to fetch individual pet data"});
+        res.status(500).json({ error: "Failed to fetch individual pet data.", status: 500});
       };
     };
 
