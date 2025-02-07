@@ -53,8 +53,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // ---------- Functions ---------
   // ----- Get a token -----
-  const checkToken = async () => {
-    console.log('IN CHECK TOKEN', tokenInformation);
+  const getToken = async () => {
+    console.log('IN GET TOKEN', tokenInformation);
     
     try {
       // make an API request to get a token 
@@ -116,7 +116,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
       // if a token hasn't been retrieved (or is expired) get one
       console.log("no token or expired.  getting a token, then getting pets.");
-      await checkToken();
+      await getToken();
 
       // then make the request
       fetchAllPets();
@@ -134,7 +134,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log("i'm getting an individual animal");
 
     // get token
-    await checkToken();
+    await getToken();
 
     // ----- 2. Fetch pet info -----
     try {
