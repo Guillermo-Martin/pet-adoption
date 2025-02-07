@@ -123,6 +123,45 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
   };
 
+  // ----- Get pet by id -----
+  const getPetById = async (id: string) => {
+    const fetchPetById = async () => {
+      // make the request
+      try {
+        // make request to get individual pet
+        const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
+          method: "GET",
+          headers: {
+            "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+  
+        // convert response to json and send it to the client
+        const petData = await petResponse.json();
+        res.status(200).json(petData);
+      } catch(error) {
+        console.error("Error fetching individual pet", error);
+        res.status(500).json({ error: "Failed to fetch individual pet data"});
+      };
+    };
+
+    // see if the token already exists and isn't expired
+    if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in)) {
+      console.log("a token exists and isn't expired.  getting animals.")
+
+      // then make the api request
+      fetchPetById();
+    } else {
+      // if a token hasn't been retrieved (or is expired) get one
+      console.log("no token or expired.  getting a token, then getting pets.");
+      await getToken();
+
+      // then make the request
+      fetchPetById();
+    };
+  }
+
   
   // ---------- See what request is being made ----------
   // ----- Getting all animals (search results) -----
@@ -132,27 +171,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else if(req.method === "GET" && id) {
     // ----- Getting animal by id (specific animal) -----
     console.log("i'm getting an individual animal");
-
-    // get token
-    await getToken();
-
-    // ----- 2. Fetch pet info -----
-    try {
-      // make request to get individual pet
-      const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
-        method: "GET",
-        headers: {
-          "Authorization": `${fetchPetsInfo.tokenType} ${fetchPetsInfo.token}`,
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      });
-
-      // convert response to json and send it to the client
-      const petData = await petResponse.json();
-      res.status(200).json(petData);
-    } catch(error) {
-      console.error("Error fetching individual pet", error);
-      res.status(500).json({ error: "Failed to fetch individual pet data"});
-    };
+    getPetById(id);
   };
 };
