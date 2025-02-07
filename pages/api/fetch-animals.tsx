@@ -91,7 +91,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // make the request
       try {
         // make request to get search results
-        const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
+        // const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
+        const response = await fetch(``, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
@@ -105,7 +106,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json(fetchPetsInfo);
       } catch(error) {
         console.error("Error fetching search results", error);
-        res.status(500).json({ error: "Failed to fetch search results"});
+        res.status(500).json({ error: "Failed to fetch search results", status: 500, searchResults: [] });
       };
     } else {
       // if a token hasn't been retrieved (or is expired) get one
@@ -115,7 +116,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // then make the request
       try {
         // make request to get search results
-        const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
+        // const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
+        const response = await fetch(``, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
@@ -129,7 +131,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json(fetchPetsInfo);
       } catch(error) {
         console.error("Error fetching search results", error);
-        res.status(500).json({ error: "Failed to fetch search results"});
+        res.status(500).json({ error: "Failed to fetch search results", status: 500, searchResults: [] });
       };
     };
   };
