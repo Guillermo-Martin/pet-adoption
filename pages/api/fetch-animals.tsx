@@ -9,7 +9,9 @@ export const config = {
   },
 };
 
-// ---------- Interfaces ----------
+// --------------------------------------------------------------------
+//                            Interfaces
+// --------------------------------------------------------------------
 interface Token {
   token_type: string;
   expires_in: number;
@@ -26,13 +28,16 @@ interface SearchResults {
   animals: Animal[];
 };
 
+
+// --------------------------------------------------------------------
+//                                Data
+// --------------------------------------------------------------------
 // Token information
 const tokenInformation: Token = {
   token_type: "",
   expires_in: 0,
   access_token: null
 };
-
 
 // Pet information and search results
 const fetchPetsInfo: FetchPetsInfo = {
@@ -41,7 +46,9 @@ const fetchPetsInfo: FetchPetsInfo = {
   searchResults: []
 };
 
-
+// --------------------------------------------------------------------
+//                             Handler
+// --------------------------------------------------------------------
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // ---------- testing ----------
   console.log('fetch token api hit!', req.method, req.query);
@@ -51,14 +58,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   fetchPetsInfo.animal = type;
   fetchPetsInfo.zipcode = zipcode;
 
-  // ---------- Functions ---------
-  // ----- Get a token -----
+  // --------------------------------------------------------------------
+  //                            Functions
+  // --------------------------------------------------------------------
+  // ---------- Get a token ----------
   const getToken = async () => {
     console.log('IN GET TOKEN', tokenInformation);
     
     try {
-      // make an API request to get a token 
-      // make a POST request since we're sending some data to get a token
+      // make an API request to get a token; make a POST request since we're sending some data to get a token
       const response = await fetch("https://api.petfinder.com/v2/oauth2/token",
         {
           method: "POST",
@@ -83,10 +91,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
   };
 
-  // ----- Get all pets -----
+  // ---------- Get all pets ----------
   const getAllPets = async (obj: FetchPetsInfo) => {
+    // function to make the request
     const fetchAllPets = async () => {
-      // make the request
       try {
         // make request to get search results
         const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
@@ -114,19 +122,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // make the request
       fetchAllPets();
     } else {
-      // if a token hasn't been retrieved (or is expired) get one
+      // if a token hasn't been retrieved (or is expired) get one...
       console.log("no token or expired.  getting a token, then getting pets.");
       await getToken();
 
-      // then make the request
+      // ...then make the request
       fetchAllPets();
     };
   };
 
-  // ----- Get pet by id -----
+  // ---------- Get pet by id ----------
   const getPetById = async (id: string) => {
+    // function to make the request
     const fetchPetById = async () => {
-      // make the request
       try {
         // make request to get individual pet
         const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
@@ -146,30 +154,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       };
     };
 
-    // see if the token already exists and isn't expired
+    // check to see if a token has already been retrieved and isn't expired
     if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in)) {
       console.log("a token exists and isn't expired.  getting animals.")
 
       // then make the api request
       fetchPetById();
     } else {
-      // if a token hasn't been retrieved (or is expired) get one
+      // if a token hasn't been retrieved (or is expired) get one...
       console.log("no token or expired.  getting a token, then getting pets.");
       await getToken();
 
-      // then make the request
+      // ...then make the request
       fetchPetById();
     };
   }
 
   
-  // ---------- See what request is being made ----------
-  // ----- Getting all animals (search results) -----
+  // --------------------------------------------------------------------
+  //                 Determining the type of request
+  // --------------------------------------------------------------------
+  // ---------- GET request to get all pets ----------
   if(req.method === "GET" && type && zipcode) {
     console.log("getting all animals!");
     getAllPets(fetchPetsInfo);
   } else if(req.method === "GET" && id) {
-    // ----- Getting animal by id (specific animal) -----
+    // ---------- GET request to get pet by id ----------
     console.log("i'm getting an individual animal");
     getPetById(id);
   };
