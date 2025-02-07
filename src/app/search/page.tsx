@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import usePetContext from "@/hooks/usePetContext";
 import SearchResultCard from "@/components/SearchResultCard";
 import type { Animal } from "@/interfaces/Animal";
@@ -9,7 +8,7 @@ function SearchResults() {
   const { petResults } = usePetContext();
   console.log("in search results", petResults);
 
-  
+  // render search results
   const renderedSearchResults = petResults?.searchResults.map((result: Animal) => {
     return (
       <SearchResultCard 
@@ -24,9 +23,6 @@ function SearchResults() {
       />
     );
   });
-
-  
-  
 
   // ---------- Component ----------
   return (

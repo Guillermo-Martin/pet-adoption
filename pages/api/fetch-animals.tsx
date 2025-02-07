@@ -59,7 +59,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // make an API request to get a token 
       // make a POST request since we're sending some data to get a token
       const response = await fetch("https://api.petfinder.com/v2/oauth2/token",
-      // const response = await fetch("",
         {
           method: "POST",
           headers: {
