@@ -5,16 +5,12 @@ import SearchResultCard from "@/components/SearchResultCard";
 import type { Animal } from "@/interfaces/Animal";
 
 function SearchResults() {
-  // 
-
-
   // Get search results from the PetContext
   const { petResults } = usePetContext();
   console.log("in search results", petResults);
-  
 
   
-  const renderedSearchResults = petResults.searchResults.map((result: Animal) => {
+  const renderedSearchResults = petResults?.searchResults.map((result: Animal) => {
     return (
       <SearchResultCard 
         key={result.id}
@@ -38,7 +34,7 @@ function SearchResults() {
       <h1>Search results page</h1>
 
       <div className="flex flex-wrap">
-        {petResults.status === 500 ? "something went wrong" : renderedSearchResults}
+        {petResults?.status === 500 ? "something went wrong" : renderedSearchResults}
       </div>
     </div>
   );

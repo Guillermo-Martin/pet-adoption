@@ -9,15 +9,13 @@ interface ProviderProps {
 
 interface SearchResults {
   animal: string;
-  searchResults: Animal[];
-  token: string;
-  tokenExpiration: number;
-  tokenType: string;
+  searchResults: Animal[] | [];
   zipcode: string;
+  status: number | null;
 };
 
 interface PetContextTypes {
-  petResults: Animal[] | number;
+  petResults: SearchResults | null;
   fetchAnimals: (type: string, zipcode: string) => void;
 };
 
@@ -30,7 +28,7 @@ const PetContext = createContext<PetContextTypes | undefined>(undefined);
 // the "children" props is of type "ReactNode" (defined in the "ProviderProps" interface)
 function Provider({ children }: ProviderProps) {
   // ----- State -----
-  const [petResults, setPetResults] = useState<Animal[]>([]);
+  const [petResults, setPetResults] = useState<SearchResults | null>(null);
 
   // ----- Functions -----
   const fetchAnimals = async (type: string, zipcode: string) => {
@@ -49,8 +47,6 @@ function Provider({ children }: ProviderProps) {
 
       // send all the data
       setPetResults(data);
-
-      
     } catch (error) {
       console.log(error);
     };
