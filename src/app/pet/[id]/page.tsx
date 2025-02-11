@@ -40,6 +40,10 @@ function PetDetails() {
   const { id } = params;
   console.log("here's the pet's id", typeof id);
 
+  // variable to hold pet characteristics
+  let characteristics: ReactElement[] | undefined = [];
+
+
   // ---------- Make request to get pet by id ----------
   useEffect(() => {
     // function to get pet by id
@@ -88,40 +92,7 @@ function PetDetails() {
     fetchPetById(id);
   }, [id]);
 
-  // ---------- Pet characteristics ----------
-  // see if the pet data exists; if so, map through the tags and create an element with
-  // the characteristics
-  // const renderedChar = pet?.animal.tags.map((char: string) => {
-  //   return <p key={char}>{char}</p>
-  // });
-  // console.log("pet state", pet);
-  // console.log("pet images 1", hasPicture);
-  // console.log("running if statement after checking picture state")
-
-  // *** check to see if the photos array is empty
-  // if(typeof pet !== "number" && pet?.animal.photos.length === 0) {
-  //   console.log("there are no pictures to display");
-  //   setHasPicture(true);
-  // } else {
-  //   console.log("there are pictures to display!");
-  // };
-
-
-   let characteristics: ReactElement[] | undefined = [];
-  
-
-  // *** check to see if the tags array is empty
-  // if(typeof pet !== "number" && pet?.animal.tags.length === 0) {
-  //   console.log("there are no characteristics to display");
-  // } else {
-  //   console.log("there are characteristics to display");
-  // };
-
-  // if(hasCharacteristics) {
-  //   charactersitics = data.animal.tags.map((characteristic) => {
-  // })
-  // }
-
+  // ---------- Rendering pet characteristics ----------
   // typing a map of JSX elements:  https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
   if(hasCharacteristics && typeof pet !== "number") {
     characteristics = pet?.animal.tags.map((characteristic: string) => {
