@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { useParams } from "next/navigation";
 
 // ---------- Intefaces ----------
@@ -25,6 +25,7 @@ function PetDetails() {
   // ----- State -----
   const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [hasPicture, setHasPicture] = useState(false);
+  const [hasCharacteristics, setHasCharacteristics] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // ----- get the pet id from the URL -----
@@ -55,7 +56,7 @@ function PetDetails() {
         // convert the response to data
         const data = await response.json();
 
-        console.log("here is the individual pet data, line 58", data.animal.photos);
+        console.log("here is the individual pet data, line 58", data);
 
         // check to see if individual data was retrieved
         if(data.status === 500) {
@@ -71,6 +72,10 @@ function PetDetails() {
           setHasPicture(true);
         };
 
+        // check to see if the data has animal characteristics, if so, set "hasCharacteristics" to true
+        if(data.animal.tags.length !== 0) {
+          setHasCharacteristics(true);
+        };
       } catch (error) {
         console.log(error);
       } finally {
@@ -102,14 +107,26 @@ function PetDetails() {
   // };
 
 
-
+   let characteristics: ReactElement[] | undefined = [];
   
 
   // *** check to see if the tags array is empty
-  if(typeof pet !== "number" && pet?.animal.tags.length === 0) {
-    console.log("there are no characteristics to display");
-  } else {
-    console.log("there are characteristics to display");
+  // if(typeof pet !== "number" && pet?.animal.tags.length === 0) {
+  //   console.log("there are no characteristics to display");
+  // } else {
+  //   console.log("there are characteristics to display");
+  // };
+
+  // if(hasCharacteristics) {
+  //   charactersitics = data.animal.tags.map((characteristic) => {
+  // })
+  // }
+
+  // typing a map of JSX elements:  https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
+  if(hasCharacteristics && typeof pet !== "number") {
+    characteristics = pet?.animal.tags.map((characteristic: string) => {
+      return <p key={characteristic}>{characteristic}</p>
+    });
   };
 
   // ---------- Component ----------
@@ -135,7 +152,7 @@ function PetDetails() {
                   <p>{pet.animal.description}</p>
                   <p>{pet.animal.size}</p>
                   <p>{pet.animal.status}</p>
-                  {/* <div>{renderedChar}</div> */}
+                  <div>{characteristics}</div>
                 </div>
               :
                 // otherwise, show the loading status
