@@ -17,6 +17,16 @@ interface PetDetails {
     };
     photos: {full: string}[] | [];
     tags: string[];
+    contact: {
+      address: {
+        address1: string;
+        city: string;
+        state: string;
+        postcode: string;
+      },
+      email: string;
+      phone: string;
+    }
   }
 }
 
@@ -124,6 +134,11 @@ function PetDetails() {
                   <p>{pet.animal.size}</p>
                   <p>{pet.animal.status}</p>
                   <div>{characteristics}</div>
+                  <h2>Contact</h2>
+                  <p>{pet.animal.contact.address.address1}</p>
+                  <p>{pet.animal.contact.address.city}</p>
+                  <p>{pet.animal.contact.address.state}</p>
+                  <p>{pet.animal.contact.address.postcode}</p>
                 </div>
               :
                 // otherwise, show the loading status
