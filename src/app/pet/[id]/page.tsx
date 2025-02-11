@@ -24,6 +24,7 @@ interface PetDetails {
 function PetDetails() {
   // ----- State -----
   const [pet, setPet] = useState<PetDetails | number | null>(null);
+  const [hasPicture, setHasPicture] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // ----- get the pet id from the URL -----
@@ -54,6 +55,8 @@ function PetDetails() {
         // convert the response to data
         const data = await response.json();
 
+        console.log("here is the individual pet data, line 58", data.animal.photos);
+
         // check to see if individual data was retrieved
         if(data.status === 500) {
           // if not, set pet to "500" (the status)
@@ -62,6 +65,12 @@ function PetDetails() {
           // otherwise add the data to the "pet" state
           setPet(data);
         };
+
+        // check to see if the data has an image, if so, set "hasPicture" to true
+        if(data.animal.photos.length !== 0) {
+          setHasPicture(true);
+        };
+
       } catch (error) {
         console.log(error);
       } finally {
@@ -80,6 +89,28 @@ function PetDetails() {
   // const renderedChar = pet?.animal.tags.map((char: string) => {
   //   return <p key={char}>{char}</p>
   // });
+  // console.log("pet state", pet);
+  // console.log("pet images 1", hasPicture);
+  // console.log("running if statement after checking picture state")
+
+  // *** check to see if the photos array is empty
+  // if(typeof pet !== "number" && pet?.animal.photos.length === 0) {
+  //   console.log("there are no pictures to display");
+  //   setHasPicture(true);
+  // } else {
+  //   console.log("there are pictures to display!");
+  // };
+
+
+
+  
+
+  // *** check to see if the tags array is empty
+  if(typeof pet !== "number" && pet?.animal.tags.length === 0) {
+    console.log("there are no characteristics to display");
+  } else {
+    console.log("there are characteristics to display");
+  };
 
   // ---------- Component ----------
   return (
@@ -95,7 +126,8 @@ function PetDetails() {
             (pet && isLoading === false && typeof pet !== "number")
               ?
                 <div>
-                  <img src={pet.animal.photos[0].full} />
+                  {/* Check to see if the data has an image available; if not, set image src to default image */}
+                  <img src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} />
                   <p>{pet.animal.name}</p>
                   <p>{pet.animal.breeds.primary}, {pet.animal.breeds.secondary}</p>
                   <p>{pet.animal.age}</p>
