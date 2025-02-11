@@ -139,6 +139,8 @@ function PetDetails() {
                   <p>{pet.animal.contact.address.city}</p>
                   <p>{pet.animal.contact.address.state}</p>
                   <p>{pet.animal.contact.address.postcode}</p>
+                  <p>Email: {pet.animal.contact.email}</p>
+                  <p>Phone: {pet.animal.contact.phone}</p>
                 </div>
               :
                 // otherwise, show the loading status
