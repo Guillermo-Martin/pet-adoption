@@ -21,9 +21,9 @@ export default function RootLayout({ children,}: Readonly<{children: React.React
     <html lang="en" className={`${grandstander.variable}`}>
       <body className="font-grandstander">
         <Provider>
-          <Layout>
-            {children}
-          </Layout>
+          {/* <Layout> */}
+          {children}
+          {/* </Layout> */}
         </Provider>
       </body>
     </html>
