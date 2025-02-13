@@ -69,13 +69,13 @@ export default function Home() {
         : 
           <>
             <div className="hero-header">
-              <h1>Pet adoption</h1>
-              <p>Your new pet bestie is waiting for you.</p>
+              <h1 className="text-8xl font-bold">Pet adoption</h1>
+              <p className="text-5xl">Your new pet bestie is waiting for you.</p>
             </div>
 
             {/* ---------- Pet search options ----------  */}
             <div className="pet-search-options">
-              <h2>What are you looking for?</h2>
+              <h2 className="text-4xl font-bold">What are you looking for?</h2>
 
               <div className="button-container">
                 <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
@@ -87,10 +87,10 @@ export default function Home() {
             
             {/* ---------- Zipcode ---------- */}
             <form onSubmit={handleSubmit}>
-              <label>Zipcode</label>
+              <label className="text-4xl font-bold">Enter your zipcode</label>
               <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border border-black" />
 
-              <button className="border border-black">Submit</button>
+              <button className="border border-black text-2xl">Submit</button>
             </form>
 
             {/* ---------- Testing styles ---------- */}

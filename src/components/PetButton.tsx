@@ -29,7 +29,7 @@ function PetButton({ src, alt, text, animalType, isSelected, onClick }: PetButto
   return (
     <div onClick={handleClick} data-animal={animalType} className={isSelected ? "border" : ""}>
       <Image src={src} alt={alt} width={200} height={200}/>
-      <p>{text}</p>
+      <p className="text-2xl">{text}</p>
     </div>
   );
 };
