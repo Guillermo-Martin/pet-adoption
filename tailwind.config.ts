@@ -12,7 +12,11 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        grandstander: ["var(--font-grandstander)"]
+      }
     },
+    
   },
   plugins: [],
 } satisfies Config;
