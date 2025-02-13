@@ -41,6 +41,8 @@ export default function Home() {
     } else if(zipcode === "") {
       // if an animal was selected, but zipcode is empty
       alert("Please enter a 5-digit zipcode.");
+    } else if(isSelected === "") {
+      alert("Please select an animal.")
     } else {
       // set isLoading to true
       setIsLoading(true);
