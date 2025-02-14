@@ -64,7 +64,7 @@ export default function Home() {
   // ---------- Component ----------
   return (
     <main className="homepage-container min-h-screen flex items-center justify-center">
-      <div className="homepage-container-content">
+      <div className="homepage-container-content text-[#422206]">
         { isLoading 
           ? "loading..." 
           : 
@@ -91,8 +91,8 @@ export default function Home() {
                 <label className="text-4xl font-bold">Enter your zipcode</label>
 
                 
-                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border border-black" />
-                  <button className="border border-black text-2xl">Submit</button>
+                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[25%]" />
+                  <button className="border-4 border-[#422206] rounded-3xl text-2xl w-[25%] bg-[#ffda9c] flex items-center justify-center">Submit</button>
                 
                 
               </form>
