@@ -2,6 +2,7 @@
 import usePetContext from "@/hooks/usePetContext";
 import SearchResultCard from "@/components/SearchResultCard";
 import type { Animal } from "@/interfaces/Animal";
+import Layout from "./../../components/Layout";
 
 function SearchResults() {
   // Get search results from the PetContext
@@ -26,13 +27,17 @@ function SearchResults() {
 
   // ---------- Component ----------
   return (
-    <div>
-      <h1>Search results page</h1>
+    <Layout>
+      <div>
+        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-4">Results for <span className="italic">{petResults?.animal}</span> near <span className="italic">{petResults?.zipcode}</span></h1>
 
-      <div className="flex flex-wrap">
-        {petResults?.status === 500 ? "something went wrong" : renderedSearchResults}
+        <hr />
+
+        <div className="flex flex-wrap">
+          {petResults?.status === 500 ? "something went wrong" : renderedSearchResults}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
