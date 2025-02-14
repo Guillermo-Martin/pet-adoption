@@ -14,11 +14,14 @@ interface SearchCardProps {
 };
 
 function SearchResultCard({id, name, age, breed, city, gender, photo}: SearchCardProps) {
-  console.log(photo);
-
   return (
-    <Link href={`/pet/${id}`} data-petid={id} className="border w-[20%]">
-      <Image width={278} height={187} src={photo ? photo : "/images/dog-icon.png"} alt=""/>
+    <Link href={`/pet/${id}`} data-petid={id} className="w-[20%] bg-[#ffda9c] border-[6px] rounded-xl border-[#422206] overflow-hidden">
+      {/* Optimizing images: https://nextjs.org/docs/pages/building-your-application/optimizing/images */}
+      <div className="image-container w-full h-[200px] relative">
+        <Image src={photo ? photo : "/images/dog-icon.png"} alt="" fill className="object-cover" />
+      </div>
+
+      
       
       <div className="text-container">
         <h2>{name}</h2>
