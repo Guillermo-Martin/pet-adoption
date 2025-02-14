@@ -78,7 +78,7 @@ export default function Home() {
               <div className="pet-search-options flex items-center justify-center flex-col">
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8">What are you looking for?</h2>
 
-                <div className="button-container w-[60%] flex items-center justify-evenly mb-12">
+                <div className="button-container w-[80%] lg:w-[60%] flex items-center justify-evenly mb-12">
                   <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                   <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
                   {/* ***** vvv  For later  vvv ***** */}
