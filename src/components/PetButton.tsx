@@ -27,9 +27,12 @@ function PetButton({ src, alt, text, animalType, isSelected, onClick }: PetButto
   
   // ---------- Component ----------
   return (
-    <div onClick={handleClick} data-animal={animalType} className={isSelected ? "border" : ""}>
-      <Image src={src} alt={alt} width={200} height={200}/>
-      <p className="text-2xl">{text}</p>
+    // if the animal is selected show a border
+    <div onClick={handleClick} data-animal={animalType} className={isSelected ? "border cursor-pointer" : "cursor-pointer"}>
+      <div className="bg-[#ffda9c] size-[200] border-[6px] rounded-[10px] border-[#422206] flex items-center justify-center">
+        <Image src={src} alt={alt} width={200} height={200} className="size-[140]"/>
+      </div>
+      <p className="text-2xl text-center">{text}</p>
     </div>
   );
 };

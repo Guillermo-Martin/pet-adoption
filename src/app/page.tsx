@@ -69,29 +69,32 @@ export default function Home() {
           ? "loading..." 
           : 
             <>
-              <div className="hero-header">
+              <div className="hero-header text-center">
                 <h1 className="text-8xl font-bold">Pet adoption</h1>
                 <p className="text-5xl">Your new pet bestie is waiting for you.</p>
               </div>
 
               {/* ---------- Pet search options ----------  */}
-              <div className="pet-search-options">
+              <div className="pet-search-options flex items-center justify-center flex-col">
                 <h2 className="text-4xl font-bold">What are you looking for?</h2>
 
-                <div className="button-container">
-                  <PetButton src="/images/placeholder-01.jpg" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
-                  <PetButton src="/images/placeholder-02.jpg" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
+                <div className="button-container w-full flex items-center justify-evenly">
+                  <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
+                  <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
                   {/* ***** vvv  For later  vvv ***** */}
                   {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
                 </div>
               </div>
               
               {/* ---------- Zipcode ---------- */}
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col">
                 <label className="text-4xl font-bold">Enter your zipcode</label>
-                <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border border-black" />
 
-                <button className="border border-black text-2xl">Submit</button>
+                
+                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border border-black" />
+                  <button className="border border-black text-2xl">Submit</button>
+                
+                
               </form>
 
               {/* ---------- Testing styles ---------- */}
