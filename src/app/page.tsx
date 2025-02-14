@@ -69,16 +69,16 @@ export default function Home() {
           ? "loading..." 
           : 
             <>
-              <div className="hero-header text-center">
-                <h1 className="text-8xl font-bold">Pet adoption</h1>
+              <div className="hero-header text-center mb-12">
+                <h1 className="text-8xl font-bold mb-4">Pet adoption</h1>
                 <p className="text-5xl">Your new pet bestie is waiting for you.</p>
               </div>
 
               {/* ---------- Pet search options ----------  */}
               <div className="pet-search-options flex items-center justify-center flex-col">
-                <h2 className="text-4xl font-bold">What are you looking for?</h2>
+                <h2 className="text-4xl font-bold mb-8">What are you looking for?</h2>
 
-                <div className="button-container w-full flex items-center justify-evenly">
+                <div className="button-container w-[60%] flex items-center justify-evenly mb-12">
                   <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                   <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
                   {/* ***** vvv  For later  vvv ***** */}
@@ -88,10 +88,10 @@ export default function Home() {
               
               {/* ---------- Zipcode ---------- */}
               <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col">
-                <label className="text-4xl font-bold">Enter your zipcode</label>
+                <label className="text-4xl font-bold mb-4">Enter your zipcode</label>
 
                 
-                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[25%]" />
+                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[25%] mb-4" />
                   <button className="border-4 border-[#422206] rounded-3xl text-2xl w-[25%] bg-[#ffda9c] flex items-center justify-center">Submit</button>
                 
                 
