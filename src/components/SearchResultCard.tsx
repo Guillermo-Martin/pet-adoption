@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 
 // ---------- Interfaces ----------
 interface SearchCardProps {
@@ -13,9 +14,11 @@ interface SearchCardProps {
 };
 
 function SearchResultCard({id, name, age, breed, city, gender, photo}: SearchCardProps) {
+  console.log(photo);
+
   return (
-    <Link href={`/pet/${id}`} data-petid={id} className="border w-[25%]">
-      <img src={photo ? photo : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt=""/>
+    <Link href={`/pet/${id}`} data-petid={id} className="border w-[20%]">
+      <Image width={278} height={187} src={photo ? photo : "/images/dog-icon.png"} alt=""/>
       
       <div className="text-container">
         <h2>{name}</h2>
