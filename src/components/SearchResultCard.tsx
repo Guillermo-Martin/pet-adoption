@@ -17,13 +17,13 @@ function SearchResultCard({id, name, age, breed, city, gender, photo}: SearchCar
   return (
     <Link href={`/pet/${id}`} data-petid={id} className="w-[20%] bg-[#ffda9c] border-[6px] rounded-xl border-[#422206] overflow-hidden">
       {/* Optimizing images: https://nextjs.org/docs/pages/building-your-application/optimizing/images */}
-      <div className="image-container w-full h-[200px] relative">
+      <div className="image-container w-full h-[200px] relative mb-[12px]">
         <Image src={photo ? photo : "/images/dog-icon.png"} alt="" fill className="object-cover" />
       </div>
 
       
       
-      <div className="text-container">
+      <div className="text-container pl-[12px] pb-[12px]">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-[10px]">{name}</h2>
         <p className="text-xl mb-[4px]">{age} {gender}</p>
         <p className="text-xl mb-[4px]">{breed}</p>
