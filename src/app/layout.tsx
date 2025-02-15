@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="en" className={`${grandstander.variable}`}>
-      <body className="font-grandstander">
+      <body className="font-grandstander max-w-7xl mx-auto">
         <Provider>
           {/* <Layout> */}
           {children}
