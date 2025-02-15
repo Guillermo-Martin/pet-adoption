@@ -116,7 +116,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     // check to see if a token has already been retrieved and isn't expired
-    if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in)) {
+    if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in || tokenInformation.expires_in === null)) {
       console.log("a token exists and isn't expired.  getting animals.")
 
       // make the request
@@ -156,7 +156,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     // check to see if a token has already been retrieved and isn't expired
-    if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in)) {
+    if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in || tokenInformation.expires_in === null)) {
       console.log("a token exists and isn't expired.  getting animals.")
 
       // then make the api request
