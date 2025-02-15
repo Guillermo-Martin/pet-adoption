@@ -15,7 +15,7 @@ interface SearchCardProps {
 
 function SearchResultCard({id, name, age, breed, city, gender, photo}: SearchCardProps) {
   return (
-    <Link href={`/pet/${id}`} data-petid={id} className="w-[20%] bg-[#ffda9c] border-[6px] rounded-xl border-[#422206] overflow-hidden">
+    <Link href={`/pet/${id}`} data-petid={id} className="w-[24%] min-w-2xs bg-[#ffda9c] border-[6px] rounded-xl border-[#422206] overflow-hidden">
       {/* Optimizing images: https://nextjs.org/docs/pages/building-your-application/optimizing/images */}
       <div className="image-container w-full h-[200px] relative mb-[12px]">
         <Image src={photo ? photo : "/images/dog-icon.png"} alt="" fill className="object-cover" />

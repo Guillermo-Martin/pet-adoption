@@ -33,7 +33,7 @@ function SearchResults() {
 
         <hr className="mb-20" />
 
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap justify-center gap-[16px]">
           {petResults?.status === 500 ? "something went wrong" : renderedSearchResults}
         </div>
       </div>
