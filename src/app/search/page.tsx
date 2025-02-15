@@ -9,6 +9,11 @@ function SearchResults() {
   const { petResults } = usePetContext();
   console.log("in search results", petResults);
 
+  // check for preventing hydration error
+  if(petResults === null) {
+    return <div>No pets found.</div>
+  };
+
   // render search results
   const renderedSearchResults = petResults?.searchResults.map((result: Animal) => {
     return (
