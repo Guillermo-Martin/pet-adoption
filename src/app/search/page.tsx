@@ -28,7 +28,7 @@ function SearchResults() {
   // ---------- Component ----------
   return (
     <Layout>
-      <div>
+      <div className="main-content text-[#422206]">
         <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-4">Results for <span className="italic">{petResults?.animal}</span> near <span className="italic">{petResults?.zipcode}</span></h1>
 
         <hr className="mb-20" />

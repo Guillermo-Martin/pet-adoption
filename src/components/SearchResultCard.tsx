@@ -24,10 +24,10 @@ function SearchResultCard({id, name, age, breed, city, gender, photo}: SearchCar
       
       
       <div className="text-container">
-        <h2>{name}</h2>
-        <p>{age} {gender}</p>
-        <p>{breed}</p>
-        <p>{city}</p>
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-[10px]">{name}</h2>
+        <p className="text-xl mb-[4px]">{age} {gender}</p>
+        <p className="text-xl mb-[4px]">{breed}</p>
+        <p className="text-xl mb-[4px]">{city}</p>
       </div>
       
 
