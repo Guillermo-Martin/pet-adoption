@@ -127,24 +127,41 @@ function PetDetails() {
               (pet && isLoading === false && typeof pet !== "number")
                 ?
                   <div>
-                    {/* Check to see if the data has an image available; if not, set image src to default image */}
-                    {/* <img src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} /> */}
-                    <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" />
-                    <p>{pet.animal.name}</p>
-                    <p>{pet.animal.breeds.primary}, {pet.animal.breeds.secondary}</p>
-                    <p>{pet.animal.age}</p>
-                    <p>{pet.animal.gender}</p>
-                    <p>{pet.animal.description}</p>
-                    <p>{pet.animal.size}</p>
-                    <p>{pet.animal.status}</p>
-                    <div>{characteristics}</div>
-                    <h2>Contact</h2>
-                    <p>{pet.animal.contact.address.address1}</p>
-                    <p>{pet.animal.contact.address.city}</p>
-                    <p>{pet.animal.contact.address.state}</p>
-                    <p>{pet.animal.contact.address.postcode}</p>
-                    <p>Email: {pet.animal.contact.email ? pet.animal.contact.email : "Not available"}</p>
-                    <p>Phone: {pet.animal.contact.phone ? pet.animal.contact.phone : "Not available"}</p>
+                    {/* ---------- Image ---------- */}
+                    <div className="image-container size-[600px]">
+                      {/* Check to see if the data has an image available; if not, set image src to default image */}
+                      <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full object-cover" />
+                      {/* <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} fill sizes="100%" className="size-full" /> */}
+                    </div>
+                    
+                    {/* ---------- Intro ---------- */}
+                    <div className="pet-intro">
+                      <h1>Hi!  I&apos;m {pet.animal.name}.</h1>
+                      <p>I&apos;m an {pet.animal.age} {pet.animal.gender} {pet.animal.breeds.primary}, {pet.animal.breeds.secondary}.  I&apos;m a {pet.animal.size}  Humans describe me as {characteristics}</p>
+                      <p>I&apos;m {pet.animal.status}</p>
+                    </div>
+                    
+                    {/* ---------- Description ---------- */}
+                    <div className="pet-description">
+                      <h2>Here&apos;s more information about me:</h2>
+                      <p>{pet.animal.description}</p>
+                    </div>
+                    
+                    {/* ---------- Location ---------- */}
+                    <div className="pet-location">
+                      <h2>You can find me here:</h2>
+                      <p>{pet.animal.contact.address.address1}</p>
+                      <p>{pet.animal.contact.address.city}</p>
+                      <p>{pet.animal.contact.address.state}</p>
+                      <p>{pet.animal.contact.address.postcode}</p>
+                    </div>
+                    
+                    {/* ---------- Contact ---------- */}
+                    <div className="pet-contact">
+                      <h2>Interested?  Reach out using the information below!</h2>
+                      <p>Email: {pet.animal.contact.email ? pet.animal.contact.email : "Not available"}</p>
+                      <p>Phone: {pet.animal.contact.phone ? pet.animal.contact.phone : "Not available"}</p>
+                    </div>
                   </div>
                 :
                   // otherwise, show the loading status
