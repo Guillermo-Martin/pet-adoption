@@ -108,7 +108,7 @@ function PetDetails() {
   // typing a map of JSX elements:  https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
   if(hasCharacteristics && typeof pet !== "number") {
     characteristics = pet?.animal.tags.map((characteristic: string) => {
-      return <p key={characteristic}>{characteristic}</p>
+      return <span key={characteristic}>{characteristic}</span>
     });
   };
 
@@ -128,7 +128,7 @@ function PetDetails() {
                 ?
                   <div>
                     {/* ---------- Image ---------- */}
-                    <div className="image-container size-[600px]">
+                    <div className="image-container size-[600px] mx-auto">
                       {/* Check to see if the data has an image available; if not, set image src to default image */}
                       <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full object-cover" />
                       {/* <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} fill sizes="100%" className="size-full" /> */}
@@ -136,7 +136,7 @@ function PetDetails() {
                     
                     {/* ---------- Intro ---------- */}
                     <div className="pet-intro">
-                      <h1>Hi!  I&apos;m {pet.animal.name}.</h1>
+                      <h1 className="text-8xl font-bold">Hi!  I&apos;m {pet.animal.name}.</h1>
                       <p>I&apos;m an {pet.animal.age} {pet.animal.gender} {pet.animal.breeds.primary}, {pet.animal.breeds.secondary}.  I&apos;m a {pet.animal.size}  Humans describe me as {characteristics}</p>
                       <p>I&apos;m {pet.animal.status}</p>
                     </div>
