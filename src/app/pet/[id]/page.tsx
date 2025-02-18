@@ -136,41 +136,39 @@ function PetDetails() {
                     </div>
                     
                     {/* ---------- Intro ---------- */}
-                    <div className="pet-intro">
-                      <h1 className="text-8xl font-bold">Hi!  I&apos;m {pet.animal.name}.</h1>
+                    <div className="pet-intro text-[#422206]">
+                      <h1 className="text-8xl font-bold border-b-[6px] border-b-[#422206]">Hi!  I&apos;m {pet.animal.name}.</h1>
                       <p className="text-[40px]">
                         I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
-                        I&apos;m a <span className={pet.animal.size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : pet.animal.size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-5xl font-extrabold"}>{pet.animal.size.toLowerCase()}</span> {pet.animal.species.toLowerCase()}. 
+                        I&apos;m a <span className={pet.animal.size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : pet.animal.size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-5xl font-extrabold"}>{pet.animal.size.toLowerCase()}</span> {pet.animal.species.toLowerCase()}.&nbsp;
                         {pet.animal.tags.length !== 0 ? `Humans describe me as ${characteristics?.join(", ")}.` : null}
                       </p>
                       <p className="text-[40px]">I&apos;m <span className={pet.animal.status === "adoptable" ? "text-[#179E00]" : "text-[#000]"}>{pet.animal.status === "adoptable" ? "adoptable" : "taken"}</span>!</p>
                     </div>
                     
                     {/* ---------- Description ---------- */}
-                    <div className="pet-description">
-                      <h2>Here&apos;s more information about me:</h2>
-                      <p>{pet.animal.description}</p>
+                    <div className="pet-description text-[#422206]">
+                      <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206]">Here&apos;s more information about me:</h2>
+                      <p className="text-2xl">{pet.animal.description}</p>
                     </div>
                     
                     {/* ---------- Location ---------- */}
-                    <div className="pet-location">
-                      <h2>You can find me here:</h2>
-                      <p>{pet.animal.contact.address.address1}</p>
-                      <p>{pet.animal.contact.address.city}</p>
-                      <p>{pet.animal.contact.address.state}</p>
-                      <p>{pet.animal.contact.address.postcode}</p>
+                    <div className="pet-location text-[#422206]">
+                      <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206]">You can find me here:</h2>
+                      <p className="text-[40px]">{pet.animal.contact.address.address1}</p>
+                      <p className="text-[40px]">{pet.animal.contact.address.city}, {pet.animal.contact.address.state} {pet.animal.contact.address.postcode}</p>
                     </div>
                     
                     {/* ---------- Contact ---------- */}
-                    <div className="pet-contact">
-                      <h2>Interested?  Reach out using the information below!</h2>
-                      <p>Email: {pet.animal.contact.email ? pet.animal.contact.email : "Not available"}</p>
-                      <p>Phone: {pet.animal.contact.phone ? pet.animal.contact.phone : "Not available"}</p>
+                    <div className="pet-contact text-[#422206]">
+                      <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206]">Interested?  Reach out using the information below!</h2>
+                      <p className="text-2xl"><span className="font-bold">Email:</span> {pet.animal.contact.email ? pet.animal.contact.email : "Not available"}</p>
+                      <p className="text-2xl"><span className="font-bold">Phone:</span> {pet.animal.contact.phone ? pet.animal.contact.phone : "Not available"}</p>
                     </div>
                   </div>
                 :
                   // otherwise, show the loading status
-                  <h1>Loading</h1>
+                  <h1>Loading...</h1>
         }
       </div>
     </Layout>
