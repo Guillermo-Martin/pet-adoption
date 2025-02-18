@@ -54,7 +54,7 @@ function PetDetails() {
   console.log("here's the pet's id", typeof id);
 
   // variable to hold pet characteristics
-  let characteristics: ReactElement[] | undefined = [];
+  let characteristics: string[] | undefined = [];
 
 
   // ---------- Make request to get pet by id ----------
@@ -109,7 +109,7 @@ function PetDetails() {
   // typing a map of JSX elements:  https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
   if(hasCharacteristics && typeof pet !== "number") {
     characteristics = pet?.animal.tags.map((characteristic: string) => {
-      return <span key={characteristic}>{characteristic}</span>
+      return characteristic.toLowerCase();
     });
   };
 
@@ -141,7 +141,7 @@ function PetDetails() {
                       <p className="text-[40px]">
                         I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
                         I&apos;m a <span className={pet.animal.size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : pet.animal.size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-5xl font-extrabold"}>{pet.animal.size.toLowerCase()}</span> {pet.animal.species.toLowerCase()}. 
-                        {pet.animal.tags.length !== 0 ? `Humans describe me as ${characteristics}` : null}
+                        {pet.animal.tags.length !== 0 ? `Humans describe me as ${characteristics?.join(", ")}.` : null}
                       </p>
                       <p className="text-[40px]">I&apos;m <span className={pet.animal.status === "adoptable" ? "text-[#179E00]" : "text-[#000]"}>{pet.animal.status === "adoptable" ? "adoptable" : "taken"}</span>!</p>
                     </div>
