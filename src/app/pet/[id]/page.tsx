@@ -13,6 +13,7 @@ interface PetDetails {
     description: string;
     size: string;
     status: string;
+    species: string;
     breeds: {
       primary: string;
       secondary: string;
@@ -137,8 +138,12 @@ function PetDetails() {
                     {/* ---------- Intro ---------- */}
                     <div className="pet-intro">
                       <h1 className="text-8xl font-bold">Hi!  I&apos;m {pet.animal.name}.</h1>
-                      <p>I&apos;m an {pet.animal.age} {pet.animal.gender} {pet.animal.breeds.primary}, {pet.animal.breeds.secondary}.  I&apos;m a {pet.animal.size}  Humans describe me as {characteristics}</p>
-                      <p>I&apos;m {pet.animal.status}</p>
+                      <p>
+                        I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} {pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()} {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix` : "." }&nbsp;
+                        I&apos;m a {pet.animal.size.toLowerCase()} {pet.animal.species.toLowerCase()}. 
+                        {pet.animal.tags.length !== 0 ? `Humans describe me as ${characteristics}` : null}
+                      </p>
+                      <p>I&apos;m {pet.animal.status}!</p>
                     </div>
                     
                     {/* ---------- Description ---------- */}
