@@ -190,11 +190,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
   };
 
-  // ---------- Get organization info ----------
-  const getOrg = () => {
-    console.log("in getOrg function!")
-  }
-
   
   // --------------------------------------------------------------------
   //                 Determining the type of request
