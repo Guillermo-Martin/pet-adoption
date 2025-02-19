@@ -80,6 +80,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // convert the data to json
       const data: Token = await response.json();
 
+      console.log("here is your token data", data);
+
       // store the token information in the "tokenInformation" object
       tokenInformation.access_token = data.access_token;
       tokenInformation.token_type = data.token_type;
@@ -101,7 +103,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
-            "Content-Type": "application/x-www-form-urlencoded"
           }
         });
   
@@ -133,21 +134,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // ---------- Get pet by id ----------
   const getPetById = async (id: string) => {
+    console.log("in getpetbyid!");
+
     // function to make the request
     const fetchPetById = async () => {
       try {
         // make request to get individual pet
         const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
-        // const petResponse = await fetch(``, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
-            "Content-Type": "application/x-www-form-urlencoded"
           }
         });
   
         // convert response to json and send it to the client
         const petData = await petResponse.json();
+        
+        // get pet organization details
+        // console.log("here is your petData!", petData);
+        const orgHref = petData.animal._links.organization.href;
+        const petOrg = await fetch(`https://api.petfinder.com${orgHref}`, {
+          method: "GET",
+          headers: {
+            "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
+          }
+        });
+
+        // convert pet organization details to json
+        const petOrgData = await petOrg.json();
+
+        // add orgDetails to petData
+        petData.orgDetails = petOrgData;
+
+        // send petData to the client
         res.status(200).json(petData);
       } catch(error) {
         console.error("Error fetching individual pet", error);
@@ -160,15 +179,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log("a token exists and isn't expired.  getting animals.")
 
       // then make the api request
-      fetchPetById();
+      await fetchPetById();
     } else {
       // if a token hasn't been retrieved (or is expired) get one...
       console.log("no token or expired.  getting a token, then getting pets.");
       await getToken();
 
       // ...then make the request
-      fetchPetById();
+      await fetchPetById();
     };
+  };
+
+  // ---------- Get organization info ----------
+  const getOrg = () => {
+    console.log("in getOrg function!")
   }
 
   
