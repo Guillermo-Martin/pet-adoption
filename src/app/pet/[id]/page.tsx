@@ -30,6 +30,19 @@ interface PetDetails {
       email: string;
       phone: string;
     }
+  };
+  orgDetails: {
+    organization: {
+      name: string;
+      address: {
+        address1: string;
+        city: string;
+        state: string;
+        postcode: string;
+        phone: string;
+        website: string;
+      }
+    }
   }
 }
 
@@ -155,8 +168,11 @@ function PetDetails() {
                     {/* ---------- Location ---------- */}
                     <div className="pet-location text-[#422206] mb-[100px]">
                       <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
-                      <p className="text-[40px]">{pet.animal.contact.address.address1}</p>
-                      <p className="text-[40px]">{pet.animal.contact.address.city}, {pet.animal.contact.address.state} {pet.animal.contact.address.postcode}</p>
+                    
+                      {/* ----- Shelter info ----- */}
+                      <h3 className="text-[40px]">{pet.orgDetails.organization.name}</h3>
+                      <p className="text-[40px]">{pet.orgDetails.organization.address.address1}</p>
+                      <p className="text-[40px]">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
                     </div>
                     
                     {/* ---------- Contact ---------- */}
