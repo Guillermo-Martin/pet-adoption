@@ -179,9 +179,9 @@ function PetDetails() {
                     {/* ---------- Contact ---------- */}
                     <div className="pet-contact text-[#422206] mb-[100px]">
                       <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Interested?  Reach out using the information below!</h2>
-                      <p className="text-2xl"><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`}>{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
+                      <p className="text-2xl"><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
                       <p className="text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
-                      <p className="text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
+                      <p className="text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
                     </div>
                   </div>
                 :
