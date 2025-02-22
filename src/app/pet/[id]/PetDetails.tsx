@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import Layout from "@/components/Layout";
 import Image from "next/image";
+import L from 'leaflet';
 
 // ---------- Intefaces ----------
 interface PetDetails {
@@ -49,7 +50,16 @@ interface PetDetails {
   }
 }
 
+// getting the marker to work in React leaflet:  https://github.com/PaulLeCam/react-leaflet/issues/453
+const customIcon = L.icon({
+  iconUrl: "/images/cat-icon.png", // <-- Path inside 'public/'
+  iconSize: [40, 40],
+  iconAnchor: [12, 41],
+  popupAnchor: [8, -34],
+});
 
+
+// component
 function PetDetails() {
   // ----- State -----
   const [pet, setPet] = useState<PetDetails | number | null>(null);
@@ -195,7 +205,7 @@ function PetDetails() {
                           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={[51.505, -0.09]}>
+                        <Marker position={[51.505, -0.09]} icon={customIcon}>
                           <Popup>
                             A pretty CSS3 popup. <br /> Easily customizable.
                           </Popup>
