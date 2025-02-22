@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, ReactElement } from "react";
 import { useParams } from "next/navigation";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 import Layout from "@/components/Layout";
 import Image from "next/image";
 
@@ -183,6 +185,24 @@ function PetDetails() {
                       <p className="text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
                       <p className="text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
                     </div>
+
+
+                    {/* ----------- MAP ---------- */}
+                    <div>
+                      {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
+                      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-full">
+                        <TileLayer
+                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={[51.505, -0.09]}>
+                          <Popup>
+                            A pretty CSS3 popup. <br /> Easily customizable.
+                          </Popup>
+                        </Marker>
+                      </MapContainer>
+                    </div>
+                    
                   </div>
                 :
                   // otherwise, show the loading status
