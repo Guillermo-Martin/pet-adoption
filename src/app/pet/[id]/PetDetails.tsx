@@ -32,7 +32,8 @@ interface PetDetails {
       },
       email: string;
       phone: string;
-    }
+    };
+    type: string;
   };
   orgDetails: {
     organization: {
@@ -50,13 +51,7 @@ interface PetDetails {
   }
 }
 
-// getting the marker to work in React leaflet:  https://github.com/PaulLeCam/react-leaflet/issues/453
-const customIcon = L.icon({
-  iconUrl: "/images/cat-icon.png", // <-- Path inside 'public/'
-  iconSize: [40, 40],
-  iconAnchor: [12, 41],
-  popupAnchor: [8, -34],
-});
+
 
 
 // component
@@ -81,7 +76,6 @@ function PetDetails() {
 
   // variable to hold pet characteristics
   let characteristics: string[] | undefined = [];
-
 
   // ---------- Make request to get pet by id ----------
   useEffect(() => {
@@ -138,6 +132,22 @@ function PetDetails() {
       return characteristic.toLowerCase();
     });
   };
+
+  // getting the marker to work in React leaflet:  https://github.com/PaulLeCam/react-leaflet/issues/453
+  // ---------- Animal icons for map ----------
+  const customCatIcon = L.icon({
+    iconUrl: "/images/cat-icon.png", // <-- Path inside 'public/'
+    iconSize: [40, 40],
+    iconAnchor: [12, 41],
+    popupAnchor: [8, -34],
+  });
+
+  const customDogIcon = L.icon({
+    iconUrl: "/images/dog-icon.png", // <-- Path inside 'public/'
+    iconSize: [40, 40],
+    iconAnchor: [12, 41],
+    popupAnchor: [8, -34],
+  });
 
   // ---------- Component ----------
   return (
@@ -205,7 +215,7 @@ function PetDetails() {
                           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={[51.505, -0.09]} icon={customIcon}>
+                        <Marker position={[51.505, -0.09]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
                           <Popup>
                             A pretty CSS3 popup. <br /> Easily customizable.
                           </Popup>
