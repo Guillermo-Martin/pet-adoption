@@ -155,8 +155,8 @@ function PetDetails() {
 
   // ---------- Component ----------
   return (
-    <Layout>
-      <div>
+    // <Layout>
+      <main className="main-content-container min-h-screen flex items-center justify-center">
         {
           // if the status is "500", display error message
           (pet === 500) 
@@ -234,10 +234,11 @@ function PetDetails() {
                   </div>
                 :
                   // otherwise, show the loading status
-                  <h1>Loading...</h1>
+                  // <h1>Loading...</h1>
+                  "Loading..."
         }
-      </div>
-    </Layout>
+      </main>
+    // </Layout>
     
   );
 };

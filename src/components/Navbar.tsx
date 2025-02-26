@@ -1,7 +1,10 @@
+import Link from "next/link";
+
 function Navbar() {
   return (
     <div>
-      <h2>Navbar</h2>
+      <Link href="/"><p>Home</p></Link>
+      <p>Search</p>
     </div>
   );
 };
