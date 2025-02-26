@@ -51,7 +51,7 @@ interface PetDetails {
     coordinates: {
       lat: string;
       long: string;
-    }
+    };
   }
 }
 
@@ -64,7 +64,6 @@ function PetDetails() {
   const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [hasPicture, setHasPicture] = useState(false);
   const [hasCharacteristics, setHasCharacteristics] = useState(false);
-  // const [coordinates, setCoordinates] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   // ----- get the pet id from the URL -----
@@ -99,8 +98,6 @@ function PetDetails() {
         const data = await response.json();
 
         console.log("here is the individual pet data, line 58", data);
-        console.log("here is the individual pet data, line 58", data.orgDetails.coordinates);
-        console.log("here is the individual pet data, line 58", typeof data.orgDetails.coordinates.lat);
 
         // check to see if individual data was retrieved
         if(data.status === 500) {
@@ -120,10 +117,6 @@ function PetDetails() {
         if(data.animal.tags.length !== 0) {
           setHasCharacteristics(true);
         };
-
-        // check to see if an address is available
-        // console.log("line 119", data.orgDetails)
-
       } catch (error) {
         console.log(error);
       } finally {
@@ -179,7 +172,6 @@ function PetDetails() {
                     <div className="image-container size-[600px] mx-auto mb-[80px]">
                       {/* Check to see if the data has an image available; if not, set image src to default image */}
                       <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full object-cover border-[6px] rounded-xl border-[#422206]" />
-                      {/* <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} fill sizes="100%" className="size-full" /> */}
                     </div>
                     
                     {/* ---------- Intro ---------- */}
