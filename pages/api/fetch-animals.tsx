@@ -170,6 +170,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // variable to hold shelter address
         let orgAddress;
 
+        console.log("PET ORG DATA", petOrgData.organization.address);
+
         // check to see if "address1" exists or contains a PO box
         if(petOrgData.organization.address.address1 === null || petOrgData.organization.address.address1.includes("P.O.")) {
           // if so, the address is city, state, and zipcode
@@ -182,6 +184,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // convert the address into coordinates
         const coordinatesRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${orgAddress}`); 
         const coordinateData = await coordinatesRes.json();
+
+        // check to see if coordinate data array is 0
+        console.log("COORDINATE DATA", coordinateData.length)
 
         // add the coordinate data to the petData
         petData.orgDetails.coordinates = {lat: coordinateData[0].lat, long: coordinateData[0].lon}
