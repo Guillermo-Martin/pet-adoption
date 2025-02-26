@@ -186,10 +186,10 @@ function PetDetails() {
                     </div>
                     
                     {/* ---------- Description ---------- */}
-                    <div className="pet-description text-[#422206] mb-[100px]">
+                    {/* <div className="pet-description text-[#422206] mb-[100px]">
                       <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Here&apos;s more information about me:</h2>
                       <p className="text-2xl">{pet.animal.description}</p>
-                    </div>
+                    </div> */}
                     
                     {/* ---------- Location ---------- */}
                     <div className="pet-location text-[#422206] mb-[100px]">
@@ -198,15 +198,15 @@ function PetDetails() {
                       {/* ----- Shelter container ----- */}
                       <div className="shelter-container flex justify-content items-center">
                         {/* ----- Shelter info ----- */}
-                        <div className="shelter-info">
-                          <h3 className="text-[40px]">{pet.orgDetails.organization.name}</h3>
+                        <div className="shelter-info w-[50%]">
+                          <h3 className="text-[40px]"><a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.name : "Shelter not available"}</a></h3>
                           <p className="text-[40px]">{pet.orgDetails.organization.address.address1}</p>
                           <p className="text-[40px]">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
                         </div>
                       
                         {/* ----------- MAP ---------- */}
                         {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-full">
+                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-[50%]">
                           <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
