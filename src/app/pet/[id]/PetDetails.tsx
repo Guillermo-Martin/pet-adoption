@@ -195,10 +195,32 @@ function PetDetails() {
                     <div className="pet-location text-[#422206] mb-[100px]">
                       <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
                     
-                      {/* ----- Shelter info ----- */}
-                      <h3 className="text-[40px]">{pet.orgDetails.organization.name}</h3>
-                      <p className="text-[40px]">{pet.orgDetails.organization.address.address1}</p>
-                      <p className="text-[40px]">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
+                      {/* ----- Shelter container ----- */}
+                      <div className="shelter-container flex justify-content items-center">
+                        {/* ----- Shelter info ----- */}
+                        <div className="shelter-info">
+                          <h3 className="text-[40px]">{pet.orgDetails.organization.name}</h3>
+                          <p className="text-[40px]">{pet.orgDetails.organization.address.address1}</p>
+                          <p className="text-[40px]">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
+                        </div>
+                      
+                        {/* ----------- MAP ---------- */}
+                        {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
+                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-full">
+                          <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          />
+                          {/* <Marker position={[51.505, -0.09]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }> */}
+                          <Marker position={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
+                            <Popup>
+                              A pretty CSS3 popup. <br /> Easily customizable.
+                            </Popup>
+                          </Marker>
+                        </MapContainer>
+                        
+                      </div>
+                      
                     </div>
                     
                     {/* ---------- Contact ---------- */}
@@ -208,25 +230,6 @@ function PetDetails() {
                       <p className="text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
                       <p className="text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
                     </div>
-
-
-                    {/* ----------- MAP ---------- */}
-                    <div>
-                      {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                      <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-full">
-                        <TileLayer
-                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        {/* <Marker position={[51.505, -0.09]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }> */}
-                        <Marker position={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
-                          <Popup>
-                            A pretty CSS3 popup. <br /> Easily customizable.
-                          </Popup>
-                        </Marker>
-                      </MapContainer>
-                    </div>
-                    
                   </div>
                 :
                   // otherwise, show the loading status
