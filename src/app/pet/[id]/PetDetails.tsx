@@ -206,21 +206,22 @@ function PetDetails() {
                       
                         {/* ----------- MAP ---------- */}
                         {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-[50%]">
+                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="h-[400px] w-[50%]">
                           <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                           />
-                          {/* <Marker position={[51.505, -0.09]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }> */}
                           <Marker position={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
                             <Popup>
-                              A pretty CSS3 popup. <br /> Easily customizable.
+                              {pet.orgDetails.organization.name}
+                              <br />
+                              {pet.orgDetails.organization.address.address1}
+                              <br />
+                              {pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}
                             </Popup>
                           </Marker>
                         </MapContainer>
-                        
                       </div>
-                      
                     </div>
                     
                     {/* ---------- Contact ---------- */}
