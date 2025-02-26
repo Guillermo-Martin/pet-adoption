@@ -166,8 +166,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // add orgDetails to petData
         petData.orgDetails = petOrgData;
 
-        // create the organization's address
-        const orgAddress = `${petOrgData.organization.address.address1}, ${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+        // ----- create the shelter's address -----
+        // variable to hold shelter address
+        let orgAddress;
+
+        // check to see if "address1" exists or contains a PO box
+        if(petOrgData.organization.address.address1 === null || petOrgData.organization.address.address1.includes("P.O.")) {
+          // if so, the address is city, state, and zipcode
+          orgAddress = `${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+        } else {
+          // otherwise, create the full address
+          orgAddress = `${petOrgData.organization.address.address1}, ${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+        };
 
         // convert the address into coordinates
         const coordinatesRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${orgAddress}`); 
