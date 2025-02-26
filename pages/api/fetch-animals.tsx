@@ -166,6 +166,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // add orgDetails to petData
         petData.orgDetails = petOrgData;
 
+        // create the organization's address
+        const orgAddress = `${petOrgData.organization.address.address1}, ${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+
+        // convert the address into coordinates
+        const coordinatesRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${orgAddress}`); 
+        const coordinateData = await coordinatesRes.json();
+
+        // add the coordinate data to the petData
+        petData.orgDetails.coordinates = {lat: coordinateData[0].lat, long: coordinateData[0].lon}
+
         // send petData to the client
         res.status(200).json(petData);
       } catch(error) {

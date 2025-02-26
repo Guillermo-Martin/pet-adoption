@@ -47,7 +47,7 @@ interface PetDetails {
       email: string;
       phone: string;
       website: string;
-    }
+    };
   }
 }
 
@@ -60,6 +60,7 @@ function PetDetails() {
   const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [hasPicture, setHasPicture] = useState(false);
   const [hasCharacteristics, setHasCharacteristics] = useState(false);
+  // const [coordinates, setCoordinates] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   // ----- get the pet id from the URL -----
@@ -94,6 +95,7 @@ function PetDetails() {
         const data = await response.json();
 
         console.log("here is the individual pet data, line 58", data);
+        console.log("here is the individual pet data, line 58", data.orgDetails.coordinates);
 
         // check to see if individual data was retrieved
         if(data.status === 500) {
@@ -113,6 +115,10 @@ function PetDetails() {
         if(data.animal.tags.length !== 0) {
           setHasCharacteristics(true);
         };
+
+        // check to see if an address is available
+        // console.log("line 119", data.orgDetails)
+
       } catch (error) {
         console.log(error);
       } finally {
@@ -210,12 +216,13 @@ function PetDetails() {
                     {/* ----------- MAP ---------- */}
                     <div>
                       {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-full">
+                      <MapContainer center={[`${pet.orgDetails.coordinates.lat}`, `${pet.orgDetails.coordinates.long}`]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-full">
                         <TileLayer
                           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={[51.505, -0.09]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
+                        {/* <Marker position={[51.505, -0.09]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }> */}
+                        <Marker position={[`${pet.orgDetails.coordinates.lat}`, `${pet.orgDetails.coordinates.long}`]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
                           <Popup>
                             A pretty CSS3 popup. <br /> Easily customizable.
                           </Popup>
