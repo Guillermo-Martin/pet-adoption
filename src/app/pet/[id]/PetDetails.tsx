@@ -48,6 +48,10 @@ interface PetDetails {
       phone: string;
       website: string;
     };
+    coordinates: {
+      lat: string;
+      long: string;
+    }
   }
 }
 
@@ -96,6 +100,7 @@ function PetDetails() {
 
         console.log("here is the individual pet data, line 58", data);
         console.log("here is the individual pet data, line 58", data.orgDetails.coordinates);
+        console.log("here is the individual pet data, line 58", typeof data.orgDetails.coordinates.lat);
 
         // check to see if individual data was retrieved
         if(data.status === 500) {
@@ -216,13 +221,13 @@ function PetDetails() {
                     {/* ----------- MAP ---------- */}
                     <div>
                       {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                      <MapContainer center={[`${pet.orgDetails.coordinates.lat}`, `${pet.orgDetails.coordinates.long}`]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-full">
+                      <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={13} scrollWheelZoom={false} className="h-[400px] w-full">
                         <TileLayer
                           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
                         {/* <Marker position={[51.505, -0.09]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }> */}
-                        <Marker position={[`${pet.orgDetails.coordinates.lat}`, `${pet.orgDetails.coordinates.long}`]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
+                        <Marker position={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
                           <Popup>
                             A pretty CSS3 popup. <br /> Easily customizable.
                           </Popup>
