@@ -75,7 +75,7 @@ function Navbar() {
 
   // ---------- Component ----------
   return (
-    <div className="navbar relative bg-[#ffda9c] border-b-[6px] border-b-[#422206] w-full py-[20px] sm:px-[40px] mb-20">
+    <div className="navbar relative bg-red-100 xs:bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500 xl:bg-red-600 2xl:bg-red-700 border-b-[6px] border-b-[#422206] w-full py-[20px] sm:px-[40px] mb-20">
       <div className="navbar-inner-container max-w-7xl mx-auto">
         <div className="navbar-links flex gap-x-[40px]">
           <Link href="/"><p className="text-base lg:text-xl xl:text-2xl hover:text-[#4369fc]">Home</p></Link>
@@ -86,7 +86,7 @@ function Navbar() {
         {
           // if "isSearchActive" is true, show the search dropdown, otherwise hide it 
           isSearchActive && 
-          <div className="search-dropdown absolute w-full bg-[blue] z-[1]">
+          <div className="search-dropdown absolute w-full bg-[blue] z-[1] sm:top-[100%] sm:left-0">
             { 
               // if "isLoading" is true, show the loading, otherwise, show the search dropdown
               isLoading 

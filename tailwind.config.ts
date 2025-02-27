@@ -14,6 +14,14 @@ export default {
       },
       fontFamily: {
         grandstander: ["var(--font-grandstander)"]
+      },
+      screens: {
+        xs: "420px",
+        sm: "576px",
+        md: "767px",
+        lg: "992px",
+        xl: "1200px",
+        "2xl": "1400px"
       }
     },
     
