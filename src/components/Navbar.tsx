@@ -11,6 +11,7 @@ function Navbar() {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // ---------- useRouter ----------
   const router = useRouter();
@@ -51,7 +52,7 @@ function Navbar() {
       alert("Please select an animal.")
     } else {
       // set isLoading to true
-      // setIsLoading(true);
+      setIsLoading(true);
 
       // make API request, wait to get back something
       await fetchAnimals(isSelected, zipcode);
@@ -94,6 +95,7 @@ function Navbar() {
               </form>
         </div>
       }
+      {isLoading && "loading..."}
     </div>
   );
 };
