@@ -82,7 +82,7 @@ function Navbar() {
       {
         // if "isSearchActive" is true, show the search dropdown, otherwise hide it 
         isSearchActive && 
-        <div className="search-dropdown absolute w-full bg-[blue]">
+        <div className="search-dropdown absolute w-full bg-[blue] z-[1]">
           { 
             // if "isLoading" is true, show the loading, otherwise, show the search dropdown
             isLoading 
@@ -90,7 +90,7 @@ function Navbar() {
               :
               <div>
                 <p>What are you looking for?</p>
-                <div className="form-container flex justify-center items-center">
+                <div className="form-container flex">
                   <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                   <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
       
