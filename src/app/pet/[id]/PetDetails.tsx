@@ -170,13 +170,13 @@ function PetDetails() {
                   <Layout>
                     <div>
                       {/* ---------- Image ---------- */}
-                      <div className="image-container w-1/2 mb-[80px]">
+                      <div className="image-container w-full mb-[80px] px-4">
                         {/* Check to see if the data has an image available; if not, set image src to default image */}
-                        <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full object-cover border-[6px] rounded-xl border-[#422206]" />
+                        <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full aspect-square object-cover border-[6px] rounded-xl border-[#422206]" />
                       </div>
                       
                       {/* ---------- Intro ---------- */}
-                      <div className="pet-intro text-[#422206] mb-[100px]">
+                      <div className="pet-intro text-[#422206] mb-[100px] px-4">
                         <h1 className="text-5xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
                         <p className="text-base">
                           I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
@@ -193,11 +193,11 @@ function PetDetails() {
                       </div> */}
                       
                       {/* ---------- Location ---------- */}
-                      <div className="pet-location text-[#422206] mb-[100px]">
+                      <div className="pet-location text-[#422206] mb-[100px] px-4">
                         <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
                       
                         {/* ----- Shelter container ----- */}
-                        <div className="shelter-container flex justify-content items-center">
+                        <div className="shelter-container flex justify-content items-center px-4">
                           {/* ----- Shelter info ----- */}
                           <div className="shelter-info w-[50%]">
                             <h3 className="text-base"><a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.name : "Shelter not available"}</a></h3>
@@ -207,7 +207,7 @@ function PetDetails() {
                         
                           {/* ----------- MAP ---------- */}
                           {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                          <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="h-[400px] w-[50%]">
+                          <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="h-[400px] w-[50%] px-4">
                             <TileLayer
                               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -226,7 +226,7 @@ function PetDetails() {
                       </div>
                       
                       {/* ---------- Contact ---------- */}
-                      <div className="pet-contact text-[#422206] mb-[100px]">
+                      <div className="pet-contact text-[#422206] mb-[100px] px-4">
                         <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Interested?  Reach out using the information below!</h2>
                         <p className="text-base"><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
                         <p className="text-base"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
