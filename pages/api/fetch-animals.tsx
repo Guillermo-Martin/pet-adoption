@@ -186,10 +186,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const coordinateData = await coordinatesRes.json();
 
         // check to see if coordinate data array is 0
-        console.log("COORDINATE DATA", coordinateData.length)
+        // if coordinate data array is 0 (coordinate data somehow couldn't be obtained), then make another request to get coordinates from just the city
+        if(coordinateData.length === 0) {
+          orgAddress = `${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+          const newCoordinatesRes = await await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${orgAddress}`);
+          const newCoordinateData = await newCoordinatesRes.json();
 
-        // add the coordinate data to the petData
-        petData.orgDetails.coordinates = {lat: coordinateData[0].lat, long: coordinateData[0].lon}
+          // add new coordinate data to the petData
+          petData.orgDetails.coordinates = {lat: newCoordinateData[0].lat, long: newCoordinateData[0].lon};
+        } else {
+          // add the original coordinate data to the petData
+          petData.orgDetails.coordinates = {lat: coordinateData[0].lat, long: coordinateData[0].lon};
+        };
 
         // send petData to the client
         res.status(200).json(petData);
