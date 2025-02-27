@@ -1,6 +1,9 @@
 import{ useState, FormEvent, ChangeEvent } from "react";
 import Link from "next/link";
 import PetButton from "@/components/PetButton";
+import { useRouter } from "next/navigation";
+import usePetContext from "@/hooks/usePetContext";
+
 
 
 function Navbar() {
@@ -8,6 +11,12 @@ function Navbar() {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
+
+  // ---------- useRouter ----------
+  const router = useRouter();
+
+  // get the "fetchAnimals" function from PetContext
+  const { fetchAnimals } = usePetContext();
 
   // ---------- Functions ----------
   // open/close search dropdown
@@ -26,6 +35,38 @@ function Navbar() {
     setZipcode(event.target.value);
   };
 
+  // handleSubmit
+  // ----- handleSubmit -----
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // Form submission check
+    if(isSelected === "" && zipcode === "") {
+      // if an animal wasn't selected and zipcode is empty
+      alert("Please select an animal and enter a zipcode.");
+    } else if(zipcode === "") {
+      // if an animal was selected, but zipcode is empty
+      alert("Please enter a 5-digit zipcode.");
+    } else if(isSelected === "") {
+      alert("Please select an animal.")
+    } else {
+      // set isLoading to true
+      // setIsLoading(true);
+
+      // make API request, wait to get back something
+      await fetchAnimals(isSelected, zipcode);
+
+      // get the search params to add to the URL
+      const urlParams = new URLSearchParams({
+        type: isSelected,
+        zipcode: zipcode
+      });
+
+      // then send the user to the "search-results" page
+      router.push(`/search?${urlParams.toString()}`);
+    };
+  };
+
 
   // ---------- Component ----------
   return (
@@ -41,8 +82,8 @@ function Navbar() {
           <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
 
           {/* ---------- Zipcode ---------- */}
-          {/* <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col"> */}
-          <form className="flex items-center justify-center flex-col">
+          <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col">
+          {/* <form className="flex items-center justify-center flex-col"> */}
                 <label className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Enter your zipcode</label>
 
                 
