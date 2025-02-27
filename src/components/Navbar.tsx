@@ -75,10 +75,10 @@ function Navbar() {
 
   // ---------- Component ----------
   return (
-    <div className="navbar relative bg-red-100 xs:bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500 xl:bg-red-600 2xl:bg-red-700 border-b-[6px] border-b-[#422206] mb-20">
+    <div className="navbar relative bg-red-100 xs:bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500 xl:bg-red-600 2xl:bg-red-700 border-b-[6px] border-b-[#422206] mb-10 px-4 py-3">
       <div className="navbar-inner-container">
         {/* <div className="navbar-links flex gap-x-[40px]"> */}
-        <div className="navbar-links">
+        <div className="navbar-links flex gap-x-[40px]">
           <Link href="/"><p className="text-base hover:text-[#4369fc]">Home</p></Link>
           <p onClick={handleSearchClick} className="text-base cursor-pointer hover:text-[#4369fc]">Search again</p>
         </div>
