@@ -65,6 +65,10 @@ function Navbar() {
 
       // then send the user to the "search-results" page
       router.push(`/search?${urlParams.toString()}`);
+
+      // after going to the "SearchResults" page, hide the "search" dropdown and set "isLoading" to false
+      setIsLoading(false);
+      setIsSearchActive(false);
     };
   };
 
@@ -74,27 +78,34 @@ function Navbar() {
     <div className="navbar relative bg-[red]">
       <Link href="/"><p>Home</p></Link>
       <p onClick={handleSearchClick}>Search again</p>
-      {/* if "isSearchActive" is true, show the search box, otherwise hide it */}
+      {/* ---------- Search dropdown ---------- */}
       {
+        // if "isSearchActive" is true, show the search dropdown, otherwise hide it 
         isSearchActive && 
         <div className="search-dropdown absolute w-full bg-[blue]">
-          <p>What are you looking for?</p>
-          <div className="form-container flex justify-center items-center">
-            <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
-            <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
-
-            {/* ---------- Zipcode ---------- */}
-            <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col">
-            {/* <form className="flex items-center justify-center flex-col"> */}
-              <label className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Enter your zipcode</label>
-                <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[40%] lg:w-[24%] mb-4" />
-                <button className="text-base sm:text-2xl border-4 border-[#422206] rounded-3xl w-[40%] lg:w-[24%] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button>
-            </form>
-          </div>
-          
+          { 
+            // if "isLoading" is true, show the loading, otherwise, show the search dropdown
+            isLoading 
+              ? "loading..."
+              :
+              <div>
+                <p>What are you looking for?</p>
+                <div className="form-container flex justify-center items-center">
+                  <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
+                  <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
+      
+                  {/* ---------- Zipcode ---------- */}
+                  <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col">
+                  {/* <form className="flex items-center justify-center flex-col"> */}
+                    <label className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Enter your zipcode</label>
+                      <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[40%] lg:w-[24%] mb-4" />
+                      <button className="text-base sm:text-2xl border-4 border-[#422206] rounded-3xl w-[40%] lg:w-[24%] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button>
+                  </form>
+                </div>
+              </div>
+          }
         </div>
       }
-      {isLoading && "loading..."}
     </div>
   );
 };
