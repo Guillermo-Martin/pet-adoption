@@ -170,20 +170,20 @@ function PetDetails() {
                   <Layout>
                     <div>
                       {/* ---------- Image ---------- */}
-                      <div className="image-container size-[600px] mx-auto mb-[80px]">
+                      <div className="image-container w-1/2 mb-[80px]">
                         {/* Check to see if the data has an image available; if not, set image src to default image */}
                         <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full object-cover border-[6px] rounded-xl border-[#422206]" />
                       </div>
                       
                       {/* ---------- Intro ---------- */}
                       <div className="pet-intro text-[#422206] mb-[100px]">
-                        <h1 className="text-8xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
-                        <p className="text-[40px]">
+                        <h1 className="text-5xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
+                        <p className="text-base">
                           I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
                           I&apos;m a <span className={pet.animal.size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : pet.animal.size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-5xl font-extrabold"}>{pet.animal.size.toLowerCase()}</span> {pet.animal.species.toLowerCase()}.&nbsp;
                           {pet.animal.tags.length !== 0 ? `Humans describe me as ${characteristics?.join(", ")}.` : null}
                         </p>
-                        <p className="text-[40px]">I&apos;m <span className={pet.animal.status === "adoptable" ? "text-[#179E00]" : "text-[#000]"}>{pet.animal.status === "adoptable" ? "adoptable" : "taken"}</span>!</p>
+                        <p className="text-base">I&apos;m <span className={pet.animal.status === "adoptable" ? "text-[#179E00]" : "text-[#000]"}>{pet.animal.status === "adoptable" ? "adoptable" : "taken"}</span>!</p>
                       </div>
                       
                       {/* ---------- Description ---------- */}
@@ -194,15 +194,15 @@ function PetDetails() {
                       
                       {/* ---------- Location ---------- */}
                       <div className="pet-location text-[#422206] mb-[100px]">
-                        <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
+                        <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
                       
                         {/* ----- Shelter container ----- */}
                         <div className="shelter-container flex justify-content items-center">
                           {/* ----- Shelter info ----- */}
                           <div className="shelter-info w-[50%]">
-                            <h3 className="text-[40px]"><a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.name : "Shelter not available"}</a></h3>
-                            <p className="text-[40px]">{pet.orgDetails.organization.address.address1}</p>
-                            <p className="text-[40px]">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
+                            <h3 className="text-base"><a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.name : "Shelter not available"}</a></h3>
+                            <p className="text-base">{pet.orgDetails.organization.address.address1}</p>
+                            <p className="text-base">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
                           </div>
                         
                           {/* ----------- MAP ---------- */}
@@ -227,10 +227,10 @@ function PetDetails() {
                       
                       {/* ---------- Contact ---------- */}
                       <div className="pet-contact text-[#422206] mb-[100px]">
-                        <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Interested?  Reach out using the information below!</h2>
-                        <p className="text-2xl"><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
-                        <p className="text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
-                        <p className="text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
+                        <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Interested?  Reach out using the information below!</h2>
+                        <p className="text-base"><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
+                        <p className="text-base"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
+                        <p className="text-base"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
                       </div>
                     </div>
                   </Layout>
