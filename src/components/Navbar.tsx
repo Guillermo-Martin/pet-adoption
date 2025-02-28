@@ -94,17 +94,17 @@ function Navbar() {
                 ? "loading..."
                 :
                 <div>
-                  <p>What are you looking for?</p>
-                  <div className="form-container flex flex-col">
+                  <h2 className="text-3xl font-bold text-center mb-4">What are you looking for?</h2>
+                  <div className="form-container flex flex-col justify-center items-center">
                     <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                     <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
         
                     {/* ---------- Zipcode ---------- */}
                     <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col">
                     {/* <form className="flex items-center justify-center flex-col"> */}
-                      <label className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Enter your zipcode</label>
-                        <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[40%] lg:w-[24%] mb-4" />
-                        <button className="text-base sm:text-2xl border-4 border-[#422206] rounded-3xl w-[40%] lg:w-[24%] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button>
+                      <label className="text-2xl font-bold mb-4">Enter your zipcode</label>
+                        <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[100%] mb-4" />
+                        <button className="text-base border-4 border-[#422206] rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95">Submit</button>
                     </form>
                   </div>
                 </div>
