@@ -197,9 +197,9 @@ function PetDetails() {
                         <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
                       
                         {/* ----- Shelter container ----- */}
-                        <div className="shelter-container flex justify-content items-center px-4">
+                        <div className="shelter-container flex justify-content items-center flex-col-reverse">
                           {/* ----- Shelter info ----- */}
-                          <div className="shelter-info w-[50%]">
+                          <div className="shelter-info w-full">
                             <h3 className="text-base"><a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.name : "Shelter not available"}</a></h3>
                             <p className="text-base">{pet.orgDetails.organization.address.address1}</p>
                             <p className="text-base">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
@@ -207,7 +207,7 @@ function PetDetails() {
                         
                           {/* ----------- MAP ---------- */}
                           {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                          <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="h-[400px] w-[50%] px-4">
+                          <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="h-[300px] w-full px-4 mb-8">
                             <TileLayer
                               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
