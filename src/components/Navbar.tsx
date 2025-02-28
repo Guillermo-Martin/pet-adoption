@@ -96,8 +96,11 @@ function Navbar() {
                 <div>
                   <h2 className="text-3xl font-bold text-center mb-4">What are you looking for?</h2>
                   <div className="form-container flex flex-col justify-center items-center">
-                    <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
-                    <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
+                    <div className="button-container flex justify-evenly items-center w-full">
+                      <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
+                      <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
+                    </div>
+                    
         
                     {/* ---------- Zipcode ---------- */}
                     <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col">
