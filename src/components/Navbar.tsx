@@ -87,7 +87,7 @@ function Navbar() {
         {
           // if "isSearchActive" is true, show the search dropdown, otherwise hide it 
           isSearchActive && 
-          <div className="search-dropdown absolute w-full bg-[blue] z-[1] top-[113%] left-0 px-4 py-3 border-b-[6px] border-b-[#422206]">
+          <div className="search-dropdown absolute w-full bg-[blue] z-[1] top-[113%] left-0 px-4 py-6 border-b-[6px] border-b-[#422206]">
             { 
               // if "isLoading" is true, show the loading, otherwise, show the search dropdown
               isLoading 
