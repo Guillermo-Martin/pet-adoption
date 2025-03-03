@@ -171,9 +171,9 @@ function PetDetails() {
                   <Layout>
                     <div>
                       {/* ---------- Image ---------- */}
-                      <div className="image-container w-full max-w-7xl flex justify-center items-center mx-auto mb-10 px-4 md:px-16 xl:px-20 bg-sky-900">
+                      <div className="image-container w-full md:max-w-7xl flex justify-center items-center mx-auto mb-10 px-4 md:px-16 xl:px-20 bg-sky-900">
                         {/* Check to see if the data has an image available; if not, set image src to default image */}
-                        <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full aspect-square object-cover border-[6px] rounded-xl border-[#422206] max-w-[600px]" />
+                        <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full aspect-square object-cover border-[6px] rounded-xl border-[#422206] max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
                       </div>
                       
                       {/* ---------- Intro ---------- */}
