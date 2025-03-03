@@ -76,7 +76,7 @@ function Navbar() {
   // ---------- Component ----------
   return (
     <div className="navbar relative bg-red-100 xs:bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500 xl:bg-red-600 2xl:bg-red-700 border-b-[6px] border-b-[#422206] mb-10 px-4 py-3 md:px-16 md:py-4 xl:px-20">
-      <div className="navbar-inner-container max-w-7xl">
+      <div className="navbar-inner-container max-w-7xl mx-auto bg-sky-900">
         {/* <div className="navbar-links flex gap-x-[40px]"> */}
         <div className="navbar-links flex gap-x-[40px]">
           <Link href="/"><p className="text-base sm:text-xl hover:text-[#4369fc]">Home</p></Link>
