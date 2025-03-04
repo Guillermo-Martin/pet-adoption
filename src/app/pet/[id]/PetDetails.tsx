@@ -172,13 +172,14 @@ function PetDetails() {
                   <Layout>
                     {/* <div> */}
                       {/* ---------- Image ---------- */}
-                      <div className="image-container w-full md:max-w-7xl flex justify-center items-center mx-auto mb-10 px-4 md:px-16 xl:px-20 bg-sky-900">
+                      {/* <div className="image-container w-full md:max-w-7xl flex justify-center items-center mx-auto mb-10 px-4 md:px-16 xl:px-20 bg-sky-900"> */}
+                      <div className="image-container w-full md:max-w-7xl flex justify-center items-center mb-10">
                         {/* Check to see if the data has an image available; if not, set image src to default image */}
                         <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full aspect-square object-cover border-[6px] rounded-xl border-[#422206] w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
                       </div>
                       
                       {/* ---------- Intro ---------- */}
-                      <div className="pet-intro text-[#422206] mb-10 px-4">
+                      <div className="pet-intro text-[#422206] mb-10">
                         <h1 className="text-5xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
                         <p className="text-base">
                           I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
@@ -195,7 +196,7 @@ function PetDetails() {
                       </div> */}
                       
                       {/* ---------- Location ---------- */}
-                      <div className="pet-location text-[#422206] mb-10 px-4">
+                      <div className="pet-location text-[#422206] mb-10">
                         <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
                       
                         {/* ----- Shelter container ----- */}
@@ -229,7 +230,7 @@ function PetDetails() {
                       </div>
                       
                       {/* ---------- Contact ---------- */}
-                      <div className="pet-contact text-[#422206] mb-20 px-4">
+                      <div className="pet-contact text-[#422206] mb-20">
                         <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Interested?  Reach out using the information below!</h2>
                         <p className="text-base"><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
                         <p className="text-base"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
