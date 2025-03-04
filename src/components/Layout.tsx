@@ -11,9 +11,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <div className="page-layout">
       <Navbar />
-      {/* <main className="main-content max-w-7xl mx-auto mb-10 px-4 md:px-16 xl:px-20"> */}
       <main className="main-content px-4 py-3 md:px-16 md:py-4 xl:px-20">
-      {/* <main className="main-content max-w-7xl mx-auto mb-10"> */}
         <div className="main-content-container max-w-7xl mx-auto bg-sky-900">
           {children}
         </div>
