@@ -157,7 +157,8 @@ function PetDetails() {
   return (
     // <Layout>
       // <main className="main-content-container min-h-screen flex items-center justify-center">
-      <main className="main-content-container min-h-screen ">
+      // <div className="main-content-container min-h-screen ">
+      <> 
         {
           // if the status is "500", display error message
           (pet === 500) 
@@ -169,7 +170,7 @@ function PetDetails() {
               (pet && isLoading === false && typeof pet !== "number")
                 ?
                   <Layout>
-                    <div>
+                    {/* <div> */}
                       {/* ---------- Image ---------- */}
                       <div className="image-container w-full md:max-w-7xl flex justify-center items-center mx-auto mb-10 px-4 md:px-16 xl:px-20 bg-sky-900">
                         {/* Check to see if the data has an image available; if not, set image src to default image */}
@@ -234,15 +235,19 @@ function PetDetails() {
                         <p className="text-base"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
                         <p className="text-base"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
                       </div>
-                    </div>
+                    {/* </div> */}
                   </Layout>
                   
                 :
                   // otherwise, show the loading status
                   // <h1>Loading...</h1>
-                  "Loading..."
+                  <main className="flex justify-center items-center min-h-screen flex-col">
+                    <p>Image goes here</p>
+                    <h1>Loading...</h1>
+                  </main>
         }
-      </main>
+      </>
+      // </div>
     // </Layout>
     
   );

@@ -9,10 +9,12 @@ interface LayoutProps {
 
 function Layout({ children }: LayoutProps) {
   return (
-    <div>
+    <div className="page-layout">
       <Navbar />
-      <main>
-        {children}
+      <main className="main-content">
+        <div className="main-content-container">
+          {children}
+        </div>
       </main>
       <Footer />
     </div>
