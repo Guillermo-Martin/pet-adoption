@@ -192,7 +192,7 @@ function PetDetails() {
                     
                     {/* ---------- Location ---------- */}
                     <div className="pet-location text-[#422206] mb-10">
-                      <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
+                      <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
                     
                       {/* ----- Shelter container ----- */}
                       <div className="shelter-container flex justify-content items-center flex-col-reverse">
@@ -226,7 +226,7 @@ function PetDetails() {
                     
                     {/* ---------- Contact ---------- */}
                     <div className="pet-contact text-[#422206] mb-20">
-                      <h2 className="text-3xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Interested?  Reach out using the information below!</h2>
+                      <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Interested?  Reach out using the information below!</h2>
                       <p className="text-base"><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
                       <p className="text-base"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
                       <p className="text-base"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
