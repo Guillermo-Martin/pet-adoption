@@ -94,7 +94,7 @@ function Navbar() {
                 ? "loading..."
                 :
                 <div>
-                  <span className="text-3xl font-bold cursor-pointer absolute right-4 lg:right-6 top-3 lg:top-4">x</span>
+                  <span onClick={handleSearchClick} className="text-3xl font-bold cursor-pointer absolute right-4 lg:right-6 top-3 lg:top-4">x</span>
                   <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold text-center mb-6 max-w-[80%] mx-auto">What are you looking&nbsp;for?</h2>
                   <div className="form-container flex flex-col justify-center items-center md:flex-row md:justify-evenly md:max-w-[800px] md:mx-auto">
                     <div className="button-container flex justify-evenly items-center w-full max-w-[320px] lg:max-w-[400px] mb-6 md:mb-0">
