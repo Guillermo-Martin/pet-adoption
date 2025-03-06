@@ -174,7 +174,7 @@ function PetDetails() {
                     </div>
                     
                     {/* ---------- Intro ---------- */}
-                    <div className="pet-intro text-[#422206] mb-10">
+                    <div className="pet-intro text-[#422206] mb-10 md:mb-20">
                       <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl">
                         I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
@@ -191,7 +191,7 @@ function PetDetails() {
                     </div> */}
                     
                     {/* ---------- Location ---------- */}
-                    <div className="pet-location text-[#422206] mb-10">
+                    <div className="pet-location text-[#422206] mb-10 md:mb-20">
                       <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
                     
                       {/* ----- Shelter container ----- */}
