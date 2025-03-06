@@ -75,7 +75,7 @@ function Navbar() {
 
   // ---------- Component ----------
   return (
-    <div className="navbar relative lg:static bg-red-100 xs:bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500 xl:bg-red-600 2xl:bg-red-700 border-b-[6px] border-b-[#422206] mb-10 px-4 py-3 md:px-16 md:py-4 xl:px-20">
+    <div className="navbar relative lg:static bg-red-100 xs:bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500 xl:bg-red-600 2xl:bg-red-700 border-b-[6px] mb-10 px-4 py-3 md:px-16 md:py-4 xl:px-20">
       <div className="navbar-inner-container lg:relative max-w-7xl mx-auto bg-sky-900">
         {/* <div className="navbar-links flex gap-x-[40px]"> */}
         <div className="navbar-links flex gap-x-[40px]">

@@ -170,12 +170,14 @@ function PetDetails() {
                     {/* ---------- Image ---------- */}
                     <div className="image-container w-full md:max-w-7xl flex justify-center items-center mb-10">
                       {/* Check to see if the data has an image available; if not, set image src to default image */}
-                      <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="size-full aspect-square object-cover border-[6px] rounded-xl border-[#422206] w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
+                      <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
                     </div>
                     
                     {/* ---------- Intro ---------- */}
-                    <div className="pet-intro text-[#422206] mb-10 md:mb-20">
-                      <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
+                    {/* <div className="pet-intro text-[#422206] mb-10 md:mb-20"> */}
+                    <div className="pet-intro mb-10 md:mb-20">
+                      {/* <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1> */}
+                      <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl mb-4 xl:mb-6">
                         I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
                         I&apos;m a <span className={pet.animal.size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : pet.animal.size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-5xl font-extrabold"}>{pet.animal.size.toLowerCase()}</span> {pet.animal.species.toLowerCase()}.&nbsp;
@@ -191,8 +193,9 @@ function PetDetails() {
                     </div> */}
                     
                     {/* ---------- Location ---------- */}
-                    <div className="pet-location text-[#422206] mb-10 md:mb-20">
-                      <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
+                    {/* <div className="pet-location text-[#422206] mb-10 md:mb-20"> */}
+                    <div className="pet-location mb-10 md:mb-20">
+                      <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] mb-[40px]">You can find me here:</h2>
                     
                       {/* ----- Shelter container ----- */}
                       <div className="shelter-container flex justify-content items-center flex-col-reverse lg:flex-row">
@@ -206,7 +209,7 @@ function PetDetails() {
                       
                         {/* ----------- MAP ---------- */}
                         {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="h-[300px] sm:h-[400px] xl:h-[500px] w-full xl:max-w-[700px] lg:w-[50%] xl:w-[75%] px-4 mb-8 border-[6px] rounded-xl border-[#422206]">
+                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="pet-map h-[300px] sm:h-[400px] xl:h-[500px] w-full xl:max-w-[700px] lg:w-[50%] xl:w-[75%] px-4 mb-8 border-[6px] rounded-xl">
                           <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -225,8 +228,9 @@ function PetDetails() {
                     </div>
                     
                     {/* ---------- Contact ---------- */}
-                    <div className="pet-contact text-[#422206] mb-20">
-                      <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Interested?  Reach out using the information below!</h2>
+                    {/* <div className="pet-contact text-[#422206] mb-20"> */}
+                    <div className="pet-contact mb-20">
+                      <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] mb-[40px]">Interested?  Reach out using the information below!</h2>
                       <p className="text-base md:text-xl 2xl:text-2xl" ><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
                       <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
                       <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
