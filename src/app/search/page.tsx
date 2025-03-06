@@ -38,7 +38,7 @@ function SearchResults() {
 
         <hr className="mb-20 border-t-[6px] border-t-[#422206]" />
 
-        <div className="flex flex-wrap justify-center gap-[16px]">
+        <div className="flex flex-wrap flex-col sm:flex-row justify-center items-center sm:items-stretch gap-[16px]">
           {petResults?.status === 500 ? "something went wrong" : renderedSearchResults}
         </div>
       </div>
