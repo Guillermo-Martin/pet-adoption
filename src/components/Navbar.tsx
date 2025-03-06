@@ -94,7 +94,8 @@ function Navbar() {
                 ? "loading..."
                 :
                 <div>
-                  <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold text-center mb-6">What are you looking for?</h2>
+                  <span className="text-3xl cursor-pointer absolute right-4 lg:right-6 top-3 lg:top-4">x</span>
+                  <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold text-center mb-6 max-w-[50%] mx-auto">What are you looking&nbsp;for?</h2>
                   <div className="form-container flex flex-col justify-center items-center md:flex-row md:justify-evenly md:max-w-[800px] md:mx-auto">
                     <div className="button-container flex justify-evenly items-center w-full max-w-[320px] lg:max-w-[400px] mb-6 md:mb-0">
                       <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
