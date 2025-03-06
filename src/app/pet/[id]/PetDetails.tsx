@@ -200,7 +200,7 @@ function PetDetails() {
                       {/* ----- Shelter container ----- */}
                       <div className="shelter-container flex justify-content items-center flex-col-reverse lg:flex-row">
                         {/* ----- Shelter info ----- */}
-                        <div className="shelter-info w-full lg:w-[50%]">
+                        <div className="shelter-info w-full lg:w-[50%] lg:pr-8">
                           {/* To do: What if the shelter name is available, but the website isn't? */}
                           <h3 className="text-base md:text-2xl 2xl:text-3xl"><a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.name : "Address not available"}</a></h3>
                           <p className="text-base md:text-xl 2xl:text-2xl">{pet.orgDetails.organization.address.address1}</p>
