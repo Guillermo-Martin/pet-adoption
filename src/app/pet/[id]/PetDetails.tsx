@@ -195,9 +195,9 @@ function PetDetails() {
                       <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">You can find me here:</h2>
                     
                       {/* ----- Shelter container ----- */}
-                      <div className="shelter-container flex justify-content items-center flex-col-reverse">
+                      <div className="shelter-container flex justify-content items-center flex-col-reverse lg:flex-row">
                         {/* ----- Shelter info ----- */}
-                        <div className="shelter-info w-full">
+                        <div className="shelter-info w-full lg:w-[50%]">
                           {/* To do: What if the shelter name is available, but the website isn't? */}
                           <h3 className="text-base md:text-2xl 2xl:text-3xl"><a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.name : "Address not available"}</a></h3>
                           <p className="text-base md:text-xl 2xl:text-2xl">{pet.orgDetails.organization.address.address1}</p>
@@ -206,7 +206,7 @@ function PetDetails() {
                       
                         {/* ----------- MAP ---------- */}
                         {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="h-[300px] w-full px-4 mb-8 border-[6px] rounded-xl border-[#422206]">
+                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="h-[300px] sm:h-[400px] xl:h-[500px] w-full xl:max-w-[700px] lg:w-[50%] xl:w-[75%] px-4 mb-8 border-[6px] rounded-xl border-[#422206]">
                           <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
