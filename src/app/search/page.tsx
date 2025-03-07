@@ -11,7 +11,13 @@ function SearchResults() {
 
   // check for preventing hydration error
   if(petResults === null) {
-    return <div>No pets found.</div>
+    // return <div>No pets found.</div>
+    return (
+      <main className="flex justify-center items-center min-h-screen flex-col">
+        <p>Image goes here</p>
+        <h1>Hmm...we couldn&apos;t find any pets.</h1>
+      </main>
+    );
   };
 
   // render search results
