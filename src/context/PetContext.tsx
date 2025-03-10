@@ -1,5 +1,5 @@
 "use client";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState, useEffect } from "react";
 import type { Animal } from "@/interfaces/Animal";
 
 // ---------- Interfaces ----------
@@ -30,6 +30,24 @@ function Provider({ children }: ProviderProps) {
   // ----- State -----
   const [petResults, setPetResults] = useState<SearchResults | null>(null);
 
+  // Check to see if there's data in local storage
+  useEffect(() => {
+    console.log("getting data from local storage!");
+
+    // get data from localStorage
+    const storedPetResults = localStorage.getItem("petResults");
+
+    // check to see if there's data in local storage.  if there's nothing, return...
+    if(storedPetResults === null) {
+      return;
+    } else {
+      // ...else get data from localStorage, set "petResults" state to be localStorageData
+      setPetResults(JSON.parse(storedPetResults));
+    };
+  }, []);
+  
+
+
   // ----- Functions -----
   const fetchAnimals = async (type: string, zipcode: string) => {
     // make request to "/api/fetch-animals" and get a response (containing data)
@@ -45,8 +63,11 @@ function Provider({ children }: ProviderProps) {
       const data: SearchResults = await response.json();
       console.log("Here is the fetched data for all pets:", data);
 
-      // send all the data
+      // update the petResults state with all the data
       setPetResults(data);
+
+      // add the pet results to localStorage
+      localStorage.setItem("petResults", JSON.stringify(data));
     } catch (error) {
       console.log(error);
     };
@@ -56,7 +77,7 @@ function Provider({ children }: ProviderProps) {
   // valuesToShare is an object that will have the "PetContextTypes" type
   const valuesToShare: PetContextTypes = {
     petResults,
-    fetchAnimals
+    fetchAnimals,
   };
 
 

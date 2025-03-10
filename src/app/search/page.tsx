@@ -4,21 +4,12 @@ import SearchResultCard from "@/components/SearchResultCard";
 import type { Animal } from "@/interfaces/Animal";
 import Layout from "./../../components/Layout";
 
-function SearchResults() {
-  // Get search results from the PetContext
-  const { petResults } = usePetContext();
-  console.log("in search results", petResults);
 
-  // check for preventing hydration error
-  if(petResults === null) {
-    // return <div>No pets found.</div>
-    return (
-      <main className="flex justify-center items-center min-h-screen flex-col">
-        <p>Image goes here</p>
-        <h1>Hmm...we couldn&apos;t find any pets.</h1>
-      </main>
-    );
-  };
+function SearchResults() {
+  // Get search results from PetContext
+  const {petResults} = usePetContext();
+
+  console.log("in search, ", petResults?.searchResults);
 
   // render search results
   const renderedSearchResults = petResults?.searchResults.map((result: Animal) => {
