@@ -7,7 +7,7 @@ import Layout from "./../../components/Layout";
 
 function SearchResults() {
   // Get search results from PetContext
-  const {petResults} = usePetContext();
+  const { petResults } = usePetContext();
 
   console.log("in search, ", petResults?.searchResults);
 
@@ -29,17 +29,34 @@ function SearchResults() {
 
   // ---------- Component ----------
   return (
-    <Layout>
-      <div className="main-content text-[#422206]">
-        <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold mb-4">Results for <span className="italic">{petResults?.animal}</span> near <span className="italic">{petResults?.zipcode}</span></h1>
+    <>
+      
+      { 
+        // if petResults is null (doesn't exist), render error message
+        !petResults
+          ? 
+            <main className="flex justify-center items-center min-h-screen flex-col">
+              <p>Image goes here</p>
+              <h1>Loading</h1>
+            </main>
 
-        <hr className="mb-20 border-t-[6px] border-t-[#422206]" />
+            
+          :
+            // otherwise, render the search results
+            <Layout>
+              <div className="main-content text-[#422206]">
+                <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold mb-4">Results for <span className="italic">{petResults?.animal}</span> near <span className="italic">{petResults?.zipcode}</span></h1>
 
-        <div className="flex flex-wrap flex-col sm:flex-row justify-center items-center sm:items-stretch gap-[16px]">
-          {petResults?.status === 500 ? "something went wrong" : renderedSearchResults}
-        </div>
-      </div>
-    </Layout>
+                <hr className="mb-20 border-t-[6px] border-t-[#422206]" />
+
+                <div className="flex flex-wrap flex-col sm:flex-row justify-center items-center sm:items-stretch gap-[16px]">
+                  {petResults?.status === 500 ? "something went wrong" : renderedSearchResults}
+                </div>
+              </div>
+            </Layout>
+      }
+    </>
+    
   );
 };
 
