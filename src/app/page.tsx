@@ -94,7 +94,7 @@ export default function Home() {
                 <div className="button-container relative w-[80%] lg:w-[60%] flex items-center justify-evenly mb-12">
                   <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                   <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
-                  {showSelectedError && <p className="absolute bottom-[-35%] text-center leading-5">Oops! Looks like you haven&apos;t selected a pet!</p>}
+                  {showSelectedError && <p className="absolute bottom-[-35%] xs:bottom-[-26%] lg:bottom-[-18%] text-center leading-5">Oops! Looks like you haven&apos;t selected a pet!</p>}
                   {/* ***** vvv  For later  vvv ***** */}
                   {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
                 </div>
@@ -105,9 +105,9 @@ export default function Home() {
                 <label className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Enter your zipcode</label>
 
                 
-                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[40%] lg:w-[24%] mb-8" />
-                  {showZipcodeError && <p className="absolute bottom-[22%]">Don&apos;t forget to put in a zipcode!</p>}
-                  <button className="text-base sm:text-2xl border-4 border-[#422206] rounded-3xl w-[40%] lg:w-[24%] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button>
+                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[60%] max-w-[260px] lg:w-[24%] mb-10" />
+                  {showZipcodeError && <p className="absolute bottom-[24%] sm:bottom-[27%]">Don&apos;t forget to put in a zipcode!</p>}
+                  <button className="text-base sm:text-2xl border-4 border-[#422206] rounded-3xl w-[40%] lg:w-[24%] max-w-[260px] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button>
                 
                 
               </form>
