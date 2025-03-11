@@ -12,6 +12,8 @@ function Navbar() {
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showSelectedError, setShowSelectedError] = useState(false);
+  const [showZipcodeError, setShowZipcodeError] = useState(false);
 
   // ---------- useRouter ----------
   const router = useRouter();
@@ -44,12 +46,16 @@ function Navbar() {
     // Form submission check
     if(isSelected === "" && zipcode === "") {
       // if an animal wasn't selected and zipcode is empty
-      alert("Please select an animal and enter a zipcode.");
+      console.log("Please select an animal and enter a zipcode.");
+      setShowSelectedError(true);
+      setShowZipcodeError(true);
     } else if(zipcode === "") {
       // if an animal was selected, but zipcode is empty
-      alert("Please enter a 5-digit zipcode.");
+      console.log("Please enter a 5-digit zipcode.");
+      setShowZipcodeError(true);
     } else if(isSelected === "") {
-      alert("Please select an animal.")
+      console.log("Please select an animal.");
+      setShowSelectedError(true);
     } else {
       // set isLoading to true
       setIsLoading(true);
@@ -97,17 +103,19 @@ function Navbar() {
                   <span onClick={handleSearchClick} className="text-3xl font-bold cursor-pointer absolute right-4 lg:right-6 top-3 lg:top-4">x</span>
                   <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold text-center mb-6 max-w-[80%] mx-auto">What are you looking&nbsp;for?</h2>
                   <div className="form-container flex flex-col justify-center items-center md:flex-row md:justify-evenly md:max-w-[800px] md:mx-auto">
-                    <div className="button-container flex justify-evenly items-center w-full max-w-[320px] lg:max-w-[400px] mb-6 md:mb-0">
+                    <div className="relative button-container flex justify-evenly items-center w-full max-w-[320px] lg:max-w-[400px] mb-6 md:mb-0">
                       <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                       <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
+                      {showSelectedError && <p className="absolute bottom-[-30%] bottom-[-16%] lg:bottom-[-18%] text-xs text-center leading-5 text-[#db1919] italic">Oops! Looks like you haven&apos;t selected a pet!</p>}
                     </div>
                     
         
                     {/* ---------- Zipcode ---------- */}
-                    <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col">
+                    <form onSubmit={handleSubmit} className="relative flex items-center justify-center flex-col">
                     {/* <form className="flex items-center justify-center flex-col"> */}
                       <label className="text-2xl font-bold mb-2">Enter your zipcode</label>
                         <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-full md:w-[80%] mb-6" />
+                        {showZipcodeError && <p className="absolute bottom-[30%] sm:bottom-[27%] text-xs text-[#db1919] italic">Don&apos;t forget to put in a zipcode!</p>}
                         <button className="text-base border-4 border-[#422206] rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95">Submit</button>
                     </form>
                   </div>
