@@ -11,6 +11,8 @@ export default function Home() {
   const [isSelected, setIsSelected] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showSelectedError, setShowSelectedError] = useState(false);
+  const [showZipcodeError, setShowZipcodeError] = useState(false);
 
   // ---------- useRouter ----------
   const router = useRouter();
@@ -23,11 +25,17 @@ export default function Home() {
   const handleClick = (animal: string) => {
     // set "isSelected" state to the animal that was clicked on
     setIsSelected(animal);
+
+    // if an animal was selected, hide the message for selecting a pet
+    setShowSelectedError(false);
   };
 
   // ----- zipcode input -----
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setZipcode(event.target.value);
+
+    // hide the zipcode error message when a user types something
+    setShowZipcodeError(false);
   };
 
   // ----- handleSubmit -----
@@ -36,13 +44,18 @@ export default function Home() {
 
     // Form submission check
     if(isSelected === "" && zipcode === "") {
-      // if an animal wasn't selected and zipcode is empty
-      alert("Please select an animal and enter a zipcode.");
+      // if an animal wasn't selected and zipcode is empty, show both error messages
+      console.log("Please select an animal and enter a zipcode.");
+      setShowSelectedError(true);
+      setShowZipcodeError(true);
     } else if(zipcode === "") {
-      // if an animal was selected, but zipcode is empty
-      alert("Please enter a 5-digit zipcode.");
+      // if an animal was selected, but zipcode is empty, show zipcode error message
+      console.log("Please enter a 5-digit zipcode.");
+      setShowZipcodeError(true);
     } else if(isSelected === "") {
-      alert("Please select an animal.")
+      // if zipcode is entered by no animal was selected, show pet error message
+      console.log("Please select an animal.");
+      setShowSelectedError(true);
     } else {
       // set isLoading to true
       setIsLoading(true);
@@ -81,6 +94,7 @@ export default function Home() {
                 <div className="button-container w-[80%] lg:w-[60%] flex items-center justify-evenly mb-12">
                   <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                   <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
+                  {showSelectedError && <p>Oops! Looks like you haven&apos;t selected a pet!</p>}
                   {/* ***** vvv  For later  vvv ***** */}
                   {/* <PetButton src="/images/placeholder-03.jpg" alt="Fish" text="Something else" onClick={handleClick} animalType="something-else" /> */}
                 </div>
@@ -92,10 +106,13 @@ export default function Home() {
 
                 
                   <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[40%] lg:w-[24%] mb-4" />
+                  {showZipcodeError && <p>Don&apos;t forget to put in a zipcode!</p>}
                   <button className="text-base sm:text-2xl border-4 border-[#422206] rounded-3xl w-[40%] lg:w-[24%] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button>
                 
                 
               </form>
+
+              
 
               {/* ---------- Testing styles ---------- */}
               {/* <div className={styles.testDiv}>This is a div</div> */}
