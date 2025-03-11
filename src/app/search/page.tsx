@@ -41,11 +41,11 @@ function SearchResults() {
             </main>
           :
             // if "petResults" exists, see if there are any results available.  if not, render a "found nothing" screen
-            (petResults.searchResults.length === 0)
+            (petResults.searchResults.length === 0 || petResults.status !== 200)
             ? 
               <main className="flex justify-center items-center min-h-screen flex-col">
                 <p>Image goes here</p>
-                <h1>we couldn&apos;t find anything.</h1>
+                <h1>Hmm...something went wrong</h1>
               </main>
             :
               // if search results are available, render them
@@ -56,7 +56,7 @@ function SearchResults() {
                   <hr className="mb-20 border-t-[6px] border-t-[#422206]" />
 
                   <div className="flex flex-wrap flex-col sm:flex-row justify-center items-center sm:items-stretch gap-[16px]">
-                    {petResults?.status === 500 ? "something went wrong" : renderedSearchResults}
+                    {renderedSearchResults}
                   </div>
                 </div>
               </Layout>

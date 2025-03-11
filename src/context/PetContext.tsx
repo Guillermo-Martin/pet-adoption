@@ -59,8 +59,14 @@ function Provider({ children }: ProviderProps) {
         },
       });
 
+      console.log("FETCH ANIMALS RESPONSE", response.status)
+
       // Convert the response to JSON
       const data: SearchResults = await response.json();
+
+      // add status to data
+      data.status = response.status;
+
       console.log("Here is the fetched data for all pets:", data);
 
       // update the petResults state with all the data
