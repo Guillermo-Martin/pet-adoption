@@ -106,7 +106,7 @@ function Navbar() {
                     <div className="relative button-container flex justify-evenly items-center w-full max-w-[320px] lg:max-w-[400px] mb-6 md:mb-0">
                       <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                       <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
-                      {showSelectedError && <p className="absolute bottom-[-30%] bottom-[-16%] lg:bottom-[-18%] text-xs text-center leading-5 text-[#db1919] italic">Oops! Looks like you haven&apos;t selected a pet!</p>}
+                      {showSelectedError && <p className="absolute bottom-[-16%] lg:bottom-[-15%] text-xs text-center leading-5 text-[#db1919] italic">Oops! Looks like you haven&apos;t selected a pet!</p>}
                     </div>
                     
         
@@ -115,7 +115,7 @@ function Navbar() {
                     {/* <form className="flex items-center justify-center flex-col"> */}
                       <label className="text-2xl font-bold mb-2">Enter your zipcode</label>
                         <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-full md:w-[80%] mb-6" />
-                        {showZipcodeError && <p className="absolute bottom-[30%] sm:bottom-[27%] text-xs text-[#db1919] italic">Don&apos;t forget to put in a zipcode!</p>}
+                        {showZipcodeError && <p className="absolute bottom-[30%] text-xs text-[#db1919] italic">Don&apos;t forget to put in a zipcode!</p>}
                         <button className="text-base border-4 border-[#422206] rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95">Submit</button>
                     </form>
                   </div>
