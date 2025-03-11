@@ -37,11 +37,11 @@ function Provider({ children }: ProviderProps) {
     // get data from localStorage
     const storedPetResults = localStorage.getItem("petResults");
 
-    // check to see if there's data in local storage.  if there's nothing, return...
+    // check to see if there's data in local storage.  if there's nothing (null), set "petResults" to an object with empty data
     if(storedPetResults === null) {
-      return;
+      setPetResults({searchResults: [], animal: "", zipcode: "", status: null});
     } else {
-      // ...else get data from localStorage, set "petResults" state to be localStorageData
+      // ...else set "petResults" state to be localStorage data
       setPetResults(JSON.parse(storedPetResults));
     };
   }, []);
