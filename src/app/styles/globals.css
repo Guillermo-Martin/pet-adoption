@@ -23,6 +23,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-h1, h2, .navbar, .footer, .pet-details-image, .pet-map {
+h1, h2, .navbar, .footer, .pet-details-image, .pet-map, .pet-button, input, .submit-button, .search-results-card, .search-dropdown {
   border-color: var(--foreground);
 }

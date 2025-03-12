@@ -93,7 +93,8 @@ function Navbar() {
         {
           // if "isSearchActive" is true, show the search dropdown, otherwise hide it 
           isSearchActive && 
-          <div className="search-dropdown absolute w-full lg:w-[80%] bg-[blue] z-[1] top-[113%] sm:top-[112%] md:top-[110%] lg:top-[50px] left-0 xl:left-[90px] px-4 py-6 md:py-10 md:px-8 border-b-[6px] border-b-[#422206] lg:border-x-[6px] lg:border-x-[#422206] lg:rounded-b-xl">
+          // <div className="search-dropdown absolute w-full lg:w-[80%] bg-[blue] z-[1] top-[113%] sm:top-[112%] md:top-[110%] lg:top-[50px] left-0 xl:left-[90px] px-4 py-6 md:py-10 md:px-8 border-b-[6px] border-b-[#422206] lg:border-x-[6px] lg:border-x-[#422206] lg:rounded-b-xl">
+          <div className="search-dropdown absolute w-full lg:w-[80%] bg-[blue] z-[1] top-[113%] sm:top-[112%] md:top-[110%] lg:top-[50px] left-0 xl:left-[90px] px-4 py-6 md:py-10 md:px-8 border-b-[6px] lg:border-x-[6px] lg:rounded-b-xl">
             { 
               // if "isLoading" is true, show the loading, otherwise, show the search dropdown
               isLoading 
@@ -114,9 +115,11 @@ function Navbar() {
                     <form onSubmit={handleSubmit} className="relative flex items-center justify-center flex-col">
                     {/* <form className="flex items-center justify-center flex-col"> */}
                       <label className="text-2xl font-bold mb-2">Enter your zipcode</label>
-                        <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-full md:w-[80%] mb-6" />
+                        {/* <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-full md:w-[80%] mb-6" /> */}
+                        <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-full md:w-[80%] mb-6" />
                         {showZipcodeError && <p className="absolute bottom-[30%] text-xs text-[#db1919] italic">Don&apos;t forget to put in a zipcode!</p>}
-                        <button className="text-base border-4 border-[#422206] rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95">Submit</button>
+                        {/* <button className="text-base border-4 border-[#422206] rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95">Submit</button> */}
+                        <button className="submit-button text-base border-4 rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95">Submit</button>
                     </form>
                   </div>
                 </div>

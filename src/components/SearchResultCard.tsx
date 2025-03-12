@@ -16,7 +16,8 @@ interface SearchCardProps {
 function SearchResultCard({id, name, age, breed, city, gender, photo}: SearchCardProps) {
   return (
     // <Link href={`/pet/${id}`} data-petid={id} className="w-full max-w-2xs min-w-2xs bg-[#ffda9c] border-[6px] rounded-xl border-[#422206] overflow-hidden hover:scale-[104%]">
-    <Link href={`/pet/${id}`} data-petid={id} className="w-full sm:w-[48%] lg:w-[30%] max-w-[290px] bg-[#ffda9c] border-[6px] rounded-xl border-[#422206] overflow-hidden hover:scale-[104%]">
+    // <Link href={`/pet/${id}`} data-petid={id} className="w-full sm:w-[48%] lg:w-[30%] max-w-[290px] bg-[#ffda9c] border-[6px] rounded-xl border-[#422206] overflow-hidden hover:scale-[104%]">
+    <Link href={`/pet/${id}`} data-petid={id} className="search-results-card w-full sm:w-[48%] lg:w-[30%] max-w-[290px] bg-[#ffda9c] border-[6px] rounded-xl overflow-hidden hover:scale-[104%]">
       {/* Optimizing images: https://nextjs.org/docs/pages/building-your-application/optimizing/images */}
       <div className="image-container w-full h-[200px] relative mb-[12px]">
         <Image src={photo ? photo : "/images/dog-icon.png"} alt="" fill sizes="100%" className="object-cover" />

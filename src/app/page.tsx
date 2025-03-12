@@ -77,7 +77,8 @@ export default function Home() {
   // ---------- Component ----------
   return (
     <main className="homepage-container min-h-screen flex items-center justify-center">
-      <div className="homepage-container-content text-[#422206]">
+      {/* <div className="homepage-container-content text-[#422206]"> */}
+      <div className="homepage-container-content">
         { isLoading 
           ? "loading..." 
           : 
@@ -105,9 +106,11 @@ export default function Home() {
                 <label className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Enter your zipcode</label>
 
                 
-                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[60%] max-w-[260px] lg:w-[24%] mb-10" />
+                  {/* <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 border-[#422206] rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[60%] max-w-[260px] lg:w-[24%] mb-10" /> */}
+                  <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-[60%] max-w-[260px] lg:w-[24%] mb-10" />
                   {showZipcodeError && <p className="absolute bottom-[24%] sm:bottom-[27%] text-[#db1919] italic">Don&apos;t forget to put in a zipcode!</p>}
-                  <button className="text-base sm:text-2xl border-4 border-[#422206] rounded-3xl w-[40%] lg:w-[24%] max-w-[260px] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button>
+                  {/* <button className="text-base sm:text-2xl border-4 border-[#422206] rounded-3xl w-[40%] lg:w-[24%] max-w-[260px] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button> */}
+                  <button className="submit-button text-base sm:text-2xl border-4 rounded-3xl w-[40%] lg:w-[24%] max-w-[260px] bg-[#ffda9c] flex items-center justify-center active:scale-95">Submit</button>
                 
                 
               </form>
