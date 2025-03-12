@@ -126,7 +126,8 @@ export default function Home() {
         </div>
       </main>
 
-      <Footer position="absolute bottom-0" />
+      {/* If results are loading, hide the footer on the "loading" screen */}
+      {isLoading === false && <Footer position="absolute bottom-0" />}
     </div>
 
 
