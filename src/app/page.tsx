@@ -85,14 +85,14 @@ export default function Home() {
             ? "loading..." 
             : 
               <>
-                <div className="hero-header text-center mb-12">
+                <div className="hero-header text-center mb-6 lg:mb-8">
                   <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-4">Pet adoption</h1>
-                  <p className="text-3xl sm:text-4xl lg:text-5xl">Your new pet bestie is waiting for you.</p>
+                  <p className="text-3xl sm:text-4xl lg:text-5xl">Your new pet bestie is waiting for&nbsp;you.</p>
                 </div>
 
                 {/* ---------- Pet search options ----------  */}
                 <div className="pet-search-options flex items-center justify-center flex-col">
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8">What are you looking for?</h2>
+                  <h2 className="text-center text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6">What are you looking&nbsp;for?</h2>
 
                   <div className="button-container relative w-[80%] lg:w-[60%] flex items-center justify-evenly mb-12">
                     <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
