@@ -201,8 +201,21 @@ function PetDetails() {
                       <div className="shelter-container flex justify-content items-center flex-col-reverse lg:flex-row">
                         {/* ----- Shelter info ----- */}
                         <div className="shelter-info w-full lg:w-[50%] lg:pr-8">
-                          {/* To do: What if the shelter name is available, but the website isn't? */}
-                          <h3 className="text-base md:text-2xl 2xl:text-3xl"><a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.name : "Address not available"}</a></h3>
+                          {/* Shelter name and link (conditionally rendered) */}
+                          <h3 className="text-base md:text-2xl 2xl:text-3xl">
+                            {
+                              // If shelter name and website are available, render the organization name as a link
+                              pet.orgDetails.organization.website && pet.orgDetails.organization.name 
+                              ? <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.name}</a>
+                              // If shelter name is available but website isn't available
+                              : pet.orgDetails.organization.name && !pet.orgDetails.organization.website
+                                ? <span>{pet.orgDetails.organization.name}</span>
+                                // If shelter name isn't available but website is available
+                                : <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website}</a>
+                            }
+                          </h3>
+                          
+                          {/* Shelter address */}
                           <p className="text-base md:text-xl 2xl:text-2xl">{pet.orgDetails.organization.address.address1}</p>
                           <p className="text-base md:text-xl 2xl:text-2xl">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
                         </div>
