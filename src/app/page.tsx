@@ -78,7 +78,7 @@ export default function Home() {
   // ---------- Component ----------
   return (
     <div>
-      <main className="relative homepage-container min-h-screen flex items-center justify-center">
+      <main className="relative homepage-container min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
         {/* <div className="homepage-container-content text-[#422206]"> */}
         <div className="homepage-container-content">
           { isLoading 
