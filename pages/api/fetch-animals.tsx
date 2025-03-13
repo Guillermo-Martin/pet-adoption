@@ -149,14 +149,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const fetchPetById = async () => {
       try {
         // make request to get individual pet
-        const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
+        // const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
+        const petResponse = await fetch(`https://api.petfinder.com/v2/animASDFASDFSADFASDFASDFals/${id}`, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
           }
         });
-  
-        // convert response to json and send it to the client
+
+        // error handling -----------------------
+        console.log("getpetbyid response status", petResponse.status);
+
+        // check to see if the status was ok (status code of 200).  If it wasn't, throw a new Error and cause the "catch" block to run.
+        if(petResponse.status !== 200) {
+          console.log("ERRRRORRRRR!!!!!");
+          throw new Error("Something went wrong.");
+        };
+
+        // otherwise, get the data and send it to the client
+        // convert response to json
         const petData = await petResponse.json();
         
         // get pet organization details
@@ -212,7 +223,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json(petData);
       } catch(error) {
         console.error("Error fetching individual pet", error);
-        res.status(500).json({ error: "Failed to fetch individual pet data.", status: 500});
+        res.status(500).json({ error: "Failed to fetch individual pet data.", status: 500 });
       };
     };
 

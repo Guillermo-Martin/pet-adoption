@@ -160,7 +160,10 @@ function PetDetails() {
         // if the status is "500", display error message
         (pet === 500) 
           ? 
-            "something went wrong" 
+          <main className="flex justify-center items-center min-h-screen flex-col">
+            <p>Image goes here</p>
+            <h1>Something went wrong...</h1>
+          </main>
           : 
             // otherwise, load the data.
             // if there's pet data, isLoading is false, and "pet" isn't a number, show the data
