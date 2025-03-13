@@ -4,7 +4,7 @@ import PetButton from "./../components/PetButton";
 import { useRouter } from "next/navigation";
 import usePetContext from "@/hooks/usePetContext";
 import Footer from "@/components/Footer";
-// import Image from "next/image";
+import Image from "next/image";
 import styles from "@/app/styles/home.module.css";
 
 export default function Home() {
@@ -83,8 +83,10 @@ export default function Home() {
         <div className="homepage-container-content">
           { isLoading 
             ? 
+              // ---------- Loading screen ----------
               <>
-                <h1>Finding some new friends...</h1>
+                <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] mx-auto mb-6" />
+                <p className="text-center text-lg xs:text-xl">Finding some new friends...</p>
               </>
             : 
               <>
