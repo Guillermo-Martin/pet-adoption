@@ -40,7 +40,7 @@ function SearchResults() {
               <h1>Loading</h1>
             </main>
           :
-            // if "petResults" exists, see if there are any results available.  if not, render a "found nothing" screen
+            // if "petResults" exists, see if there are any results available.  if not, render an "error" screen
             (petResults.searchResults.length === 0 || petResults.status !== 200)
             ? 
               <main className="flex justify-center items-center min-h-screen flex-col">

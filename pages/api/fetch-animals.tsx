@@ -105,13 +105,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
           }
         });
-  
-        // convert the data to JSON, store it in the "fetchPetsInfo" object, then send it to the client
-        const searchData: SearchResults = await response.json();
-        fetchPetsInfo.searchResults = searchData.animals;
-        res.status(200).json(fetchPetsInfo);
+
+        // console.log("get all animals response", response.status);
+
+        // check to see if the status was ok (status code of 200).  If it wasn't, throw a new Error and cause the "catch" block to run.
+        if(response.status !== 200) {
+          console.log("ERROR!!!!!");
+          throw new Error("Something went wrong.");
+        } else {
+          // otherwise, convert the data to JSON, store it in the "fetchPetsInfo" object, then send "fetchPetsInfo" to the client
+          const searchData: SearchResults = await response.json();
+          fetchPetsInfo.searchResults = searchData.animals;
+          res.status(200).json(fetchPetsInfo);
+        };
       } catch(error) {
-        console.error("Error fetching search results", error);
+        console.error("error message:", error);
+        // if there was an error, respond with an object with the error, status, and empty searchResults
         res.status(500).json({ error: "Failed to fetch search results", status: 500, searchResults: [] });
       };
     };

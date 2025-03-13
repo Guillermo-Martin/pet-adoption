@@ -82,7 +82,10 @@ export default function Home() {
         {/* <div className="homepage-container-content text-[#422206]"> */}
         <div className="homepage-container-content">
           { isLoading 
-            ? "loading..." 
+            ? 
+              <>
+                <h1>Finding some new friends...</h1>
+              </>
             : 
               <>
                 <div className="hero-header text-center mb-6 lg:mb-8">
