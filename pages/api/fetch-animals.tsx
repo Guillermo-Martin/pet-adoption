@@ -106,12 +106,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }
         });
 
-        // console.log("get all animals response", response.status);
-
-        // check to see if the status was ok (status code of 200).  If it wasn't, throw a new Error and cause the "catch" block to run.
+        // ----- Error handling -----
+        // check to see if the status was ok (status code of 200).
+        // If it wasn't, throw a new Error and cause the "catch" block to run.
         if(response.status !== 200) {
-          console.log("ERROR!!!!!");
-          throw new Error("Something went wrong.");
+          throw new Error(`Something went wrong. Status code: ${response.status}`);
         } else {
           // otherwise, convert the data to JSON, store it in the "fetchPetsInfo" object, then send "fetchPetsInfo" to the client
           const searchData: SearchResults = await response.json();
@@ -119,9 +118,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           res.status(200).json(fetchPetsInfo);
         };
       } catch(error) {
-        console.error("error message:", error);
         // if there was an error, respond with an object with the error, status, and empty searchResults
-        res.status(500).json({ error: "Failed to fetch search results", status: 500, searchResults: [] });
+        console.error("Error fetching search results.", error);
+        res.status(500).json({ error: "Failed to fetch search results.", status: 500, searchResults: [] });
       };
     };
 
@@ -149,21 +148,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const fetchPetById = async () => {
       try {
         // make request to get individual pet
-        // const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
-        const petResponse = await fetch(`https://api.petfinder.com/v2/animASDFASDFSADFASDFASDFals/${id}`, {
+        const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
           }
         });
 
-        // error handling -----------------------
-        console.log("getpetbyid response status", petResponse.status);
-
-        // check to see if the status was ok (status code of 200).  If it wasn't, throw a new Error and cause the "catch" block to run.
+        // ----- Error handling -----
+        // check to see if the status was ok (status code of 200).
+        // If it wasn't, throw a new Error and cause the "catch" block to run.
         if(petResponse.status !== 200) {
-          console.log("ERRRRORRRRR!!!!!");
-          throw new Error("Something went wrong.");
+          throw new Error(`Something went wrong. Status code: ${petResponse.status}`);
         };
 
         // otherwise, get the data and send it to the client
@@ -222,7 +218,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // send petData to the client
         res.status(200).json(petData);
       } catch(error) {
-        console.error("Error fetching individual pet", error);
+        // if there was an error, respond with an object with the error and status
+        console.error("Error fetching pet by id.", error);
         res.status(500).json({ error: "Failed to fetch individual pet data.", status: 500 });
       };
     };
