@@ -3,6 +3,7 @@ import usePetContext from "@/hooks/usePetContext";
 import SearchResultCard from "@/components/SearchResultCard";
 import type { Animal } from "@/interfaces/Animal";
 import Layout from "./../../components/Layout";
+import Image from "next/image";
 
 
 function SearchResults() {
@@ -35,17 +36,21 @@ function SearchResults() {
         // if "petResults" is null (will be null while data is retrieved from localStorage), render a loading screen
         (petResults === null)
           ? 
-            <main className="flex justify-center items-center min-h-screen flex-col">
-              <p>Image goes here</p>
-              <h1>Loading</h1>
-            </main>
+          <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
+            <div className="loading-container-content">
+              <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] max-w-[102.4px] xs:max-w-[163.54px] lg:max-w-[218.06px] mx-auto mb-6" />
+              <p className="text-center text-lg xs:text-xl">Loading from localStorage...</p>
+            </div>
+          </main>
           :
             // if "petResults" exists, see if there are any results available.  if not, render an "error" screen
             (petResults.searchResults.length === 0 || petResults.status !== 200)
             ? 
-              <main className="flex justify-center items-center min-h-screen flex-col">
-                <p>Image goes here</p>
-                <h1>Hmm...something went wrong</h1>
+              <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
+                <div className="loading-container-content">
+                  <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] max-w-[102.4px] xs:max-w-[163.54px] lg:max-w-[218.06px] mx-auto mb-6" />
+                  <p className="text-center text-lg xs:text-xl">Hmm...something went wrong</p>
+                </div>
               </main>
             :
               // if search results are available, render them
