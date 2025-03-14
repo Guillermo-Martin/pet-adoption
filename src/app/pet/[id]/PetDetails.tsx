@@ -64,7 +64,7 @@ function PetDetails() {
   const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [hasPicture, setHasPicture] = useState(false);
   const [hasCharacteristics, setHasCharacteristics] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // ----- get the pet id from the URL -----
   const params = useParams<{id: string}>();
@@ -168,6 +168,7 @@ function PetDetails() {
             // otherwise, load the data.
             // if there's pet data, isLoading is false, and "pet" isn't a number, show the data
             (pet && isLoading === false && typeof pet !== "number")
+            // (pet && isLoading === true && typeof pet !== "number")
               ?
                 <Layout>
                     {/* ---------- Image ---------- */}
@@ -254,9 +255,12 @@ function PetDetails() {
                 </Layout>
               :
                 // otherwise, show the loading status
-                <main className="flex justify-center items-center min-h-screen flex-col">
-                  <p>Image goes here</p>
-                  <h1>Loading...</h1>
+                // <main className="flex justify-center items-center min-h-screen flex-col">
+                <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
+                  <div className="loading-container-content">
+                    <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] max-w-[102.4px] xs:max-w-[163.54px] lg:max-w-[218.06px] mx-auto mb-6" />
+                    <p className="text-center text-lg xs:text-xl">Getting more details on your new best friend...</p>
+                  </div>
                 </main>
       }
     </>
