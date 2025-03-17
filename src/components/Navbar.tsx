@@ -86,8 +86,8 @@ function Navbar() {
       <div className="navbar-inner-container lg:relative max-w-7xl mx-auto bg-sky-900">
         {/* <div className="navbar-links flex gap-x-[40px]"> */}
         <div className="navbar-links flex gap-x-[40px]">
-          <Link href="/"><p className="text-base sm:text-xl hover:text-[#4369fc]">Home</p></Link>
-          <p onClick={handleSearchClick} className="text-base sm:text-xl cursor-pointer hover:text-[#4369fc]">Search again</p>
+          <Link href="/"><p className="text-base sm:text-xl hover:text-[#4369fc] transition duration-150">Home</p></Link>
+          <p onClick={handleSearchClick} className="text-base sm:text-xl cursor-pointer hover:text-[#4369fc] transition duration-150">Search again</p>
         </div>
         
         {/* ---------- Search dropdown ---------- */}
