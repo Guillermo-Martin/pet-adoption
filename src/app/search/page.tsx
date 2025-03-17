@@ -1,7 +1,6 @@
 "use client";
 import usePetContext from "@/hooks/usePetContext";
 import SearchResultCard from "@/components/SearchResultCard";
-// import Error from "@/components/Error";
 import LoadingScreen from "@/components/LoadingScreen";
 import type { Animal } from "@/interfaces/Animal";
 import Layout from "./../../components/Layout";
