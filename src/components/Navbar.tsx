@@ -103,7 +103,7 @@ function Navbar() {
                 <LoadingScreen message="Finding some new friends..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} />
                 :
                 <div>
-                  <span onClick={handleSearchClick} className="text-3xl font-bold cursor-pointer absolute right-4 lg:right-6 top-3 lg:top-4">x</span>
+                  <span onClick={handleSearchClick} className="text-3xl font-bold cursor-pointer absolute right-4 lg:right-6 top-3 lg:top-4 hover:scale-[132%] transition duration-150">x</span>
                   <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold text-center mb-6 max-w-[80%] mx-auto">What are you looking&nbsp;for?</h2>
                   <div className="form-container flex flex-col justify-center items-center md:flex-row md:justify-evenly md:max-w-[800px] md:mx-auto">
                     <div className="relative button-container flex justify-evenly items-center w-full max-w-[320px] lg:max-w-[400px] mb-6 md:mb-0">
@@ -121,7 +121,7 @@ function Navbar() {
                         <input name="zipcode" type="text" pattern="[0-9]{5}" title="Five digit zip code" onChange={handleChange} value={zipcode} className="border-2 rounded-xl h-[40px] pl-[8px] pt-[6px] text-2xl w-full md:w-[80%] mb-6" />
                         {showZipcodeError && <p className="absolute bottom-[30%] text-xs text-[#db1919] italic">Don&apos;t forget to put in a zipcode!</p>}
                         {/* <button className="text-base border-4 border-[#422206] rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95">Submit</button> */}
-                        <button className="submit-button text-base border-4 rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95">Submit</button>
+                        <button className="submit-button text-base border-4 rounded-3xl w-[80%] bg-[#ffda9c] py-1 flex items-center justify-center active:scale-95 hover:scale-[104%] transition duration-150">Submit</button>
                     </form>
                   </div>
                 </div>
