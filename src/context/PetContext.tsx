@@ -66,7 +66,7 @@ function Provider({ children }: ProviderProps) {
 
       // add status to data
       data.status = response.status;
-
+      // data.status = 500;
       console.log("Here is the fetched data for all pets:", data);
 
       // update the petResults state with all the data

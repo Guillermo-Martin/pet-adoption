@@ -1,6 +1,7 @@
 "use client";
 import usePetContext from "@/hooks/usePetContext";
 import SearchResultCard from "@/components/SearchResultCard";
+import Error from "@/components/Error";
 import type { Animal } from "@/interfaces/Animal";
 import Layout from "./../../components/Layout";
 import Image from "next/image";
@@ -47,10 +48,12 @@ function SearchResults() {
             (petResults.searchResults.length === 0 || petResults.status !== 200)
             ? 
               <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-                <div className="loading-container-content">
-                  <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] max-w-[102.4px] xs:max-w-[163.54px] lg:max-w-[218.06px] mx-auto mb-6" />
-                  <p className="text-center text-lg xs:text-xl">Hmm...something went wrong</p>
-                </div>
+                {/* <div className="loading-container-content">
+                  <Image src="/images/wrong-dog.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] max-w-[102.4px] xs:max-w-[163.54px] lg:max-w-[218.06px] mx-auto mb-6" />
+                  <p className="text-center text-lg xs:text-xl">Hmm...something went wrong!!!</p>
+                </div> */}
+
+                <Error message="Hmm...something went wrong!" imageSrc="/images/wrong-dog.png" alt="Dog with 'x's for eyes" />
               </main>
             :
               // if search results are available, render them
