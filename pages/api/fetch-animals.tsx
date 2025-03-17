@@ -150,6 +150,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         // make request to get individual pet
         const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
+        // const petResponse = await fetch(`https://api.petfinder.com/v2/animaasdfasdfasdls/${id}`, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,

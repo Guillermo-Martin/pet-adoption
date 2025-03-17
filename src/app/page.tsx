@@ -6,6 +6,7 @@ import usePetContext from "@/hooks/usePetContext";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import styles from "@/app/styles/home.module.css";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Home() {
   // ---------- State ----------
@@ -85,8 +86,10 @@ export default function Home() {
             ? 
               // ---------- Loading screen ----------
               <>
-                <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] mx-auto mb-6" />
-                <p className="text-center text-lg xs:text-xl">Finding some new friends...</p>
+                {/* <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] mx-auto mb-6" /> */}
+                {/* <p className="text-center text-lg xs:text-xl">Finding some new friends...</p> */}
+
+                <LoadingScreen message="Finding some new friends..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} />
               </>
             : 
               <>
