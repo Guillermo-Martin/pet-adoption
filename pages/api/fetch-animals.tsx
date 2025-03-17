@@ -99,8 +99,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const fetchAllPets = async () => {
       try {
         // make request to get search results
-        const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
-        // const response = await fetch(`https://api.petfinder.com/v2/animalasdfasdfsdfasdfs?type=${obj.animal}&location=${obj.zipcode}`, {
+        // const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
+        const response = await fetch(`https://api.petfinder.com/v2/animalasdfasdfsdfasdfs?type=${obj.animal}&location=${obj.zipcode}`, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
