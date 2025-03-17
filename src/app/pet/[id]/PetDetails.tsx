@@ -253,9 +253,10 @@ function PetDetails() {
                     {/* <div className="pet-contact text-[#422206] mb-20"> */}
                     <div className="pet-contact mb-20">
                       <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] mb-[40px]">Interested?  Reach out using the information below!</h2>
-                      <p className="text-base md:text-xl 2xl:text-2xl" ><span className="font-bold">Email:</span> <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email ? pet.orgDetails.organization.email : "Not available"}</a></p>
-                      <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available"}</p>
-                      <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p>
+                      <p className="text-base md:text-xl 2xl:text-2xl" ><span className="font-bold">Email:</span> {pet.orgDetails.organization.email ? <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.email}</a> : "Not available."}</p>
+                      <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available."}</p>
+                      {/* <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p> */}
+                      <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Website:</span> {pet.orgDetails.organization.website ? <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website}</a> : "Not available."}</p>
                     </div>
                 </Layout>
               :
