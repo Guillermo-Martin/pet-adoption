@@ -3,6 +3,7 @@ import Link from "next/link";
 import PetButton from "@/components/PetButton";
 import { useRouter } from "next/navigation";
 import usePetContext from "@/hooks/usePetContext";
+import LoadingScreen from "@/components/LoadingScreen";
 
 
 
@@ -98,7 +99,8 @@ function Navbar() {
             { 
               // if "isLoading" is true, show the loading, otherwise, show the search dropdown
               isLoading 
-                ? "loading..."
+                ? 
+                <LoadingScreen message="Finding some new friends..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} />
                 :
                 <div>
                   <span onClick={handleSearchClick} className="text-3xl font-bold cursor-pointer absolute right-4 lg:right-6 top-3 lg:top-4">x</span>
