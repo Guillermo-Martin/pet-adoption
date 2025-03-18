@@ -163,32 +163,34 @@ function PetDetails() {
           </main>
           : 
             // ...otherwise, load the data.
-            // if there's pet data, "isLoading" is false, and "pet" isn't a number, show the data
+            // if there's pet data, "isLoading" is false, and "pet" isn't a number, show the data...
             (pet && isLoading === false && typeof pet !== "number")
               ?
                 <Layout>
                     {/* ---------- Image ---------- */}
-                    <div className="image-container w-full md:max-w-7xl flex justify-center items-center mb-16 md:my-[100px]">
+                    {/* If a picture is available, use "mb-10" for bottom, margin, otherwise, use a custom margin */}
+                    <div className={`image-container w-full md:max-w-7xl flex justify-center items-center ${hasPicture ? "mb-10" : "mb-16 md:my-[100px]"}`}>
                       {/* Check to see if the data has an image available; if not, set image src to default image */}
-                      {hasPicture 
-                      ? 
-                        <Image src={hasPicture ? pet.animal.photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
-                      : 
-                        <div className="no-image bg-[#fff5eb] h-full flex justify-center items-center flex-col">
-                          <div className="no-image-content">
-                            <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[200px] mx-auto mb-5"/>
-                            <p className="h-full text-center">No image available.</p>
+                      {
+                        hasPicture 
+                        ? 
+                          <Image src={hasPicture ? pet.animal.photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
+                        : 
+                          <div className="no-image bg-[#fff5eb] h-full flex justify-center items-center flex-col">
+                            <div className="no-image-content">
+                              <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[200px] mx-auto mb-5"/>
+                              <p className="h-full text-center">No image available.</p>
+                            </div>
                           </div>
-                        </div>
-                      }
-                      {/* <Image src={hasPicture ? pet.animal.photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" /> */}
+                        }
                     </div>
                     
                     {/* ---------- Intro ---------- */}
-                    {/* <div className="pet-intro text-[#422206] mb-10 md:mb-20"> */}
                     <div className="pet-intro mb-10 md:mb-20">
-                      {/* <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1> */}
+                      {/* ----- Name ----- */}
                       <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
+                      
+                      {/* ----- General description ----- */}
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl mb-4 xl:mb-6">
                         I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
                         I&apos;m a <span className={pet.animal.size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : pet.animal.size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-3xl md:text-5xl lg:text-6xl font-extrabold"}>{pet.animal.size.toLowerCase()}</span> {pet.animal.species.toLowerCase()}.&nbsp;
@@ -197,14 +199,7 @@ function PetDetails() {
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl">I&apos;m <span className={pet.animal.status === "adoptable" ? "text-[#179E00]" : "text-[#000]"}>{pet.animal.status === "adoptable" ? "adoptable" : "taken"}</span>!</p>
                     </div>
                     
-                    {/* ---------- Description ---------- */}
-                    {/* <div className="pet-description text-[#422206] mb-[100px]">
-                      <h2 className="text-[64px] font-bold border-b-[6px] border-b-[#422206] mb-[40px]">Here&apos;s more information about me:</h2>
-                      <p className="text-2xl">{pet.animal.description}</p>
-                    </div> */}
-                    
                     {/* ---------- Location ---------- */}
-                    {/* <div className="pet-location text-[#422206] mb-10 md:mb-20"> */}
                     <div className="pet-location mb-10 md:mb-20">
                       <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] mb-[40px]">You can find me here:</h2>
                     
@@ -218,10 +213,10 @@ function PetDetails() {
                               // If shelter name and website are available, render the organization name as a link
                               pet.orgDetails.organization.website && pet.orgDetails.organization.name 
                               ? <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc] transition duration-150">{pet.orgDetails.organization.name}</a>
-                              // If shelter name is available but website isn't available
+                              // If shelter name is available but website isn't available, just render the name
                               : pet.orgDetails.organization.name && !pet.orgDetails.organization.website
                                 ? <span>{pet.orgDetails.organization.name}</span>
-                                // If shelter name isn't available but website is available
+                                // If shelter name isn't available but website is available, just render the website
                                 : <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website}</a>
                             }
                           </h3>
@@ -252,24 +247,16 @@ function PetDetails() {
                     </div>
                     
                     {/* ---------- Contact ---------- */}
-                    {/* <div className="pet-contact text-[#422206] mb-20"> */}
                     <div className="pet-contact mb-20">
                       <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] mb-[40px]">Interested?  Reach out using the information below!</h2>
                       <p className="text-base md:text-xl 2xl:text-2xl" ><span className="font-bold">Email:</span> {pet.orgDetails.organization.email ? <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc] transition duration-150">{pet.orgDetails.organization.email}</a> : "Not available."}</p>
                       <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available."}</p>
-                      {/* <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Website:</span> <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website ? pet.orgDetails.organization.website : "Not available"}</a></p> */}
                       <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Website:</span> {pet.orgDetails.organization.website ? <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc] transition duration-150">{pet.orgDetails.organization.website}</a> : "Not available."}</p>
                     </div>
                 </Layout>
               :
-                // otherwise, show the loading status
-                // <main className="flex justify-center items-center min-h-screen flex-col">
+                // ...otherwise, show the loading status
                 <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-                  {/* <div className="loading-container-content">
-                    <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] max-w-[102.4px] xs:max-w-[163.54px] lg:max-w-[218.06px] mx-auto mb-6" />
-                    <p className="text-center text-lg xs:text-xl">Getting more details on your new best friend...</p>
-                  </div> */}
-
                   <LoadingScreen message="Getting more details on your new best friend..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} />
                 </main>
       }
