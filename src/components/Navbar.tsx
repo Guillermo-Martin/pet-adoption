@@ -1,8 +1,8 @@
 import{ useState, FormEvent, ChangeEvent } from "react";
 import Link from "next/link";
-import PetButton from "@/components/PetButton";
 import { useRouter } from "next/navigation";
 import usePetContext from "@/hooks/usePetContext";
+import PetButton from "@/components/PetButton";
 import LoadingScreen from "@/components/LoadingScreen";
 
 function Navbar() {
