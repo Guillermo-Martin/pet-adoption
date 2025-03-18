@@ -4,9 +4,10 @@ import { useParams } from "next/navigation";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import Layout from "@/components/Layout";
+import LoadingScreen from "@/components/LoadingScreen";
 import Image from "next/image";
 import L from 'leaflet';
-import LoadingScreen from "@/components/LoadingScreen";
+
 
 // ---------- Intefaces ----------
 interface PetDetails {
@@ -154,28 +155,33 @@ function PetDetails() {
   return (
     <> 
       {
-        // if the status is "500", display error message
+        // if the status is "500", display error message...
         (pet === 500 || hasError) 
           ? 
           <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-            {/* <div className="loading-container-content">
-              <Image src="/images/dog-icon.png" alt="" width={200} height={200} className="w-[40%] xs:w-[60%] lg:w-[80%] max-w-[102.4px] xs:max-w-[163.54px] lg:max-w-[218.06px] mx-auto mb-6" />
-              <p className="text-center text-lg xs:text-xl">Hmm...something went wrong</p>
-            </div> */}
-
             <LoadingScreen message="Hmm...something went wrong!" imageSrc="/images/wrong-dog.png" alt="Dog with 'x's for eyes" error />
           </main>
           : 
-            // otherwise, load the data.
-            // if there's pet data, isLoading is false, and "pet" isn't a number, show the data
+            // ...otherwise, load the data.
+            // if there's pet data, "isLoading" is false, and "pet" isn't a number, show the data
             (pet && isLoading === false && typeof pet !== "number")
-            // (pet && isLoading === true && typeof pet !== "number")
               ?
                 <Layout>
                     {/* ---------- Image ---------- */}
-                    <div className="image-container w-full md:max-w-7xl flex justify-center items-center mb-10">
+                    <div className="image-container w-full md:max-w-7xl flex justify-center items-center mb-16 md:my-[100px]">
                       {/* Check to see if the data has an image available; if not, set image src to default image */}
-                      <Image src={hasPicture ? pet.animal.photos[0].full : "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
+                      {hasPicture 
+                      ? 
+                        <Image src={hasPicture ? pet.animal.photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
+                      : 
+                        <div className="no-image bg-[#fff5eb] h-full flex justify-center items-center flex-col">
+                          <div className="no-image-content">
+                            <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[200px] mx-auto mb-5"/>
+                            <p className="h-full text-center">No image available.</p>
+                          </div>
+                        </div>
+                      }
+                      {/* <Image src={hasPicture ? pet.animal.photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" /> */}
                     </div>
                     
                     {/* ---------- Intro ---------- */}
