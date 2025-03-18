@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Grandstander } from "next/font/google"; // import grandstander
-import Layout from "./../components/Layout";
 import "@/app/styles/globals.css";
 import { Provider } from "@/context/PetContext";
 
@@ -19,12 +18,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="en" className={`${grandstander.variable}`}>
-      {/* <body className="font-grandstander max-w-7xl mx-auto"> */}
       <body className="font-grandstander">
         <Provider>
-          {/* <Layout> */}
           {children}
-          {/* </Layout> */}
         </Provider>
       </body>
     </html>

@@ -16,7 +16,7 @@ function Layout({ children }: LayoutProps) {
           {children}
         </div>
       </main>
-      <Footer />
+      <Footer position="static" />
     </div>
   );
 };
