@@ -13,7 +13,7 @@ interface SearchCardProps {
   photo: string | null;
 };
 
-function SearchResultCard({id, name, age, breed, city, gender, photo}: SearchCardProps) {
+function SearchResultCard({ id, name, age, breed, city, gender, photo }: SearchCardProps) {
   return (
     <Link href={`/pet/${id}`} data-petid={id} className="search-results-card w-full sm:w-[48%] lg:w-[30%] max-w-[290px] bg-[#ffda9c] border-[6px] rounded-xl overflow-hidden hover:scale-[104%] transition duration-150">
       {/* ----- Pet image ----- */}

@@ -32,12 +32,10 @@ function Provider({ children }: ProviderProps) {
 
   // Check to see if there's data in local storage
   useEffect(() => {
-    console.log("getting data from local storage!");
-
     // get data from localStorage
     const storedPetResults = localStorage.getItem("petResults");
 
-    // check to see if there's data in local storage.  if there's nothing (null), set "petResults" to an object with empty data
+    // check to see if there's data in local storage.  if there's nothing (null), set "petResults" to an object with empty data...
     if(storedPetResults === null) {
       setPetResults({searchResults: [], animal: "", zipcode: "", status: null});
     } else {
@@ -59,15 +57,11 @@ function Provider({ children }: ProviderProps) {
         },
       });
 
-      console.log("FETCH ANIMALS RESPONSE", response.status)
-
       // Convert the response to JSON
       const data: SearchResults = await response.json();
 
       // add status to data
       data.status = response.status;
-      // data.status = 500;
-      console.log("Here is the fetched data for all pets:", data);
 
       // update the petResults state with all the data
       setPetResults(data);
@@ -75,7 +69,7 @@ function Provider({ children }: ProviderProps) {
       // add the pet results to localStorage
       localStorage.setItem("petResults", JSON.stringify(data));
     } catch (error) {
-      console.log(error);
+      console.error("Error:", error);
     };
   };
 
