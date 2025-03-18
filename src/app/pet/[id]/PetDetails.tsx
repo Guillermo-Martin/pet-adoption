@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, ReactElement } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -54,18 +54,16 @@ interface PetDetails {
       long: string;
     };
   }
-}
+};
 
-
-
-
-// component
+// ---------- component ----------
 function PetDetails() {
   // ----- State -----
   const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [hasPicture, setHasPicture] = useState(false);
   const [hasCharacteristics, setHasCharacteristics] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   // ----- get the pet id from the URL -----
   const params = useParams<{id: string}>();
@@ -77,7 +75,6 @@ function PetDetails() {
 
   // destructure id from url
   const { id } = params;
-  console.log("here's the pet's id", typeof id);
 
   // variable to hold pet characteristics
   let characteristics: string[] | undefined = [];
@@ -98,8 +95,6 @@ function PetDetails() {
         // convert the response to data
         const data = await response.json();
 
-        console.log("here is the individual pet data, line 58", data);
-
         // check to see if individual data was retrieved
         if(data.status === 500) {
           // if not, set pet to "500" (the status)
@@ -119,7 +114,8 @@ function PetDetails() {
           setHasCharacteristics(true);
         };
       } catch (error) {
-        console.log(error);
+        console.error("Error", error);
+        setHasError(true);
       } finally {
         // set isLoading to "false"
         setIsLoading(false);
@@ -159,7 +155,7 @@ function PetDetails() {
     <> 
       {
         // if the status is "500", display error message
-        (pet === 500) 
+        (pet === 500 || hasError) 
           ? 
           <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
             {/* <div className="loading-container-content">
