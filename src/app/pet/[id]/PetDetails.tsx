@@ -60,8 +60,7 @@ interface PetDetails {
 // ---------- component ----------
 function PetDetails() {
   // ----- State -----
-  const [pet, setPet] = useState<PetDetails | number | null>(null); // fix number type
-  // const [pet, setPet] = useState<PetDetails | null>(null); // fix number type
+  const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [hasPicture, setHasPicture] = useState(false);
   const [hasCharacteristics, setHasCharacteristics] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -129,21 +128,12 @@ function PetDetails() {
   }, [id]);
 
   // ---------- Destructuring variables ----------
-  console.log("here's the pet data: ", pet);
   // if pet isn't null, and it's not a number (apply type narrowing since "pet" can be more than one type) then destructure from pet.animal/pet.orgDetails
   // in this example, there's the possibility "pet" can be false, so handle that case by using an empty object if pet is false
   const { name, age, gender, breeds, size, species, tags, status, photos, type } = (pet !== null && typeof pet !== "number") ? pet.animal : {};
   const { website, address, email, phone } = (pet !== null && typeof pet !== "number") ? pet.orgDetails.organization : {};
   const { organization } = (pet !== null && typeof pet !== "number") ? pet.orgDetails : {};
   const { lat, long } = (pet !== null && typeof pet !== "number") ? pet.orgDetails.coordinates : {};
-
-
-  console.log("organiztion", typeof lat);
-
-  
-
-
-
 
   // ---------- Rendering pet characteristics ----------
   // typing a map of JSX elements:  https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
@@ -211,7 +201,6 @@ function PetDetails() {
                       
                       {/* ----- General description ----- */}
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl mb-4 xl:mb-6">
-                        {/* I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp; */}
                         I&apos;m {age?.toLowerCase() === "adult" ? "an" : "a"} <span className={gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{age?.toLowerCase()} {gender?.toLowerCase()}</span> {breeds?.primary.toLowerCase()}{breeds?.secondary ? `, ${breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
                         I&apos;m a <span className={size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-3xl md:text-5xl lg:text-6xl font-extrabold"}>{size?.toLowerCase()}</span> {species?.toLowerCase()}.&nbsp;
                         {tags?.length !== 0 ? `Humans describe me as ${characteristics?.join(", ")}.` : null}
@@ -248,7 +237,6 @@ function PetDetails() {
                       
                         {/* ----------- MAP ---------- */}
                         {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                        {/* <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="pet-map h-[300px] sm:h-[400px] xl:h-[500px] w-full xl:max-w-[700px] lg:w-[50%] xl:w-[75%] px-4 mb-8 border-[6px] rounded-xl"> */}
                         <MapContainer center={[parseFloat(lat as string), parseFloat(long as string)]} zoom={16} scrollWheelZoom={false} className="pet-map h-[300px] sm:h-[400px] xl:h-[500px] w-full xl:max-w-[700px] lg:w-[50%] xl:w-[75%] px-4 mb-8 border-[6px] rounded-xl">
                           <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -257,9 +245,11 @@ function PetDetails() {
                           <Marker position={[parseFloat(lat as string), parseFloat(long as string)]} icon={ type === "Dog" ? customDogIcon : customCatIcon }>
                             <Popup>
                               {organization?.name}
-                              <br />
+                              {/* if the organization name exists, add a break, otherwise don't */}
+                              {organization?.name && <br />}
                               {address?.address1}
-                              <br />
+                              {/* if address exists add a break, otherwise don't */}
+                              {address?.address1 && <br />}
                               {address?.city}, {address?.state} {address?.postcode}
                             </Popup>
                           </Marker>
