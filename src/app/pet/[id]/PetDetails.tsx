@@ -60,7 +60,8 @@ interface PetDetails {
 // ---------- component ----------
 function PetDetails() {
   // ----- State -----
-  const [pet, setPet] = useState<PetDetails | number | null>(null);
+  const [pet, setPet] = useState<PetDetails | number | null>(null); // fix number type
+  // const [pet, setPet] = useState<PetDetails | null>(null); // fix number type
   const [hasPicture, setHasPicture] = useState(false);
   const [hasCharacteristics, setHasCharacteristics] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -127,10 +128,21 @@ function PetDetails() {
     fetchPetById(id);
   }, [id]);
 
+  // ---------- Destructuring variables ----------
+  console.log("here's the pet data: ", pet);
+  // if pet isn't null, and it's not a number (apply type narrowing since "pet" can be more than one type) then destructure from pet.animal
+  // in this example, there's the possibility "pet" can be false, so handle that case by using an empty object if pet is false
+  const { name, age, gender, breeds, size, species, tags, status, photos } = (pet !== null && typeof pet !== "number") ? pet.animal : {};
+
+  
+
+
+
+
   // ---------- Rendering pet characteristics ----------
   // typing a map of JSX elements:  https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
   if(hasCharacteristics && typeof pet !== "number") {
-    characteristics = pet?.animal.tags.map((characteristic: string) => {
+    characteristics = tags?.map((characteristic: string) => {
       return characteristic.toLowerCase();
     });
   };
@@ -174,7 +186,8 @@ function PetDetails() {
                       {
                         hasPicture 
                         ? 
-                          <Image src={hasPicture ? pet.animal.photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
+                          // <Image src={hasPicture ? pet.animal.photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
+                          <Image src={(hasPicture && photos) ? photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
                         : 
                           <div className="no-image bg-[#fff5eb] h-full flex justify-center items-center flex-col">
                             <div className="no-image-content">
@@ -188,15 +201,16 @@ function PetDetails() {
                     {/* ---------- Intro ---------- */}
                     <div className="pet-intro mb-10 md:mb-20">
                       {/* ----- Name ----- */}
-                      <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] mb-[40px]">Hi!  I&apos;m {pet.animal.name}.</h1>
+                      <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] mb-[40px]">Hi!  I&apos;m {name}.</h1>
                       
                       {/* ----- General description ----- */}
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl mb-4 xl:mb-6">
-                        I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
-                        I&apos;m a <span className={pet.animal.size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : pet.animal.size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-3xl md:text-5xl lg:text-6xl font-extrabold"}>{pet.animal.size.toLowerCase()}</span> {pet.animal.species.toLowerCase()}.&nbsp;
-                        {pet.animal.tags.length !== 0 ? `Humans describe me as ${characteristics?.join(", ")}.` : null}
+                        {/* I&apos;m {pet.animal.age.toLowerCase() === "adult" ? "an" : "a"} <span className={pet.animal.gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{pet.animal.age.toLowerCase()} {pet.animal.gender.toLowerCase()}</span> {pet.animal.breeds.primary.toLowerCase()}{pet.animal.breeds.secondary ? `, ${pet.animal.breeds.secondary.toLowerCase()} mix.` : "." }&nbsp; */}
+                        I&apos;m {age?.toLowerCase() === "adult" ? "an" : "a"} <span className={gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{age?.toLowerCase()} {gender?.toLowerCase()}</span> {breeds?.primary.toLowerCase()}{breeds?.secondary ? `, ${breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
+                        I&apos;m a <span className={size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-3xl md:text-5xl lg:text-6xl font-extrabold"}>{size?.toLowerCase()}</span> {species?.toLowerCase()}.&nbsp;
+                        {tags?.length !== 0 ? `Humans describe me as ${characteristics?.join(", ")}.` : null}
                       </p>
-                      <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl">I&apos;m <span className={pet.animal.status === "adoptable" ? "text-[#179E00]" : "text-[#000]"}>{pet.animal.status === "adoptable" ? "adoptable" : "taken"}</span>!</p>
+                      <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl">I&apos;m <span className={status === "adoptable" ? "text-[#179E00]" : "text-[#d4194d]"}>{status === "adoptable" ? "adoptable" : "taken"}</span>!</p>
                     </div>
                     
                     {/* ---------- Location ---------- */}
