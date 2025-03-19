@@ -132,12 +132,13 @@ function PetDetails() {
   console.log("here's the pet data: ", pet);
   // if pet isn't null, and it's not a number (apply type narrowing since "pet" can be more than one type) then destructure from pet.animal/pet.orgDetails
   // in this example, there's the possibility "pet" can be false, so handle that case by using an empty object if pet is false
-  const { name, age, gender, breeds, size, species, tags, status, photos } = (pet !== null && typeof pet !== "number") ? pet.animal : {};
+  const { name, age, gender, breeds, size, species, tags, status, photos, type } = (pet !== null && typeof pet !== "number") ? pet.animal : {};
   const { website, address, email, phone } = (pet !== null && typeof pet !== "number") ? pet.orgDetails.organization : {};
   const { organization } = (pet !== null && typeof pet !== "number") ? pet.orgDetails : {};
+  const { lat, long } = (pet !== null && typeof pet !== "number") ? pet.orgDetails.coordinates : {};
 
 
-  console.log("organiztion", organization);
+  console.log("organiztion", typeof lat);
 
   
 
@@ -247,12 +248,13 @@ function PetDetails() {
                       
                         {/* ----------- MAP ---------- */}
                         {/* Getting the leaflet map setup correctly: https://react-leaflet.js.org/docs/start-setup/ and https://github.com/PaulLeCam/react-leaflet/issues/1052 */}
-                        <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="pet-map h-[300px] sm:h-[400px] xl:h-[500px] w-full xl:max-w-[700px] lg:w-[50%] xl:w-[75%] px-4 mb-8 border-[6px] rounded-xl">
+                        {/* <MapContainer center={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} zoom={16} scrollWheelZoom={false} className="pet-map h-[300px] sm:h-[400px] xl:h-[500px] w-full xl:max-w-[700px] lg:w-[50%] xl:w-[75%] px-4 mb-8 border-[6px] rounded-xl"> */}
+                        <MapContainer center={[parseFloat(lat as string), parseFloat(long as string)]} zoom={16} scrollWheelZoom={false} className="pet-map h-[300px] sm:h-[400px] xl:h-[500px] w-full xl:max-w-[700px] lg:w-[50%] xl:w-[75%] px-4 mb-8 border-[6px] rounded-xl">
                           <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                           />
-                          <Marker position={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
+                          <Marker position={[parseFloat(lat as string), parseFloat(long as string)]} icon={ type === "Dog" ? customDogIcon : customCatIcon }>
                             <Popup>
                               {organization?.name}
                               <br />
