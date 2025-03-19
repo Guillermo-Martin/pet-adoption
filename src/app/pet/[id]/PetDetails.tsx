@@ -134,9 +134,10 @@ function PetDetails() {
   // in this example, there's the possibility "pet" can be false, so handle that case by using an empty object if pet is false
   const { name, age, gender, breeds, size, species, tags, status, photos } = (pet !== null && typeof pet !== "number") ? pet.animal : {};
   const { website, address, email, phone } = (pet !== null && typeof pet !== "number") ? pet.orgDetails.organization : {};
+  const { organization } = (pet !== null && typeof pet !== "number") ? pet.orgDetails : {};
 
 
-  // console.log("organiztion", orgName);
+  console.log("organiztion", organization);
 
   
 
@@ -229,11 +230,11 @@ function PetDetails() {
                           <h3 className="text-base md:text-2xl 2xl:text-3xl">
                             {
                               // If shelter name and website are available, render the organization name as a link
-                              website && pet.orgDetails.organization.name 
-                              ? <a href={website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc] transition duration-150">{pet.orgDetails.organization.name}</a>
+                              website && organization?.name 
+                              ? <a href={website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc] transition duration-150">{organization.name}</a>
                               // If shelter name is available but website isn't available, just render the name
-                              : pet.orgDetails.organization.name && !website
-                                ? <span>{pet.orgDetails.organization.name}</span>
+                              : organization?.name && !website
+                                ? <span>{organization.name}</span>
                                 // If shelter name isn't available but website is available, just render the website
                                 : <a href={website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{website}</a>
                             }
@@ -253,7 +254,7 @@ function PetDetails() {
                           />
                           <Marker position={[parseFloat(pet.orgDetails.coordinates.lat), parseFloat(pet.orgDetails.coordinates.long)]} icon={ pet.animal.type === "Dog" ? customDogIcon : customCatIcon }>
                             <Popup>
-                              {pet.orgDetails.organization.name}
+                              {organization?.name}
                               <br />
                               {address?.address1}
                               <br />
