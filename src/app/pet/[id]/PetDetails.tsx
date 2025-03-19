@@ -130,9 +130,13 @@ function PetDetails() {
 
   // ---------- Destructuring variables ----------
   console.log("here's the pet data: ", pet);
-  // if pet isn't null, and it's not a number (apply type narrowing since "pet" can be more than one type) then destructure from pet.animal
+  // if pet isn't null, and it's not a number (apply type narrowing since "pet" can be more than one type) then destructure from pet.animal/pet.orgDetails
   // in this example, there's the possibility "pet" can be false, so handle that case by using an empty object if pet is false
   const { name, age, gender, breeds, size, species, tags, status, photos } = (pet !== null && typeof pet !== "number") ? pet.animal : {};
+  const { website, address, email, phone } = (pet !== null && typeof pet !== "number") ? pet.orgDetails.organization : {};
+
+
+  // console.log("organiztion", orgName);
 
   
 
@@ -225,19 +229,19 @@ function PetDetails() {
                           <h3 className="text-base md:text-2xl 2xl:text-3xl">
                             {
                               // If shelter name and website are available, render the organization name as a link
-                              pet.orgDetails.organization.website && pet.orgDetails.organization.name 
-                              ? <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc] transition duration-150">{pet.orgDetails.organization.name}</a>
+                              website && pet.orgDetails.organization.name 
+                              ? <a href={website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc] transition duration-150">{pet.orgDetails.organization.name}</a>
                               // If shelter name is available but website isn't available, just render the name
-                              : pet.orgDetails.organization.name && !pet.orgDetails.organization.website
+                              : pet.orgDetails.organization.name && !website
                                 ? <span>{pet.orgDetails.organization.name}</span>
                                 // If shelter name isn't available but website is available, just render the website
-                                : <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{pet.orgDetails.organization.website}</a>
+                                : <a href={website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc]">{website}</a>
                             }
                           </h3>
                           
                           {/* Shelter address */}
-                          <p className="text-base md:text-xl 2xl:text-2xl">{pet.orgDetails.organization.address.address1}</p>
-                          <p className="text-base md:text-xl 2xl:text-2xl">{pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}</p>
+                          <p className="text-base md:text-xl 2xl:text-2xl">{address?.address1}</p>
+                          <p className="text-base md:text-xl 2xl:text-2xl">{address?.city}, {address?.state} {address?.postcode}</p>
                         </div>
                       
                         {/* ----------- MAP ---------- */}
@@ -251,9 +255,9 @@ function PetDetails() {
                             <Popup>
                               {pet.orgDetails.organization.name}
                               <br />
-                              {pet.orgDetails.organization.address.address1}
+                              {address?.address1}
                               <br />
-                              {pet.orgDetails.organization.address.city}, {pet.orgDetails.organization.address.state} {pet.orgDetails.organization.address.postcode}
+                              {address?.city}, {address?.state} {address?.postcode}
                             </Popup>
                           </Marker>
                         </MapContainer>
@@ -263,9 +267,9 @@ function PetDetails() {
                     {/* ---------- Contact ---------- */}
                     <div className="pet-contact mb-20">
                       <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] mb-[40px]">Interested?  Reach out using the information below!</h2>
-                      <p className="text-base md:text-xl 2xl:text-2xl" ><span className="font-bold">Email:</span> {pet.orgDetails.organization.email ? <a href={`mailto:${pet.orgDetails.organization.email}`} className="underline hover:text-[#4369fc] transition duration-150">{pet.orgDetails.organization.email}</a> : "Not available."}</p>
-                      <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Phone:</span> {pet.orgDetails.organization.phone ? pet.orgDetails.organization.phone : "Not available."}</p>
-                      <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Website:</span> {pet.orgDetails.organization.website ? <a href={pet.orgDetails.organization.website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc] transition duration-150">{pet.orgDetails.organization.website}</a> : "Not available."}</p>
+                      <p className="text-base md:text-xl 2xl:text-2xl" ><span className="font-bold">Email:</span> {email ? <a href={`mailto:${email}`} className="underline hover:text-[#4369fc] transition duration-150">{email}</a> : "Not available."}</p>
+                      <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Phone:</span> {phone ? phone : "Not available."}</p>
+                      <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Website:</span> {website ? <a href={website} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4369fc] transition duration-150">{website}</a> : "Not available."}</p>
                     </div>
                 </Layout>
               :
