@@ -12,16 +12,20 @@ function SearchResults() {
 
   // Function to render search results
   const renderedSearchResults = petResults?.searchResults.map((result: Animal) => {
+    // destructure variables
+    const { id, name, age, breeds, contact, gender, primary_photo_cropped } = result;
+    
+    // return a SearchResultsCard
     return (
       <SearchResultCard 
-        key={result.id}
-        id={result.id}
-        name={result.name}
-        age={result.age}
-        breed={result.breeds.primary}
-        city={result.contact.address.city}
-        gender={result.gender}
-        photo={result.primary_photo_cropped ? result.primary_photo_cropped.full : null}
+        key={id}
+        id={id}
+        name={name}
+        age={age}
+        breed={breeds.primary}
+        city={contact.address.city}
+        gender={gender}
+        photo={primary_photo_cropped ? primary_photo_cropped.full : null}
       />
     );
   });
