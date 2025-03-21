@@ -50,9 +50,6 @@ const fetchPetsInfo: FetchPetsInfo = {
 //                             Handler
 // --------------------------------------------------------------------
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // ---------- testing ----------
-  console.log('fetch token api hit!', req.method, req.query);
-
   // ---------- Get data from the client, add it to the "fetchPetsInfo" object ----------
   const { type, zipcode, id } = req.query as { type: string; zipcode: string; id: string | null };
   fetchPetsInfo.animal = type;
@@ -63,8 +60,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // --------------------------------------------------------------------
   // ---------- Get a token ----------
   const getToken = async () => {
-    console.log('IN GET TOKEN', tokenInformation);
-    
     try {
       // make an API request to get a token; make a POST request since we're sending some data to get a token
       const response = await fetch("https://api.petfinder.com/v2/oauth2/token",
@@ -79,8 +74,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       // convert the data to json
       const data: Token = await response.json();
-
-      console.log("here is your token data", data);
 
       // store the token information in the "tokenInformation" object
       tokenInformation.access_token = data.access_token;
@@ -100,7 +93,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         // make request to get search results
         const response = await fetch(`https://api.petfinder.com/v2/animals?type=${obj.animal}&location=${obj.zipcode}`, {
-        // const response = await fetch(`https://api.petfinder.com/v2/animalasdfasdfsdfasdfs?type=${obj.animal}&location=${obj.zipcode}`, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
@@ -127,13 +119,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // check to see if a token has already been retrieved and isn't expired
     if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in || tokenInformation.expires_in === null)) {
-      console.log("a token exists and isn't expired.  getting animals.")
-
       // make the request
       fetchAllPets();
     } else {
       // if a token hasn't been retrieved (or is expired) get one...
-      console.log("no token or expired.  getting a token, then getting pets.");
       await getToken();
 
       // ...then make the request
@@ -143,14 +132,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // ---------- Get pet by id ----------
   const getPetById = async (id: string) => {
-    console.log("in getpetbyid!");
-
     // function to make the request
     const fetchPetById = async () => {
       try {
         // make request to get individual pet
         const petResponse = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
-        // const petResponse = await fetch(`https://api.petfinder.com/v2/animaasdfasdfasdls/${id}`, {
           method: "GET",
           headers: {
             "Authorization": `${tokenInformation.token_type} ${tokenInformation.access_token}`,
@@ -169,7 +155,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const petData = await petResponse.json();
         
         // get pet organization details
-        // console.log("here is your petData!", petData);
         const orgHref = petData.animal._links.organization.href;
         const petOrg = await fetch(`https://api.petfinder.com${orgHref}`, {
           method: "GET",
@@ -187,8 +172,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // ----- create the shelter's address -----
         // variable to hold shelter address
         let orgAddress;
-
-        console.log("PET ORG DATA", petOrgData.organization.address);
 
         // check to see if "address1" exists or contains a PO box
         if(petOrgData.organization.address.address1 === null || petOrgData.organization.address.address1.includes("P.O.")) {
@@ -228,13 +211,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // check to see if a token has already been retrieved and isn't expired
     if(tokenInformation.access_token && !(Date.now() >= tokenInformation.expires_in || tokenInformation.expires_in === null)) {
-      console.log("a token exists and isn't expired.  getting animals.")
-
       // then make the api request
       await fetchPetById();
     } else {
       // if a token hasn't been retrieved (or is expired) get one...
-      console.log("no token or expired.  getting a token, then getting pets.");
       await getToken();
 
       // ...then make the request
@@ -248,11 +228,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // --------------------------------------------------------------------
   // ---------- GET request to get all pets ----------
   if(req.method === "GET" && type && zipcode) {
-    console.log("getting all animals!");
     getAllPets(fetchPetsInfo);
   } else if(req.method === "GET" && id) {
     // ---------- GET request to get pet by id ----------
-    console.log("i'm getting an individual animal");
     getPetById(id);
   };
 };
