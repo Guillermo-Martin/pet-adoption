@@ -9,7 +9,9 @@ import Image from "next/image";
 import L from 'leaflet';
 
 
-// ---------- Intefaces ----------
+// --------------------------------------------------------------------
+//                            Interfaces
+// --------------------------------------------------------------------
 interface PetDetails {
   animal: {
     name: string;
@@ -57,16 +59,18 @@ interface PetDetails {
   }
 };
 
-// ---------- component ----------
+// --------------------------------------------------------------------
+//                            Component
+// --------------------------------------------------------------------
 function PetDetails() {
-  // ----- State -----
+  // ---------- State ----------
   const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [hasPicture, setHasPicture] = useState(false);
   const [hasCharacteristics, setHasCharacteristics] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  // ----- get the pet id from the URL -----
+  // ---------- get the pet id from the URL ----------
   const params = useParams<{id: string}>();
 
   // handle case if the "params" type is "undefined"
