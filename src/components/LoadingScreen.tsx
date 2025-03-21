@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
+// --------------------------------------------------------------------
+//                            Interfaces
+// --------------------------------------------------------------------
 interface LoadingScreenProps {
   message: string;
   imageSrc: string;
@@ -8,6 +11,9 @@ interface LoadingScreenProps {
   error: boolean;
 }
 
+// --------------------------------------------------------------------
+//                            Component
+// --------------------------------------------------------------------
 function LoadingScreen({ message, imageSrc, alt, error }: LoadingScreenProps) {
   return (
     <div className="loading-container-content">

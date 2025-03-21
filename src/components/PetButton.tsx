@@ -2,7 +2,9 @@
 import { MouseEvent } from "react";
 import Image from "next/image";
 
-// ---------- Interface ----------
+// --------------------------------------------------------------------
+//                            Interfaces
+// --------------------------------------------------------------------
 interface PetButtonProps {
   src: string;
   alt: string;
@@ -12,6 +14,9 @@ interface PetButtonProps {
   onClick: (animal: string) => void;
 };
 
+// --------------------------------------------------------------------
+//                            Component
+// --------------------------------------------------------------------
 function PetButton({ src, alt, text, animalType, isSelected, onClick }: PetButtonProps) {
   // ---------- Functions ----------
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
