@@ -163,8 +163,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }
         });
 
-        // convert pet organization details to json
+        // convert pet organization details to json, destructure data
         const petOrgData = await petOrg.json();
+        const { address1, city, state, postcode } = petOrgData.organization.address;
 
         // add orgDetails to petData
         petData.orgDetails = petOrgData;
@@ -174,22 +175,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let orgAddress;
 
         // check to see if "address1" exists or contains a PO box
-        if(petOrgData.organization.address.address1 === null || petOrgData.organization.address.address1.includes("P.O.")) {
+        // if(petOrgData.organization.address.address1 === null || petOrgData.organization.address.address1.includes("P.O.")) {
+        if(address1 === null || address1.includes("P.O.")) {
           // if so, the address is city, state, and zipcode
-          orgAddress = `${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+          // orgAddress = `${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+          orgAddress = `${city}, ${state} ${postcode}`;
         } else {
           // otherwise, create the full address
-          orgAddress = `${petOrgData.organization.address.address1}, ${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+          orgAddress = `${address1}, ${city}, ${state} ${postcode}`;
         };
 
-        // convert the address into coordinates
+        // convert the address into coordinates:  https://nominatim.org/release-docs/develop/api/Search/
         const coordinatesRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${orgAddress}`); 
         const coordinateData = await coordinatesRes.json();
 
         // check to see if coordinate data array is 0
         // if coordinate data array is 0 (coordinate data somehow couldn't be obtained), then make another request to get coordinates from just the city
         if(coordinateData.length === 0) {
-          orgAddress = `${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+          // orgAddress = `${petOrgData.organization.address.city}, ${petOrgData.organization.address.state} ${petOrgData.organization.address.postcode}`;
+          orgAddress = `${city}, ${state} ${postcode}`;
           const newCoordinatesRes = await await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${orgAddress}`);
           const newCoordinateData = await newCoordinatesRes.json();
 
