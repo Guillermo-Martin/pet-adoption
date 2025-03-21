@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import PetDetails from "./PetDetails";
 
 export const metadata: Metadata = {
-  title: "THIS IS THE TITLE FOR PET DATA",
-  description: "PET DATA!!!!!"
+  title: "More details on your selected pet",
+  description: "Learn more about the pet and where to find them."
 }
 
 function PetDetailsPage() {
