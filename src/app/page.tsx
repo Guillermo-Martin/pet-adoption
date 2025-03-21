@@ -81,7 +81,7 @@ export default function Home() {
             ? 
               // ---------- Loading screen ----------
               <>
-                <LoadingScreen message="Finding some new friends..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} />
+                <LoadingScreen message="Finding some new friends..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} bounce />
               </>
             : 
               // ...otherwise show the homepage content

@@ -171,7 +171,7 @@ function PetDetails() {
         (pet === 500 || hasError) 
           ? 
           <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-            <LoadingScreen message="Hmm...something went wrong!" imageSrc="/images/wrong-dog.png" alt="Dog with 'x's for eyes" error />
+            <LoadingScreen message="Hmm...something went wrong!" imageSrc="/images/wrong-dog.png" alt="Dog with 'x's for eyes" error bounce={false} />
           </main>
           : 
             // ...otherwise, load the data.
@@ -272,7 +272,7 @@ function PetDetails() {
               :
                 // ...otherwise, show the loading status
                 <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-                  <LoadingScreen message="Getting more details on your new best friend..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} />
+                  <LoadingScreen message="Getting more details on your new best friend..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} bounce />
                 </main>
       }
     </>

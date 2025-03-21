@@ -39,14 +39,14 @@ function SearchResults() {
         (petResults === null)
           ? 
           <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-            <LoadingScreen message="Loading..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} />
+            <LoadingScreen message="Loading..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} bounce />
           </main>
           :
             // if "petResults" exists, see if there are any results available.  if not, render an "error" screen
             (petResults.searchResults.length === 0 || petResults.status !== 200)
             ? 
               <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-                <LoadingScreen message="Hmm...something went wrong!" imageSrc="/images/wrong-dog.png" alt="Dog with 'x's for eyes" error />
+                <LoadingScreen message="Hmm...something went wrong!" imageSrc="/images/wrong-dog.png" alt="Dog with 'x's for eyes" error bounce={false} />
               </main>
             :
               // if search results are available, render them
