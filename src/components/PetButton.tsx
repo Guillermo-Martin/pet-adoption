@@ -34,7 +34,7 @@ function PetButton({ src, alt, text, animalType, isSelected, onClick }: PetButto
   return (
     // if the animal is selected show a border
     <div onClick={handleClick} data-animal={animalType}>
-      <div className={`pet-button size-[100] lg:size-[150] bg-[#ffda9c] border-[6px] rounded-[10px] flex items-center justify-center mb-2 cursor-pointer hover:scale-[104%] transition duration-150 ${isSelected && "outline outline-[6px] outline-[#4369fc] border-[#4369fc]"}`}>
+      <div className={`pet-button size-[100px] lg:size-[150px] bg-[#ffda9c] border-[6px] rounded-[10px] flex items-center justify-center mb-2 cursor-pointer hover:scale-[104%] transition duration-150 ${isSelected && "outline outline-[6px] outline-[#4369fc] border-[#4369fc]"}`}>
         <Image src={src} alt={alt} width={200} height={200} className="size-[60] lg:size-[100]"/>
       </div>
       <p className="text-xl text-center">{text}</p>
