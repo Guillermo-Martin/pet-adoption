@@ -196,7 +196,8 @@ function PetDetails() {
                         : 
                           <div className="no-image bg-[#fff5eb] h-full flex justify-center items-center flex-col">
                             <div className="no-image-content">
-                              <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[200px] mx-auto mb-5"/>
+                              {/* <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[200px] mx-auto mb-5"/> */}
+                              <Image src={petResults?.animal === "dog" ? "/images/wrong-dog.png" : "/images/wrong-cat.png"} alt={petResults?.animal === "dog" ? "Dog with Xs for eyes" : "Cat with Xs for eyes"} width={200} height={200} className="max-w-[200px] mx-auto mb-5"/>
                               <p className="h-full text-center">No image available.</p>
                             </div>
                           </div>

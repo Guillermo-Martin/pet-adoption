@@ -13,12 +13,13 @@ interface SearchCardProps {
   city: string;
   gender: string;
   photo: string | null;
+  animal: string;
 };
 
 // --------------------------------------------------------------------
 //                            Component
 // --------------------------------------------------------------------
-function SearchResultCard({ id, name, age, breed, city, gender, photo }: SearchCardProps) {
+function SearchResultCard({ id, name, age, breed, city, gender, photo, animal }: SearchCardProps) {
   return (
     <Link href={`/pet/${id}`} data-petid={id} className="search-results-card w-full sm:w-[48%] lg:w-[30%] max-w-[290px] bg-[#ffda9c] border-[6px] rounded-xl overflow-hidden hover:scale-[104%] transition duration-150">
       {/* ---------- Pet image ---------- */}
@@ -30,7 +31,8 @@ function SearchResultCard({ id, name, age, breed, city, gender, photo }: SearchC
           : 
             <div className="no-image bg-[#fff5eb] h-full flex justify-center items-center flex-col">
               <div className="no-image-content">
-                <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[100px] mx-auto mb-2"/>
+                {/* <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[100px] mx-auto mb-2"/> */}
+                <Image src={animal === "dog" ? "/images/wrong-dog.png" : "/images/wrong-cat.png"} alt={animal === "dog" ? "Dog with Xs for eyes" : "Cat with Xs for eyes"} width={200} height={200} className="max-w-[100px] mx-auto mb-2"/>
                 <p className="h-full">No image available.</p>
               </div>
             </div>

@@ -28,6 +28,7 @@ function SearchResults() {
         city={contact.address.city}
         gender={gender}
         photo={primary_photo_cropped ? primary_photo_cropped.full : null}
+        animal={petResults?.animal}
       />
     );
   });
