@@ -81,7 +81,7 @@ export default function Home() {
             ? 
               // ---------- Loading screen ----------
               <>
-                <LoadingScreen message="Finding some new friends..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} bounce />
+                <LoadingScreen message="Finding some new friends..." error={false} bounce petSelected={isSelected}/>
               </>
             : 
               // ...otherwise show the homepage content

@@ -113,7 +113,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       } catch(error) {
         // if there was an error, respond with an object with the error, status, and empty searchResults
         console.error("Error fetching search results.", error);
-        res.status(500).json({ error: "Failed to fetch search results.", status: 500, searchResults: [] });
+        res.status(500).json({ error: "Failed to fetch search results.", status: 500, searchResults: [], type: obj.animal });
       };
     };
 

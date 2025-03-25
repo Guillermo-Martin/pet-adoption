@@ -14,6 +14,7 @@ interface SearchResults {
   searchResults: Animal[] | [];
   zipcode: string;
   status: number | null;
+  type?: string;
 };
 
 interface PetContextTypes {

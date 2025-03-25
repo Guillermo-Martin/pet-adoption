@@ -10,6 +10,8 @@ function SearchResults() {
   // Get search results from PetContext
   const { petResults } = usePetContext();
 
+  console.log('IN SEARCH', petResults);
+
   // Function to render search results
   const renderedSearchResults = petResults?.searchResults.map((result: Animal) => {
     // destructure variables
@@ -30,6 +32,7 @@ function SearchResults() {
     );
   });
   
+ 
 
   // ---------- Component ----------
   return (
@@ -39,14 +42,14 @@ function SearchResults() {
         (petResults === null)
           ? 
           <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-            <LoadingScreen message="Loading..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} bounce />
+            <LoadingScreen message="Loading..." error={false} bounce petSelected="dog" />
           </main>
           :
             // if "petResults" exists, see if there are any results available.  if not, render an "error" screen
             (petResults.searchResults.length === 0 || petResults.status !== 200)
             ? 
               <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-                <LoadingScreen message="Hmm...something went wrong!" imageSrc="/images/wrong-dog.png" alt="Dog with 'x's for eyes" error bounce={false} />
+                <LoadingScreen message="Hmm...something went wrong!" error bounce={false} petSelected={petResults?.animal === "dog" || petResults.type === "dog" ? "dog" : "cat"} />
               </main>
             :
               // if search results are available, render them

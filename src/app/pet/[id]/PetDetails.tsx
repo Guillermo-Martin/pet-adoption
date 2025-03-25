@@ -7,6 +7,8 @@ import Layout from "@/components/Layout";
 import LoadingScreen from "@/components/LoadingScreen";
 import Image from "next/image";
 import L from 'leaflet';
+import usePetContext from "@/hooks/usePetContext";
+
 
 
 // --------------------------------------------------------------------
@@ -63,6 +65,9 @@ interface PetDetails {
 //                            Component
 // --------------------------------------------------------------------
 function PetDetails() {
+  // get access to context to see what pet was searched for (to dynamically render the loading images)
+  const { petResults } = usePetContext();
+
   // ---------- State ----------
   const [pet, setPet] = useState<PetDetails | number | null>(null);
   const [hasPicture, setHasPicture] = useState(false);
@@ -171,7 +176,7 @@ function PetDetails() {
         (pet === 500 || hasError) 
           ? 
           <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-            <LoadingScreen message="Hmm...something went wrong!" imageSrc="/images/wrong-dog.png" alt="Dog with 'x's for eyes" error bounce={false} />
+            <LoadingScreen message="Hmm...something went wrong!" error bounce={false} petSelected={petResults?.animal === "dog" ? "dog" : "cat"} />
           </main>
           : 
             // ...otherwise, load the data.
@@ -272,7 +277,7 @@ function PetDetails() {
               :
                 // ...otherwise, show the loading status
                 <main className="min-h-screen flex items-center justify-center px-4 py-3 md:px-16 md:py-4 xl:px-20">
-                  <LoadingScreen message="Getting more details on your new best friend..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} bounce />
+                  <LoadingScreen message="Getting more details on your new best friend..." error={false} bounce petSelected={petResults?.animal === "dog" ? "dog" : "cat"}/>
                 </main>
       }
     </>
