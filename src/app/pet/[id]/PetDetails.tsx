@@ -191,12 +191,10 @@ function PetDetails() {
                       {
                         hasPicture 
                         ? 
-                          // <Image src={hasPicture ? pet.animal.photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${pet.animal.name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
                           <Image src={(hasPicture && photos) ? photos[0].full : "/images/wrong-dog.png"} alt={`Picture of ${name}`} width="600" height="600" className="pet-details-image size-full aspect-square object-cover border-[6px] rounded-xl w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[600px]" />
                         : 
                           <div className="no-image bg-[#fff5eb] h-full flex justify-center items-center flex-col">
                             <div className="no-image-content">
-                              {/* <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[200px] mx-auto mb-5"/> */}
                               <Image src={petResults?.animal === "dog" ? "/images/wrong-dog.png" : "/images/wrong-cat.png"} alt={petResults?.animal === "dog" ? "Dog with Xs for eyes" : "Cat with Xs for eyes"} width={200} height={200} className="max-w-[200px] mx-auto mb-5"/>
                               <p className="h-full text-center">No image available.</p>
                             </div>

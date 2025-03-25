@@ -31,7 +31,6 @@ function SearchResultCard({ id, name, age, breed, city, gender, photo, animal }:
           : 
             <div className="no-image bg-[#fff5eb] h-full flex justify-center items-center flex-col">
               <div className="no-image-content">
-                {/* <Image src="/images/wrong-dog.png" alt="Dog with 'x's for eyes" width={200} height={200} className="max-w-[100px] mx-auto mb-2"/> */}
                 <Image src={animal === "dog" ? "/images/wrong-dog.png" : "/images/wrong-cat.png"} alt={animal === "dog" ? "Dog with Xs for eyes" : "Cat with Xs for eyes"} width={200} height={200} className="max-w-[100px] mx-auto mb-2"/>
                 <p className="h-full">No image available.</p>
               </div>

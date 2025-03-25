@@ -93,7 +93,7 @@ function Navbar() {
               // if "isLoading" is true, show the loading screen, otherwise, show the search dropdown
               isLoading 
                 ? 
-                <LoadingScreen message="Finding some new friends..." imageSrc="/images/dog-icon.png" alt="Dog winking" error={false} bounce={false} />
+                <LoadingScreen message="Finding some new friends..." error={false} bounce={false} petSelected={isSelected} />
                 :
                 <div>
                   {/* ----- close button ----- */}

@@ -10,8 +10,6 @@ function SearchResults() {
   // Get search results from PetContext
   const { petResults } = usePetContext();
 
-  console.log('IN SEARCH', petResults);
-
   // Function to render search results
   const renderedSearchResults = petResults?.searchResults.map((result: Animal) => {
     // destructure variables
