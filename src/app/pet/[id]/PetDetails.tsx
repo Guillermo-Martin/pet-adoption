@@ -210,7 +210,7 @@ function PetDetails() {
                       {/* ----- General description ----- */}
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl mb-4 xl:mb-6">
                         I&apos;m {age?.toLowerCase() === "adult" ? "an" : "a"} <span className={gender === "Female" ? "text-[#fc7c86]" : "text-[#4369fc]" }>{age?.toLowerCase()} {gender?.toLowerCase()}</span> {breeds?.primary.toLowerCase()}{breeds?.secondary ? `, ${breeds.secondary.toLowerCase()} mix.` : "." }&nbsp;
-                        I&apos;m a <span className={size === "Small" ? "text-[#007b7f] text-3xl font-extralight" : size === "Medium" ? "text-[#d88c00]" : "text-[#d4194d] text-3xl md:text-5xl lg:text-6xl font-extrabold"}>{size?.toLowerCase()}</span> {species?.toLowerCase()}.&nbsp;
+                        I&apos;m a <span className={size === "Small" ? "text-[#007b7f] text-base md:text-2xl xl:text-3xl 2xl:text-4xl font-extralight" : size === "Medium" ? "text-[#d88c00] text-xl md:text-3xl lg:text-4xl 2xl:text-5xl" : "text-[#d4194d] text-3xl md:text-5xl lg:text-6xl font-extrabold"}>{size?.toLowerCase()}</span> {species?.toLowerCase()}.&nbsp;
                         {tags?.length !== 0 ? `Humans describe me as ${characteristics?.join(", ")}.` : null}
                       </p>
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl">I&apos;m <span className={status === "adoptable" ? "text-[#179E00]" : "text-[#d4194d]"}>{status === "adoptable" ? "adoptable" : "taken"}</span>!</p>
