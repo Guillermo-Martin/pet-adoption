@@ -96,12 +96,12 @@ export default function Home() {
                   <h2 className="text-center text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6">What are you looking&nbsp;for?</h2>
 
                   {/* ----- Pet buttons container ------ */}
-                  <div className="button-container relative w-[80%] lg:w-[60%] max-w-sm lg:max-w-none flex items-center justify-evenly mb-12">
+                  <div className="button-container relative w-[80%] xs:w-[88%] lg:w-[60%] max-w-sm lg:max-w-none flex items-center justify-evenly mb-12">
                     <PetButton src="/images/dog-icon.png" alt="Dog" text="Dog" onClick={handleClick} animalType="dog" isSelected={isSelected === "dog"} />
                     <PetButton src="/images/cat-icon.png" alt="Cat" text="Cat" onClick={handleClick} animalType="cat" isSelected={isSelected === "cat"} />
                     
                     {/* if a pet type wasn't selected, show the error message */}
-                    {showSelectedError && <p className="absolute bottom-[-35%] xs:bottom-[-26%] lg:bottom-[-18%] text-center leading-5 text-[#db1919] italic">Oops! Looks like you haven&apos;t selected a pet!</p>}
+                    {showSelectedError && <p className="absolute bottom-[-35%] xs:bottom-[-26%] lg:bottom-[-18%] text-center leading-5 text-[#db1919] italic">Oops! Looks like you haven&apos;t selected a&nbsp;pet!</p>}
                   </div>
                 </div>
                 
@@ -120,7 +120,7 @@ export default function Home() {
       </main>
 
       {/* If results are loading, hide the footer on the "loading" screen */}
-      {isLoading === false && <Footer position="absolute bottom-0" />}
+      {isLoading === false && <Footer position="" />}
     </div>
   );
 }
