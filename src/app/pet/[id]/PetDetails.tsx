@@ -266,7 +266,7 @@ function PetDetails() {
                     </div>
                     
                     {/* ---------- Contact ---------- */}
-                    <div className="pet-contact mb-20">
+                    <div className="pet-contact mb-12">
                       <h2 className="text-3xl lg:text-4xl 2xl:text-6xl font-bold border-b-[6px] mb-[40px]">Interested?  Reach out using the information below!</h2>
                       <p className="text-base md:text-xl 2xl:text-2xl" ><span className="font-bold">Email:</span> {email ? <a href={`mailto:${email}`} className="underline hover:text-[#4369fc] transition duration-150">{email}</a> : "Not available."}</p>
                       <p className="text-base md:text-xl 2xl:text-2xl"><span className="font-bold">Phone:</span> {phone ? phone : "Not available."}</p>

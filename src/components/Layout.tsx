@@ -17,7 +17,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <div className="page-layout bg-inherit">
       <Navbar />
-      <main className="main-content px-4 py-3 md:px-16 md:py-4 xl:px-20">
+      <main className="main-content px-4 py-3 md:px-16 md:py-4 xl:px-20 mb-6">
         <div className="main-content-container max-w-7xl mx-auto">
           {children}
         </div>
