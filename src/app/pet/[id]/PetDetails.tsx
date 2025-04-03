@@ -205,7 +205,7 @@ function PetDetails() {
                     {/* ---------- Intro ---------- */}
                     <div className="pet-intro mb-10 md:mb-20">
                       {/* ----- Name ----- */}
-                      <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold border-b-[6px] mb-[40px]">Hi!  I&apos;m {name}.</h1>
+                      <h1 className="border-b-[6px] mb-[40px]">Hi!  I&apos;m {name}.</h1>
                       
                       {/* ----- General description ----- */}
                       <p className="text-base md:text-3xl lg:text-4xl 2xl:text-5xl mb-4 xl:mb-6">

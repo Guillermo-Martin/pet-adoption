@@ -87,7 +87,7 @@ export default function Home() {
               // ...otherwise show the homepage content
               <>
                 <div className="hero-header text-center mb-6 lg:mb-8">
-                  <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-4">Pet adoption</h1>
+                  <h1 className="mb-4">Pet adoption</h1>
                   <p className="text-3xl sm:text-4xl lg:text-5xl">Your new pet bestie is waiting for&nbsp;you.</p>
                 </div>
 

@@ -23,3 +23,8 @@ body {
 h1, h2, .navbar, .footer, .pet-details-image, .pet-map, .pet-button, input, .submit-button, .search-results-card, .search-dropdown {
   border-color: var(--foreground);
 }
+
+
+h1 {
+  @apply text-5xl lg:text-7xl 2xl:text-8xl font-bold;
+}
