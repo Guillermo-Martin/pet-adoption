@@ -225,7 +225,7 @@ function PetDetails() {
                         {/* ----- Shelter info ----- */}
                         <div className="shelter-info w-full lg:w-[50%] lg:pr-8">
                           {/* Shelter name and link (conditionally rendered) */}
-                          <h3 className="text-base md:text-2xl 2xl:text-3xl">
+                          <h3>
                             {
                               // If shelter name and website are available, render the organization name as a link
                               website && organization?.name 
