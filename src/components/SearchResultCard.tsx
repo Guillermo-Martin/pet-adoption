@@ -40,7 +40,6 @@ function SearchResultCard({ id, name, age, breed, city, gender, photo, animal }:
       
       {/* ---------- Basic pet info ---------- */}
       <div className="text-container pl-[12px] pb-[12px]">
-        {/* <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-[10px]">{name}</h2> */}
         <h2 className="mb-[10px]">{name}</h2>
         <p className="text-xl mb-[4px]">{age} {gender}</p>
         <p className="text-xl mb-[4px]">{breed}</p>

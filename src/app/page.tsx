@@ -93,7 +93,6 @@ export default function Home() {
 
                 {/* ---------- Pet search options ----------  */}
                 <div className="pet-search-options flex items-center justify-center flex-col">
-                  {/* <h2 className="text-center text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6">What are you looking&nbsp;for?</h2> */}
                   <h2 className="text-center mb-4 lg:mb-6">What are you looking&nbsp;for?</h2>
 
                   {/* ----- Pet buttons container ------ */}
