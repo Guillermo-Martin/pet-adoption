@@ -184,7 +184,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         };
 
         // convert the address into coordinates:  https://nominatim.org/release-docs/develop/api/Search/
-        const coordinatesRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${orgAddress}`); 
+        // providing an HTTP Referer/User-agent:  https://operations.osmfoundation.org/policies/nominatim/
+        const coordinatesRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${orgAddress}`,
+          {
+            headers: {
+              'User-Agent': 'MyPetAdoptionApp/1.0 (gscalica@gmail.com)',
+              'Accept-Language': 'en'
+            }
+          }
+        ); 
+
         const coordinateData = await coordinatesRes.json();
 
         // check to see if coordinate data array is 0
